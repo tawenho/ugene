@@ -249,6 +249,7 @@ HEADERS +=  src/GUITestBasePlugin.h \
             src/tests/common_scenarios/start_page/GTTestsStartPage.h \
             src/tests/common_scenarios/toggle_view/GTTestsToggleView.h \
             src/tests/common_scenarios/tree_viewer/GTTestsCommonScenariousTreeviewer.h \
+			src/tests/common_scenarios/trimmomatic/GTTestsTrimmomatic.h \
             src/tests/common_scenarios/undo_redo/GTTestsUndoRedo.h \
             src/tests/common_scenarios/workflow_designer/GTTestsWorkflowDesigner.h \
             src/tests/common_scenarios/workflow_designer/dashboard/GTTestsWorkflowDashboard.h \
@@ -514,6 +515,7 @@ SOURCES +=  src/GUITestBasePlugin.cpp \
             src/tests/common_scenarios/start_page/GTTestsStartPage.cpp \
             src/tests/common_scenarios/toggle_view/GTTestsToggleView.cpp \
             src/tests/common_scenarios/tree_viewer/GTTestsCommonScenariousTreeviewer.cpp \
+			src/tests/common_scenarios/trimmomatic/GTTestsTrimmomatic.cpp \
             src/tests/common_scenarios/undo_redo/GTTestsUndoRedo.cpp \
             src/tests/common_scenarios/workflow_designer/GTTestsWorkflowDesigner.cpp \
             src/tests/common_scenarios/workflow_designer/dashboard/GTTestsWorkflowDashboard.cpp \

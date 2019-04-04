@@ -84,6 +84,7 @@
 #include "tests/common_scenarios/start_page/GTTestsStartPage.h"
 #include "tests/common_scenarios/toggle_view/GTTestsToggleView.h"
 #include "tests/common_scenarios/tree_viewer/GTTestsCommonScenariousTreeviewer.h"
+#include "tests/common_scenarios/trimmomatic/GTTestsTrimmomatic.h"
 #include "tests/common_scenarios/undo_redo/GTTestsUndoRedo.h"
 #include "tests/common_scenarios/workflow_designer/GTTestsWorkflowDesigner.h"
 #include "tests/common_scenarios/workflow_designer/dashboard/GTTestsWorkflowDashboard.h"
@@ -2902,6 +2903,12 @@ void GUITestBasePlugin::registerTests(UGUITestBase *guiTestBase) {
     REGISTER_TEST(GUITest_common_scenarios_tree_viewer::test_0027);
     REGISTER_TEST(GUITest_common_scenarios_tree_viewer::test_0028);
     REGISTER_TEST(GUITest_common_scenarios_tree_viewer::test_0029);
+
+    /////////////////////////////////////////////////////////////////////////
+    // Common scenarios/Trimmomatic
+    /////////////////////////////////////////////////////////////////////////
+
+    REGISTER_TEST(GUITest_common_scenarios_trimmomatic::test_0001);
 
     /////////////////////////////////////////////////////////////////////////
     // Common scenarios/Repeat Finder
