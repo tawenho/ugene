@@ -37,6 +37,10 @@
 
 #include "GTTestsTrimmomatic.h"
 #include "GTUtilsWorkflowDesigner.h"
+
+#include <U2Core/AppContext.h>
+#include <U2Core/AppResources.h>
+#include <U2Core/AppSettings.h>
 //#include "GTUtilsMsaEditor.h"
 //#include "GTUtilsMsaEditorSequenceArea.h"
 //#include "GTUtilsProjectTreeView.h"
@@ -57,14 +61,20 @@ static const QString INPUT_DATA = "Input data";
 static const QString TRIMMING_STEPS = "Trimming steps";
 static const QString OUTPUT_FILE = "Output file";
 static const QString GENERATE_DETAILED_LOG = "Generate detailed log";
+static const QString LOG_FILE = "Log file";
 static const QString NUMBER_OF_THREADS = "Number of threads";
 
-static const QStringList INPUT_DATA_VALUES = { "SE reads or contigs",
+static const QStringList INPUT_DATA_VALUES = { "SE reads",
                                                "PE reads" };
 
 static const QString DEFAULT_TRIMMING_STEPS_VALUE = "Configure steps";
 
 static const QString DEFAULT_OUTPUT_VALUE = "Auto";
+
+static const QStringList GENERATE_DETAILED_LOG_VALUES = { "False",
+                                                          "True" };
+
+static const QString DEFAULT_LOG_FILE = "Auto";
 
 GUI_TEST_CLASS_DEFINITION(test_0001){//DIFFERENCE: lock document is checked
     //1. Open WD
@@ -132,6 +142,40 @@ GUI_TEST_CLASS_DEFINITION(test_0001){//DIFFERENCE: lock document is checked
                       QString("Unexpected Bowtie2 output file default value, expected: %1, current: %2")
                               .arg(DEFAULT_OUTPUT_VALUE)
                               .arg(outputFileDefault));
+    }
+
+    {//7. Check "Generate detailde log"
+        //Expected: Generate detailde log value is "False"
+        QString generateLogDefault = GTUtilsWorkflowDesigner::getParameter(os, GENERATE_DETAILED_LOG);
+        CHECK_SET_ERR(generateLogDefault == GENERATE_DETAILED_LOG_VALUES.first(),
+                      QString("Unexpected Bowtie2 output file default value, expected: %1, current: %2")
+                              .arg(GENERATE_DETAILED_LOG_VALUES.first())
+                              .arg(generateLogDefault));
+
+        //8. Set "generate detailed log" value to "True"
+        GTUtilsWorkflowDesigner::setParameter(os,
+                                              GENERATE_DETAILED_LOG,
+                                              GENERATE_DETAILED_LOG_VALUES.last(),
+                                              GTUtilsWorkflowDesigner::comboValue);
+    }
+
+    {//9. Check "Log file". This parameter had to appear
+        //Expected: Output file value is "Auto"
+        QString logFileDefault = GTUtilsWorkflowDesigner::getParameter(os, LOG_FILE);
+        CHECK_SET_ERR(logFileDefault == DEFAULT_LOG_FILE,
+                      QString("Unexpected Bowtie2 output file default value, expected: %1, current: %2")
+                              .arg(DEFAULT_LOG_FILE)
+                              .arg(logFileDefault));
+    }
+
+    {//10. Check "Number of Threads"
+        //Expected: expected optimal for the current OS threads num
+        int threads = GTUtilsWorkflowDesigner::getParameter(os, NUMBER_OF_THREADS).toInt();
+        int expectedThreads = AppContext::getAppSettings()->getAppResourcePool()->getIdealThreadCount();
+        CHECK_SET_ERR(threads == expectedThreads,
+                      QString("Unexpected threads num, expected: %1, current: %2")
+                              .arg(expectedThreads)
+                              .arg(threads));
     }
 
 
