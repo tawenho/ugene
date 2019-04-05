@@ -76,7 +76,7 @@ static const QStringList GENERATE_DETAILED_LOG_VALUES = { "False",
 
 static const QString DEFAULT_LOG_FILE = "Auto";
 
-GUI_TEST_CLASS_DEFINITION(test_0001){//DIFFERENCE: lock document is checked
+GUI_TEST_CLASS_DEFINITION(test_0001){
     //1. Open WD
     GTUtilsWorkflowDesigner::openWorkflowDesigner(os);
 
