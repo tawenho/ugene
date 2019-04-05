@@ -27,6 +27,7 @@ HEADERS +=  src/GUITestBasePlugin.h \
             src/runnables/ugene/corelibs/U2Gui/AppSettingsDialogFiller.h \
             src/runnables/ugene/corelibs/U2Gui/BuildIndexDialogFiller.h \
             src/runnables/ugene/corelibs/U2Gui/CommonImportOptionsDialogFiller.h \
+            src/runnables/ugene/corelibs/U2Gui/ConfigureTrimmomaticStepsFiller.h \
             src/runnables/ugene/corelibs/U2Gui/ConvertAssemblyToSAMDialogFiller.h \
             src/runnables/ugene/corelibs/U2Gui/CreateAnnotationWidgetFiller.h \
             src/runnables/ugene/corelibs/U2Gui/CreateDocumentFromTextDialogFiller.h \
@@ -293,6 +294,7 @@ SOURCES +=  src/GUITestBasePlugin.cpp \
             src/runnables/ugene/corelibs/U2Gui/AppSettingsDialogFiller.cpp \
             src/runnables/ugene/corelibs/U2Gui/BuildIndexDialogFiller.cpp \
             src/runnables/ugene/corelibs/U2Gui/CommonImportOptionsDialogFiller.cpp \
+            src/runnables/ugene/corelibs/U2Gui/ConfigureTrimmomaticStepsFiller.cpp \
             src/runnables/ugene/corelibs/U2Gui/ConvertAssemblyToSAMDialogFiller.cpp \
             src/runnables/ugene/corelibs/U2Gui/CreateAnnotationWidgetFiller.cpp \
             src/runnables/ugene/corelibs/U2Gui/CreateDocumentFromTextDialogFiller.cpp \
