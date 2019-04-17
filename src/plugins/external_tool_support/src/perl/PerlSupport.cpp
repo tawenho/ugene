@@ -23,6 +23,7 @@
 #include <U2Core/ScriptingToolRegistry.h>
 
 #include "PerlSupport.h"
+#include "utils/ExternalToolUtils.h"
 
 namespace U2 {
 
@@ -47,13 +48,9 @@ PerlSupport::PerlSupport(const QString &name, const QString &path)
     toolKitName="perl";
 
     muted = true;
+    isRunnerTool = true;
 
-    connect(this, SIGNAL(si_toolValidationStatusChanged(bool)), SLOT(sl_toolValidationStatusChanged(bool)));
-}
-
-void PerlSupport::sl_toolValidationStatusChanged(bool isValid) {
-    Q_UNUSED(isValid);
-    ScriptingTool::onPathChanged(this);
+    ExternalToolUtils::registerAsScriptingTool(this);
 }
 
 } // U2

@@ -24,12 +24,15 @@
 #include <U2Core/U2SafePoints.h>
 
 #include "JavaSupport.h"
+#include "utils/ExternalToolUtils.h"
 
 namespace U2 {
 
 const QString JavaSupport::ARCHITECTURE = "architecture";
 const QString JavaSupport::ARCHITECTURE_X32 = "x32";
 const QString JavaSupport::ARCHITECTURE_X64 = "x64";
+
+const QStringList JavaSupport::RUN_PARAMETERS = { "-jar" };
 
 JavaSupport::JavaSupport(const QString &name, const QString &path)
     : ExternalTool(name, path)
@@ -55,8 +58,9 @@ JavaSupport::JavaSupport(const QString &name, const QString &path)
     toolKitName="Java";
 
     muted = true;
+    isRunnerTool = true;
 
-    connect(this, SIGNAL(si_toolValidationStatusChanged(bool)), SLOT(sl_toolValidationStatusChanged(bool)));
+    ExternalToolUtils::registerAsScriptingTool(this, RUN_PARAMETERS);
 }
 
 void JavaSupport::getAdditionalParameters(const QString& output) {
@@ -69,11 +73,6 @@ void JavaSupport::getAdditionalParameters(const QString& output) {
 
 JavaSupport::Architecture JavaSupport::getArchitecture() const {
     return string2architecture(additionalInfo.value(ARCHITECTURE));
-}
-
-void JavaSupport::sl_toolValidationStatusChanged(bool isValid) {
-    Q_UNUSED(isValid);
-    ScriptingTool::onPathChanged(this, QStringList() << "-jar");
 }
 
 QString JavaSupport::architecture2string(Architecture architecture) {

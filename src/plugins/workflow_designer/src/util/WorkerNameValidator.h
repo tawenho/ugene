@@ -33,7 +33,10 @@ namespace U2 {
 class WorkerNameValidator : public QValidator {
 public:
     WorkerNameValidator(QObject *parent = NULL);
+
     State validate(QString &input, int &pos) const;
+
+    static const QString INVALID_SYMBOLS_REGEXP;
 };
 
 } // U2

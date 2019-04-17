@@ -32,9 +32,6 @@ class PerlSupport : public ExternalTool {
     Q_OBJECT
 public:
     PerlSupport(const QString &name, const QString &path = "");
-
-private slots:
-    void sl_toolValidationStatusChanged(bool isValid);
 };
 
 } // U2

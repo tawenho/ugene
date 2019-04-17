@@ -32,6 +32,20 @@ class DataTypeRegistry;
 class DocumentFormatRegistry;
 class PropertyDelegate;
 
+//class ItemNameValidator : public QValidator {
+//public:
+//    // TODO: implement it
+//    // it is supposed to be a validator for input and output ports (slots?) names that checks that they are not empty, are correct and they are unique
+//    ItemNameValidator();
+
+//    void fixup(QString &name) const override;
+//    State validate(QString &name, int &pos) const override;
+
+//private:
+//    bool isUnique(const QString &name) const;
+//    void roll(QString &name) const;
+//};
+
 class CfgExternalToolItem {
 public:
     CfgExternalToolItem();
@@ -49,6 +63,11 @@ public:
     QString getDescription() const;
     void setDescription(const QString & _descr);
 
+    bool hasErrors() const;
+    const QStringList &getErrors() const;
+    void addError(const QString &error);
+    void resetErrors();
+
     PropertyDelegate *delegateForTypes;
     PropertyDelegate *delegateForFormats;
 
@@ -57,25 +76,35 @@ public:
 private:
     DocumentFormatRegistry *dfr;
     DataTypeRegistry *dtr;
+    QStringList errors;
 };
-
 
 class CfgExternalToolModel : public QAbstractTableModel {
     Q_OBJECT
 public:
-    CfgExternalToolModel(bool isInput, QObject *obj = NULL);
+    enum ModelType {
+        Input,
+        Output
+    };
 
-    int rowCount(const QModelIndex & /* = QModelIndex */) const;
-    int columnCount(const QModelIndex & /* = QModelIndex */) const;
-    Qt::ItemFlags flags(const QModelIndex &) const;
+    CfgExternalToolModel(ModelType modelType, QObject *obj = NULL);
+
+    int rowCount(const QModelIndex &index = QModelIndex()) const;
+    int columnCount(const QModelIndex &index = QModelIndex()) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
     CfgExternalToolItem* getItem(const QModelIndex &index) const;
     QList<CfgExternalToolItem*> getItems() const;
-    QVariant data(const QModelIndex &index, int role /* = Qt::DisplayRole */) const;
+    QVariant data(const QModelIndex &index, int role) const;
     void createFormatDelegate(const QString &newType, CfgExternalToolItem *item);
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     bool insertRows(int row, int count = 0, const QModelIndex & parent = QModelIndex());
     bool removeRows(int row, int count = 0, const QModelIndex & parent = QModelIndex());
+
+    static const int COLUMN_NAME = 0;
+    static const int COLUMN_DATA_TYPE = 1;
+    static const int COLUMN_FORMAT = 2;
+    static const int COLUMN_DESCRIPTION = 3;
 
 private:
     void init();
@@ -94,20 +123,27 @@ private:
     QVariantMap textFormat;
 };
 
-
-class AttributeItem {
+class AttributeItem {       // TODO: add a default value field; also "Number" can be int, but htere is no type for double; also there should be a possibility to set minimum, maximum etc.
 public:
     QString getName() const;
     void setName(const QString& _name);
+
     QString getDataType() const;
     void setDataType(const QString &_type);
+
     QString getDescription() const;
     void setDescription(const QString &_description);
+
+    bool hasErrors() const;
+    const QStringList &getErrors() const;
+    void addError(const QString &error);
+    void resetErrors();
+
 private:
     QString name;
     QString type;
     QString description;
-
+    QStringList errors;
 };
 
 class CfgExternalToolModelAttributes : public QAbstractTableModel {
@@ -116,16 +152,20 @@ public:
     CfgExternalToolModelAttributes();
     ~CfgExternalToolModelAttributes();
 
-    int rowCount(const QModelIndex & /* = QModelIndex */) const;
-    int columnCount(const QModelIndex & /* = QModelIndex */) const;
+    int rowCount(const QModelIndex &index = QModelIndex()) const;
+    int columnCount(const QModelIndex &index = QModelIndex()) const;
     Qt::ItemFlags flags(const QModelIndex &) const;
     AttributeItem* getItem(const QModelIndex &index) const;
     QList<AttributeItem*> getItems() const;
-    QVariant data(const QModelIndex &index, int role /* = Qt::DisplayRole */) const;
+    QVariant data(const QModelIndex &index, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     bool insertRows(int row, int count = 0, const QModelIndex & parent = QModelIndex());
     bool removeRows(int row, int count = 0, const QModelIndex & parent = QModelIndex());
+
+    static const int COLUMN_NAME = 0;
+    static const int COLUMN_DATA_TYPE = 1;
+    static const int COLUMN_DESCRIPTION = 2;
 
 private:
     QList<AttributeItem*> items;

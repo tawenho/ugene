@@ -19,19 +19,22 @@
  * MA 02110-1301, USA.
  */
 
-#include "RSupport.h"
-#include "ExternalToolSupportSettingsController.h"
-#include "ExternalToolSupportSettings.h"
-#include "conduct_go/ConductGOSupport.h"
-#include "seqpos/SeqPosSupport.h"
+#include <QMainWindow>
 
 #include <U2Core/AppContext.h>
 #include <U2Core/AppSettings.h>
 #include <U2Core/ScriptingToolRegistry.h>
-#include <U2Core/U2SafePoints.h>
 #include <U2Core/U2OpStatusUtils.h>
+#include <U2Core/U2SafePoints.h>
+
 #include <U2Gui/MainWindow.h>
-#include <QMainWindow>
+
+#include "ExternalToolSupportSettingsController.h"
+#include "ExternalToolSupportSettings.h"
+#include "RSupport.h"
+#include "conduct_go/ConductGOSupport.h"
+#include "utils/ExternalToolUtils.h"
+#include "seqpos/SeqPosSupport.h"
 
 namespace U2 {
 
@@ -57,13 +60,9 @@ RSupport::RSupport(const QString& name, const QString& path) : ExternalTool(name
     toolKitName = "R";
 
     muted = true;
+    isRunnerTool = true;
 
-    connect(this, SIGNAL(si_toolValidationStatusChanged(bool)), SLOT(sl_toolValidationStatusChanged(bool)));
-}
-
-void RSupport::sl_toolValidationStatusChanged(bool isValid) {
-    Q_UNUSED(isValid);
-    ScriptingTool::onPathChanged(this);
+    ExternalToolUtils::registerAsScriptingTool(this);
 }
 
 RModuleSupport::RModuleSupport(const QString& name) : ExternalToolModule(name) {

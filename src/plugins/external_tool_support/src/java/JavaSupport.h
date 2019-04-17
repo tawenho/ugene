@@ -39,9 +39,6 @@ public:
     void getAdditionalParameters(const QString& output);
     Architecture getArchitecture() const;
 
-private slots:
-    void sl_toolValidationStatusChanged(bool isValid);
-
 private:
     static QString architecture2string(Architecture architecture);
     static Architecture string2architecture(const QString &string);
@@ -49,6 +46,8 @@ private:
     static const QString ARCHITECTURE;
     static const QString ARCHITECTURE_X32;
     static const QString ARCHITECTURE_X64;
+
+    static const QStringList RUN_PARAMETERS;
 };
 
 } // U2

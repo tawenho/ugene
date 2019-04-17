@@ -36,8 +36,6 @@ class PythonSupport : public ExternalTool {
     Q_OBJECT
 public:
     PythonSupport(const QString& name, const QString& path = "");
-private slots:
-    void sl_toolValidationStatusChanged(bool isValid);
 };
 
 class PythonModuleSupport : public ExternalToolModule {

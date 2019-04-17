@@ -84,7 +84,7 @@ void GTUtilsWorkflowDesigner::openWorkflowDesigner(HI::GUITestOpStatus &os){
 
 #define GT_METHOD_NAME "currentTab"
 GTUtilsWorkflowDesigner::tab GTUtilsWorkflowDesigner::currentTab(HI::GUITestOpStatus &os) {
-    QTabWidget *tabs = qobject_cast<QTabWidget*>(GTWidget::findWidget(os, "tabs"));
+    QTabWidget *tabs = qobject_cast<QTabWidget*>(GTWidget::findWidget(os, "tabs", GTUtilsMdi::activeWindow(os)));
     GT_CHECK_RESULT(NULL != tabs, "tabs widget is not found", algoriths);
     return tab(tabs->currentIndex());
 }

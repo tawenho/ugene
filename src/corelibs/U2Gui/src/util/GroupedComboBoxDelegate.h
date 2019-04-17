@@ -38,9 +38,16 @@ public:
 
     static void addParentItem(QStandardItemModel * model, const QString& text);
     static void addChildItem(QStandardItemModel * model, const QString& text, const QVariant& data);
+    static void addUngroupedItem(QStandardItemModel * model, const QString& text, const QVariant& data);
+
 protected:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+    static const QString PARENT;
+    static const QString CHILD;
+    static const QString UNGROUPED;
+    static const QString SEPARATOR;
 };
 
 }

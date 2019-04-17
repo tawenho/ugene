@@ -861,17 +861,18 @@ void WorkflowView::sl_createScript() {
 }
 
 void WorkflowView::sl_externalAction() {
-    QObjectScopedPointer<CreateExternalProcessDialog> dlg = new CreateExternalProcessDialog(this);
+    QObjectScopedPointer<CreateExternalProcessWizard> dlg = new CreateExternalProcessWizard(this);
+//    QObjectScopedPointer<CreateExternalProcessDialog> dlg = new CreateExternalProcessDialog(this);
     dlg->exec();
     CHECK(!dlg.isNull(), );
 
     if (dlg->result() == QDialog::Accepted) {
-        ExternalProcessConfig *cfg = dlg->config();
-        if(LocalWorkflow::ExternalProcessWorkerFactory::init(cfg)) {
-            ActorPrototype *proto = WorkflowEnv::getProtoRegistry()->getProto(cfg->name);
-            QRectF rect = scene->sceneRect();
-            addProcess(createActor(proto, QVariantMap()), rect.center());
-        }
+//        ExternalProcessConfig *cfg = dlg->takeConfig();
+//        if(LocalWorkflow::ExternalProcessWorkerFactory::init(cfg)) {
+//            ActorPrototype *proto = WorkflowEnv::getProtoRegistry()->getProto(cfg->name);
+//            QRectF rect = scene->sceneRect();
+//            addProcess(createActor(proto, QVariantMap()), rect.center());
+//        }
     }
 }
 
@@ -965,7 +966,7 @@ void WorkflowView::sl_editExternalTool() {
         CHECK(!dlg.isNull(), );
 
         if(dlg->result() == QDialog::Accepted) {
-            cfg = dlg->config();
+            cfg = dlg->takeConfig();
 
             if (!(*oldCfg == *cfg)) {
                 if (oldCfg->name != cfg->name) {
@@ -2850,8 +2851,8 @@ WorkflowScene * SceneCreator::createScene(WorkflowView *controller) {
     scene = new WorkflowScene(controller);
     scene->setSceneRect(QRectF(-3*WS, -3*WS, 5*WS, 5*WS));
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    return createScene();
     scene->setObjectName("scene");
+    return createScene();
 }
 
 WorkflowScene * SceneCreator::createScene() {

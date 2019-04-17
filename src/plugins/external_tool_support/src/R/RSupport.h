@@ -47,8 +47,6 @@ class RSupport : public ExternalTool {
     Q_OBJECT
 public:
     RSupport(const QString& name, const QString& path = "");
-private slots:
-    void sl_toolValidationStatusChanged(bool isValid);
 };
 
 class RModuleSupport : public ExternalToolModule {

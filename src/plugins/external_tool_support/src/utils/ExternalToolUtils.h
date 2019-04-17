@@ -23,8 +23,11 @@
 #define _U2_EXTERNAL_TOOL_UTILS_H_
 
 #include <QObject>
+#include <QStringList>
 
 namespace U2 {
+
+class ExternalTool;
 
 class ExternalToolUtils : public QObject {
     Q_OBJECT
@@ -33,6 +36,8 @@ public:
 
     static void addDefaultCistromeDirToSettings();
     static void addCistromeDataPath(const QString& dataName, const QString& dirName, bool entriesAreFolders = false);
+
+    static void registerAsScriptingTool(ExternalTool *externalTool, const QStringList &runParameters = QStringList());
 
     static const QString CISTROME_DATA_DIR;
 };

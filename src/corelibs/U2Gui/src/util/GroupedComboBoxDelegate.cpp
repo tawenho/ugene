@@ -25,17 +25,22 @@
 
 namespace U2 {
 
+const QString GroupedComboBoxDelegate::PARENT = "parent";
+const QString GroupedComboBoxDelegate::CHILD = "child";
+const QString GroupedComboBoxDelegate::UNGROUPED = "ungrouped";
+const QString GroupedComboBoxDelegate::SEPARATOR = "separator";
+
 GroupedComboBoxDelegate::GroupedComboBoxDelegate(QObject *parent) : QItemDelegate(parent){}
 
 void GroupedComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
-    if(index.data(Qt::AccessibleDescriptionRole).toString() == QLatin1String("separator")) {
+    if (index.data(Qt::AccessibleDescriptionRole).toString() == SEPARATOR) {
         painter->setPen(Qt::gray);
         painter->drawLine(option.rect.left(), option.rect.center().y(), option.rect.right(), option.rect.center().y());
-    } else if(index.data(Qt::AccessibleDescriptionRole).toString() == QLatin1String("parent")) {
+    } else if (index.data(Qt::AccessibleDescriptionRole).toString() == PARENT) {
         QStyleOptionViewItem parentOption = option;
         parentOption.state |= QStyle::State_Enabled;
         QItemDelegate::paint( painter, parentOption, index );
-    } else if ( index.data(Qt::AccessibleDescriptionRole).toString() == QLatin1String( "child" ) ) {
+    } else if ( index.data(Qt::AccessibleDescriptionRole).toString() == CHILD) {
         QStyleOptionViewItem childOption = option;
         int indent = option.fontMetrics.width( QString( 4, QChar( ' ' ) ) );
         childOption.rect.adjust( indent, 0, 0, 0 );
@@ -48,7 +53,7 @@ void GroupedComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewIte
 
 QSize GroupedComboBoxDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
     QString type = index.data(Qt::AccessibleDescriptionRole).toString();
-    if (type == QLatin1String("separator")) {
+    if (type == SEPARATOR) {
         return QSize(0, 10);
     }
     return QItemDelegate::sizeHint( option, index );
@@ -57,7 +62,7 @@ QSize GroupedComboBoxDelegate::sizeHint(const QStyleOptionViewItem &option, cons
 void GroupedComboBoxDelegate::addParentItem(QStandardItemModel * model, const QString& text) {
     QStandardItem* item = new QStandardItem(text);
     item->setFlags(item->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsSelectable));
-    item->setData("parent", Qt::AccessibleDescriptionRole);
+    item->setData(PARENT, Qt::AccessibleDescriptionRole);
     QFont font = item->font();
     font.setBold( true );
     font.setItalic(true);
@@ -68,7 +73,14 @@ void GroupedComboBoxDelegate::addParentItem(QStandardItemModel * model, const QS
 void GroupedComboBoxDelegate::addChildItem(QStandardItemModel * model, const QString& text, const QVariant& data) {
     QStandardItem* item = new QStandardItem(text + QString(4, QChar(' ')));
     item->setData(data, Qt::UserRole);
-    item->setData("child", Qt::AccessibleDescriptionRole);
+    item->setData(CHILD, Qt::AccessibleDescriptionRole);
+    model->appendRow(item);
+}
+
+void GroupedComboBoxDelegate::addUngroupedItem(QStandardItemModel *model, const QString &text, const QVariant &data) {
+    QStandardItem* item = new QStandardItem(text + QString(2, QChar(' ')));
+    item->setData(data, Qt::UserRole);
+    item->setData(UNGROUPED, Qt::AccessibleDescriptionRole);
     model->appendRow(item);
 }
 

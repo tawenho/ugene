@@ -96,6 +96,7 @@ public:
     bool isValid() const { return isValidTool; }
     bool isMuted() const;
     bool isModule() const { return isModuleTool; }
+    bool isRunner() const { return isRunnerTool; }
 
 signals:
     void si_pathChanged();
@@ -123,6 +124,7 @@ protected:
     QString     additionalErrorMesage;  // a string, which contains an error message, specific for each tool
     bool        muted;                  // a muted tool doesn't write its validation error to the log
     bool        isModuleTool;           // a module tool is a part of another external tool
+    bool        isRunnerTool;           // a tool is a run environment for other tools
 
 }; // ExternalTool
 
@@ -211,6 +213,7 @@ public:
 
     QList<ExternalTool*> getAllEntries() const;
     QList< QList<ExternalTool*> > getAllEntriesSortedByToolKits() const;
+    QList<ExternalTool *> getRunners() const;
 
     void setManager(ExternalToolManager* manager);
     ExternalToolManager* getManager() const;

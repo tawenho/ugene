@@ -23,6 +23,8 @@
 
 namespace U2 {
 
+const QString WorkerNameValidator::INVALID_SYMBOLS_REGEXP = "[^0-9\\s_\\-a-zA-Z]";
+
 WorkerNameValidator::WorkerNameValidator(QObject *parent)
 : QValidator(parent)
 {
@@ -30,7 +32,7 @@ WorkerNameValidator::WorkerNameValidator(QObject *parent)
 }
 
 QValidator::State WorkerNameValidator::validate(QString &input, int & /*pos*/) const {
-    QRegExp rx("[^0-9\\s_\\-a-zA-Z]");
+    QRegExp rx(INVALID_SYMBOLS_REGEXP);
     if (-1 != rx.indexIn(input)) {
         return Invalid;
     }

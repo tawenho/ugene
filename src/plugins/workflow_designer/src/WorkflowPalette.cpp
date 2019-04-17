@@ -521,7 +521,7 @@ void WorkflowPaletteElements::editElement() {
         CHECK(!dlg.isNull(), );
 
         if (dlg->result() == QDialog::Accepted) {
-            cfg = dlg->config();
+            cfg = dlg->takeConfig();
 
             bool deleted = true;
             if (!(*oldCfg == *cfg)) {

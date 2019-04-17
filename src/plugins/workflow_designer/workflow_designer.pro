@@ -113,7 +113,13 @@ FORMS += src/ChooseItemDialog.ui \
            src/StartupDialog.ui \
            src/WorkflowEditorWidget.ui \
            src/WorkflowMetaDialog.ui \
-           src/WorkflowSettingsWidget.ui
+           src/WorkflowSettingsWidget.ui \
+    src/library/CreateExternalProcessNamePage.ui \
+    src/library/CreateExternalProcessInputPage.ui \
+    src/library/CreateExternalProcessOutputPage.ui \
+    src/library/CreateExternalProcessAttributesPage.ui \
+    src/library/CreateExternalProcessCommandTemplatePage.ui \
+    src/library/CreateExternalProcessBinaryPage.ui
 
 SOURCES += src/ActorCfgFilterProxyModel.cpp \
            src/ActorCfgModel.cpp \

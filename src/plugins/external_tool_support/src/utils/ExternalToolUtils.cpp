@@ -27,6 +27,7 @@
 #include <U2Core/DataPathRegistry.h>
 #include <U2Core/ExternalToolRegistry.h>
 #include <U2Core/QObjectScopedPointer.h>
+#include <U2Core/ScriptingToolRegistry.h>
 #include <U2Core/Settings.h>
 #include <U2Core/U2SafePoints.h>
 
@@ -97,6 +98,16 @@ void ExternalToolUtils::addCistromeDataPath(const QString& dataName, const QStri
     bool ok = dpr->registerEntry(dp);
     if (!ok) {
         delete dp;
+    }
+}
+
+void ExternalToolUtils::registerAsScriptingTool(ExternalTool *externalTool, const QStringList &runParameters) {
+    QScopedPointer<ScriptingTool> scriptingTool(new ScriptingTool(externalTool->getName(), externalTool->getPath(), runParameters));
+    const bool registered = AppContext::getScriptingToolRegistry()->registerEntry(scriptingTool.data());
+    connect(externalTool, SIGNAL(si_toolValidationStatusChanged(bool)), scriptingTool.data(), SLOT(sl_pathChanged()));
+    connect(externalTool, SIGNAL(si_pathChanged()), scriptingTool.data(), SLOT(sl_pathChanged()));
+    if (registered) {
+        scriptingTool.take();
     }
 }
 

@@ -40,7 +40,11 @@ public:
     const QString getPath() const {return path;}
     const QStringList getRunParameters() const {return runParams;}
 
+    static void onPathChanged(ExternalTool *tool);
     static void onPathChanged(ExternalTool *tool, const QStringList& runParams = QStringList());
+
+private slots:
+    void sl_pathChanged();
 
 protected:
     QString     name;

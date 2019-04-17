@@ -19,18 +19,21 @@
  * MA 02110-1301, USA.
  */
 
-#include "PythonSupport.h"
-#include "seqpos/SeqPosSupport.h"
-#include "ExternalToolSupportSettingsController.h"
-#include "ExternalToolSupportSettings.h"
+#include <QMainWindow>
 
 #include <U2Core/AppContext.h>
 #include <U2Core/AppSettings.h>
 #include <U2Core/ScriptingToolRegistry.h>
-#include <U2Core/U2SafePoints.h>
 #include <U2Core/U2OpStatusUtils.h>
+#include <U2Core/U2SafePoints.h>
+
 #include <U2Gui/MainWindow.h>
-#include <QMainWindow>
+
+#include "ExternalToolSupportSettings.h"
+#include "ExternalToolSupportSettingsController.h"
+#include "PythonSupport.h"
+#include "seqpos/SeqPosSupport.h"
+#include "utils/ExternalToolUtils.h"
 
 namespace U2 {
 
@@ -57,15 +60,10 @@ PythonSupport::PythonSupport(const QString& name, const QString& path) : Externa
     toolKitName = "python";
 
     muted = true;
+    isRunnerTool = true;
 
-    connect(this, SIGNAL(si_toolValidationStatusChanged(bool)), SLOT(sl_toolValidationStatusChanged(bool)));
+    ExternalToolUtils::registerAsScriptingTool(this);
 }
-
-void PythonSupport::sl_toolValidationStatusChanged(bool isValid) {
-    Q_UNUSED(isValid);
-    ScriptingTool::onPathChanged(this);
-}
-
 
 PythonModuleSupport::PythonModuleSupport(const QString &name) :
     ExternalToolModule(name) {

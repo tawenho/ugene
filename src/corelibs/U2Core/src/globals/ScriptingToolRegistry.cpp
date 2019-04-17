@@ -32,6 +32,15 @@ namespace U2 {
 ScriptingTool::ScriptingTool(QString _name, QString _path, const QStringList& _runParams) : name(_name), path(_path), runParams(_runParams) {
 }
 
+void ScriptingTool::onPathChanged(ExternalTool *tool) {
+    ScriptingToolRegistry* reg = AppContext::getScriptingToolRegistry();
+    CHECK(NULL != reg, );
+
+    ScriptingTool *scriptingTool = reg->getByName(tool->getName());
+    SAFE_POINT(nullptr != scriptingTool, QString("Scripting tool with name '%1' not found in the registry").arg(tool->getName()), );
+    scriptingTool->path = (tool->isValid() && !tool->getPath().isEmpty()) ? tool->getPath() : "";
+}
+
 void ScriptingTool::onPathChanged(ExternalTool *tool, const QStringList& runParams) {
     ScriptingToolRegistry* reg = AppContext::getScriptingToolRegistry();
     CHECK(NULL != reg, );
@@ -44,8 +53,14 @@ void ScriptingTool::onPathChanged(ExternalTool *tool, const QStringList& runPara
             reg->registerEntry(new ScriptingTool(tool->getName(), tool->getPath(), runParams));
         }
     } else {
-        reg->unregisterEntry(tool->getName());
+        reg->unregisterEntry(tool->getName());      // TODO: do not remove invalid tools
     }
+}
+
+void ScriptingTool::sl_pathChanged() {
+    ExternalTool *externalTool = qobject_cast<ExternalTool *>(sender());
+    SAFE_POINT(nullptr != externalTool, "Can't cast sender to ExternalTool *", );
+    path = (externalTool->isValid() ? externalTool->getPath() : "");
 }
 
 ////////////////////////////////////////

@@ -41,7 +41,8 @@ ExternalTool::ExternalTool(QString _name, QString _path)
       isValidTool(false),
       toolKitName(_name),
       muted(false),
-      isModuleTool(false)
+      isModuleTool(false),
+      isRunnerTool(false)
 {
     if (NULL != AppContext::getMainWindow()) {
         icon = QIcon(":external_tool_support/images/cmdline.png");
@@ -185,6 +186,16 @@ QList< QList<ExternalTool*> > ExternalToolRegistry::getAllEntriesSortedByToolKit
         res.append(toolKitList);
     }
     return res;
+}
+
+QList<ExternalTool *> ExternalToolRegistry::getRunners() const {
+    QList<ExternalTool *> runners;
+    foreach (ExternalTool *tool, registryOrder) {
+        if (tool->isRunner()) {
+            runners << tool;
+        }
+    }
+    return runners;
 }
 
 void ExternalToolRegistry::setManager(ExternalToolManager* _manager) {
