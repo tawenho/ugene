@@ -221,8 +221,6 @@ ExternalProcessWorker::ExternalProcessWorker(Actor *a)
 }
 
 void ExternalProcessWorker::applySpecialInternalEnvvars(QString &execString) {
-    QList<ExternalTool*> tools = AppContext::getExternalToolRegistry()->getAllEntries();
-
     if (execString.indexOf("%JAVA_HOME%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("java");
         execString.replace("%JAVA_HOME%", tool->getPath());
