@@ -27,6 +27,7 @@
 #include <U2Core/CmdlineTaskRunner.h>
 #include <U2Core/DNASequenceObject.h>
 #include <U2Core/DocumentModel.h>
+#include <U2Core/ExternalToolRegistry.h>
 #include <U2Core/FailTask.h>
 #include <U2Core/GObjectRelationRoles.h>
 #include <U2Core/GUrlUtils.h>
@@ -217,6 +218,19 @@ ExternalProcessWorker::ExternalProcessWorker(Actor *a)
     ExternalToolCfgRegistry *reg = WorkflowEnv::getExternalCfgRegistry();
     cfg = reg->getConfigById(actor->getProto()->getId());
     commandLine = cfg->cmdLine;
+}
+
+void ExternalProcessWorker::applySpecialInternalEnvvars(QString &execString) {
+    QList<ExternalTool*> tools = AppContext::getExternalToolRegistry()->getAllEntries();
+
+    if (execString.indexOf("%JAVA_HOME%") >= 0) {
+        ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("java");
+        execString.replace("%JAVA_HOME%", tool->getPath());
+    }
+    else if (execString.indexOf("%PYTHON_HOME%") >= 0) {
+        ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("python");
+        execString.replace("%PYTHON_HOME%", tool->getPath());
+    }
 }
 
 void ExternalProcessWorker::applyAttributes(QString &execString) {
@@ -486,6 +500,8 @@ void ExternalProcessWorker::sl_onTaskFinishied() {
 }
 
 void ExternalProcessWorker::init() {
+    applySpecialInternalEnvvars(commandLine);
+
     output = ports.value(OUT_PORT_ID);
 
     foreach(const DataConfig& input, cfg->inputs) {
