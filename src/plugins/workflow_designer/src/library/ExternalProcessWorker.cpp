@@ -221,13 +221,32 @@ ExternalProcessWorker::ExternalProcessWorker(Actor *a)
 }
 
 void ExternalProcessWorker::applySpecialInternalEnvvars(QString &execString) {
-    if (execString.indexOf("%JAVA_HOME%") >= 0) {
+    if (execString.indexOf("%JAVA%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("java");
-        execString.replace("%JAVA_HOME%", tool->getPath());
+        CHECK(tool,);
+        execString.replace("%JAVA%", tool->getPath());
     }
-    else if (execString.indexOf("%PYTHON_HOME%") >= 0) {
+    else if (execString.indexOf("%PYTHON%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("python");
-        execString.replace("%PYTHON_HOME%", tool->getPath());
+        CHECK(tool,);
+        execString.replace("%PYTHON%", tool->getPath());
+    }
+    else if (execString.indexOf("%RSCRIPT%") >= 0) {
+        ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("Rscript");
+        CHECK(tool,);
+        execString.replace("%RSCRIPT%", tool->getPath());
+    }
+    else if (execString.indexOf("%PERL%") >= 0) {
+        ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("perl");
+        CHECK(tool,);
+        execString.replace("%PERL%", tool->getPath());
+    }
+    else if (execString.indexOf("%TOOLS_FOLDER%") >= 0) {
+        const AppSettings* appSettings = AppContext::getAppSettings();
+        CHECK(appSettings,);
+        UserAppsSettings* userSettings = appSettings->getUserAppsSettings();
+        CHECK(userSettings,);
+        execString.replace("%TOOLS_FOLDER%", userSettings->getExternalToolsDir());
     }
 }
 

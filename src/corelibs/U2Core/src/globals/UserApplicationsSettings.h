@@ -94,12 +94,16 @@ public:
     bool isUpdateSkipped(const QString &versionString) const;
     void skipUpdate(const QString &versionString);
 
+    QString getExternalToolsDir() const;
+    void setExternalToolsDir(const QString &toolsDir);
+
 signals:
     void si_temporaryPathChanged();
     void si_windowLayoutChanged();
 
 private:
     bool cleanupTmpDir;
+    QString externalToolsDir;
 };
 
 }//namespace
