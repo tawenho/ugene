@@ -192,7 +192,6 @@ private slots:
     void sl_onSelectionChanged();
     void sl_showEditor();
     void sl_selectPrototype(Workflow::ActorPrototype*, bool);
-    void sl_procItemAdded();
     void sl_exportScene();
     void sl_saveScene();
     void sl_saveSceneAs();
@@ -230,7 +229,7 @@ private slots:
     void sl_editScript();
     void sl_createCmdlineBasedWorkerAction();
     void sl_appendExternalToolWorker();
-    void sl_prototypeIsAboutToBeRemoved(ActorPrototype *proto);
+    void sl_prototypeIsAboutToBeRemoved(Workflow::ActorPrototype *proto);
     void sl_xmlSchemaLoaded(Task*);
     void sl_editExternalTool();
     void sl_findPrototype();
@@ -295,6 +294,7 @@ private:
     void runWizard(Wizard *w);
     void checkAutoRunWizard();
     void loadWizardResult(const QString &result);
+    void procItemAdded();
 
     DashboardManagerHelper * getDMHInstance();
 
@@ -312,7 +312,7 @@ private:
 
     bool scriptingMode;
 
-    QMenu *elementsMenu;
+    QPointer<QMenu> elementsMenu;
 
     QAction* deleteAction;
     QAction* deleteShortcut;
