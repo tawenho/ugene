@@ -23,8 +23,10 @@
 #include <QToolButton>
 
 #include <U2Core/AppContext.h>
+#include <U2Core/AppSettings.h>
 #include <U2Core/L10n.h>
 #include <U2Core/U2SafePoints.h>
+#include <U2Core/UserApplicationsSettings.h>
 
 #include <U2Gui/LastUsedDirHelper.h>
 #include <U2Gui/GUIUtils.h>
@@ -619,6 +621,12 @@ void ExternalToolSupportSettingsPageWidget::sl_onBrowseToolPackPath() {
                 QMessageBox::Ok);
         }
         if (!toolNames.isEmpty()) {
+            const AppSettings* appSettings = AppContext::getAppSettings();
+            CHECK(appSettings,);
+            UserAppsSettings* userSettings = appSettings->getUserAppsSettings();
+            CHECK(userSettings,);
+            userSettings->setExternalToolsDir(dirPath);
+
             emit si_setLockState(true);
             ExternalToolManager* etManager = AppContext::getExternalToolRegistry()->getManager();
             ExternalToolValidationListener* listener = new ExternalToolValidationListener(toolNames);
