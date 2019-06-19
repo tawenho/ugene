@@ -250,14 +250,6 @@ void UserAppsSettings::setFileStorageDir(const QString &newPath) {
     AppContext::getSettings()->setValue(SETTINGS_ROOT + FILE_STORAGE_DIR, newPath);
 }
 
-QString UserAppsSettings::getExternalToolsDir() const {
-    return QString(externalToolsDir);
-}
-
-void UserAppsSettings::setExternalToolsDir(const QString &toolsDir) {
-    externalToolsDir = QString(toolsDir);
-}
-
 bool UserAppsSettings::updatesEnabled() const {
     return AppContext::getSettings()->getValue(SETTINGS_ROOT + UPDATES_ENABLED, true).toBool();
 }

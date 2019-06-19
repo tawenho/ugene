@@ -621,12 +621,6 @@ void ExternalToolSupportSettingsPageWidget::sl_onBrowseToolPackPath() {
                 QMessageBox::Ok);
         }
         if (!toolNames.isEmpty()) {
-            const AppSettings* appSettings = AppContext::getAppSettings();
-            CHECK(appSettings,);
-            UserAppsSettings* userSettings = appSettings->getUserAppsSettings();
-            CHECK(userSettings,);
-            userSettings->setExternalToolsDir(dirPath);
-
             emit si_setLockState(true);
             ExternalToolManager* etManager = AppContext::getExternalToolRegistry()->getManager();
             ExternalToolValidationListener* listener = new ExternalToolValidationListener(toolNames);

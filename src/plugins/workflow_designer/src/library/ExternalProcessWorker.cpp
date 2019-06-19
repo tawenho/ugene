@@ -221,32 +221,25 @@ ExternalProcessWorker::ExternalProcessWorker(Actor *a)
 }
 
 void ExternalProcessWorker::applySpecialInternalEnvvars(QString &execString) {
-    if (execString.indexOf("%JAVA%") >= 0) {
+    if (execString.indexOf("%UGENE_JAVA%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("java");
         CHECK(tool,);
-        execString.replace("%JAVA%", tool->getPath());
+        execString.replace("%UGENE_JAVA%", "\"" + tool->getPath() + "\"");
     }
-    else if (execString.indexOf("%PYTHON%") >= 0) {
+    if (execString.indexOf("%UGENE_PYTHON%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("python");
         CHECK(tool,);
-        execString.replace("%PYTHON%", tool->getPath());
+        execString.replace("%UGENE_PYTHON%", "\"" + tool->getPath() + "\"");
     }
-    else if (execString.indexOf("%RSCRIPT%") >= 0) {
+    if (execString.indexOf("%UGENE_RSCRIPT%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("Rscript");
         CHECK(tool,);
-        execString.replace("%RSCRIPT%", tool->getPath());
+        execString.replace("%UGENE_RSCRIPT%", "\"" + tool->getPath() + "\"");
     }
-    else if (execString.indexOf("%PERL%") >= 0) {
+    if (execString.indexOf("%UGENE_PERL%") >= 0) {
         ExternalTool* tool = AppContext::getExternalToolRegistry()->getByName("perl");
         CHECK(tool,);
-        execString.replace("%PERL%", tool->getPath());
-    }
-    else if (execString.indexOf("%TOOLS_FOLDER%") >= 0) {
-        const AppSettings* appSettings = AppContext::getAppSettings();
-        CHECK(appSettings,);
-        UserAppsSettings* userSettings = appSettings->getUserAppsSettings();
-        CHECK(userSettings,);
-        execString.replace("%TOOLS_FOLDER%", userSettings->getExternalToolsDir());
+        execString.replace("%UGENE_PERL%", "\"" + tool->getPath() + "\"");
     }
 }
 
