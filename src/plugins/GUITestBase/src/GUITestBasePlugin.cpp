@@ -100,6 +100,7 @@
 #include "tests/regression_scenarios/GTTestsRegressionScenarios_4001_5000.h"
 #include "tests/regression_scenarios/GTTestsRegressionScenarios_5001_6000.h"
 #include "tests/regression_scenarios/GTTestsRegressionScenarios_6001_7000.h"
+#include "tests/regression_scenarios/GTTestsRegressionScenarios_7001_8000.h"
 
 #define REGISTER_TEST(X) if (guiTestBase) guiTestBase->registerTest(new X())
 #define REGISTER_TEST_LABEL(X, LABEL) \
@@ -1488,6 +1489,8 @@ void GUITestBasePlugin::registerTests(UGUITestBase *guiTestBase) {
     REGISTER_TEST(GUITest_regression_scenarios::test_6474_2);
     REGISTER_TEST(GUITest_regression_scenarios::test_6488_1);
     REGISTER_TEST(GUITest_regression_scenarios::test_6488_2);
+
+    REGISTER_TEST(GUITest_regression_scenarios::test_7001);
 
     //////////////////////////////////////////////////////////////////////////
     // Common scenarios/project/
