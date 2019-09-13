@@ -163,6 +163,10 @@ bool CustomToolConfigParser::validate(U2OpStatus &os, CustomExternalTool *tool) 
     CHECK_EXT(!tool->getId().startsWith("UCUST_"), os.setError(tr("The custom tool's ID shouldn't start with \"UCUST_\", this is a distinguishing feature of the supported tools.")), false);
     CHECK_EXT(!tool->getName().isEmpty(), os.setError(tr("The tool name is not specified in the config file.")), false);
     CHECK_EXT(!tool->getExecutableFileName().isEmpty(), os.setError(tr("The tool's executable file name is not specified in the config file.")), false);
+
+    QFileInfo pathFi(tool->getPath());
+    CHECK_EXT(pathFi.exists(), os.setError(tr("The tool's executable file does not exist.")), false);
+
     return true;
 }
 
