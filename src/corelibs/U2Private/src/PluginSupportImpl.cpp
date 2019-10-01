@@ -527,7 +527,7 @@ void VerifyPluginTask::run() {
         elapsedTime += 1000;
     }
     QString errorMessage = proc->readAllStandardError();
-    if (proc->exitStatus() == QProcess::NormalExit && errorMessage.isEmpty()) {
+    if (proc->exitStatus() == QProcess::NormalExit /*&& errorMessage.isEmpty()*/) {
         pluginIsCorrect = true;
     }
 }
