@@ -320,7 +320,18 @@ void SWAlgorithmTask::onRegion(SequenceWalkerSubtask* t, TaskStateInfo& ti) {
     } else {
         testName = "SW alg";
     }
-    perfLog.details(QString("\n%1 %2 run time is %3\n").arg(testName).arg(algName).arg(GTimer::secsBetween(t1, GTimer::currentTimeMicros())));
+    if (algType == SW_opencl) {
+        perfLog.details(QString("\n%1 %2(%3) run time is %4\n")
+                        .arg(testName)
+                        .arg(algName)
+                        .arg(hardwareDeviceName)
+                        .arg(GTimer::secsBetween(t1, GTimer::currentTimeMicros())));
+    } else {
+        perfLog.details(QString("\n%1 %2 run time is %3\n")
+                        .arg(testName)
+                        .arg(algName)
+                        .arg(GTimer::secsBetween(t1, GTimer::currentTimeMicros())));
+    }
 
     QList<PairAlignSequences> res = sw->getResults();
 
@@ -636,7 +647,10 @@ void PairwiseAlignmentSmithWatermanTask::onRegion(SequenceWalkerSubtask *t, Task
     } else {
         testName = "SW alg";
     }
-    perfLog.details(QString("\n%1 %2 run time is %3\n").arg(testName).arg(algName).arg(GTimer::secsBetween(t1, GTimer::currentTimeMicros())));
+    perfLog.details(QString("\n%1 %2 run time is %3\n")
+                    .arg(testName)
+                    .arg(algName)
+                    .arg(GTimer::secsBetween(t1, GTimer::currentTimeMicros())));
 
     QList<PairAlignSequences> res = sw->getResults();
     res = expandResults(res);

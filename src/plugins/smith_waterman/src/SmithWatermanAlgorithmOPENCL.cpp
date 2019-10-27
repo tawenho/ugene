@@ -178,21 +178,26 @@ void SmithWatermanAlgorithmOPENCL::launch(const SMatrix& sm, const QByteArray & 
 
     cl_uint clNumDevices = 1;
     cl_device_id deviceId = NULL;
-    OpenCLGpuModel *opencl_device;
+    OpenCLGpuModel *opencl_device = NULL;
     if (hardwareDeviceName == NULL) {
         OpenCLGpuModel *gpu = AppContext::getOpenCLGpuRegistry()->getAnyEnabledGpu();
-        deviceId = (cl_device_id) gpu->getId();
         opencl_device = gpu;
     }
     else {
         QList<OpenCLGpuModel* > listGpus = AppContext::getOpenCLGpuRegistry()->getEnabledGpus();
         for (OpenCLGpuModel *gpu : listGpus) {
             if (gpu->getName().indexOf(hardwareDeviceName) >= 0) {
-                deviceId = (cl_device_id) gpu->getId();
                 opencl_device = gpu;
+                break;
             }
         }
     }
+    if (opencl_device == NULL) {
+        algoLog.error(QString("OPENCL: can't find device"));
+        return;
+    }
+
+    deviceId = (cl_device_id) opencl_device->getId();
     algoLog.trace(QString("OpenCL device '%1' is selected").arg(opencl_device->getName()));
 
     const OpenCLHelper* openCLHelper = AppContext::getOpenCLGpuRegistry()->getOpenCLHelper();
@@ -203,14 +208,6 @@ void SmithWatermanAlgorithmOPENCL::launch(const SMatrix& sm, const QByteArray & 
     }
 
     algoLog.trace("Creating a context");
-    
-    //cl_platform_id platformX;
-    //cl_device_id deviceX;
-    //cl_context contextX;
-
-    //openCLHelper->clGetPlatformIDs_p(1, &platformX, NULL);
-    //openCLHelper->clGetDeviceIDs_p(platformX, CL_DEVICE_TYPE_GPU, 1, &deviceX, NULL);
-    //contextX = openCLHelper->clCreateContext_p(NULL, 1, &deviceX, NULL, NULL, NULL);
     
     clContext = openCLHelper->clCreateContext_p(0, clNumDevices, &deviceId, NULL, NULL, &err);
     if (hasOPENCLError(err, "cl::Context() failed")) return;
@@ -441,8 +438,10 @@ void SmithWatermanAlgorithmOPENCL::launch(const SMatrix& sm, const QByteArray & 
 
     //************end: set arguments****************
 
-    clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext, deviceId /*deviceX*/, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, &err);
-    if (hasOPENCLError(err, "cl::CommandQueue() failed ")) return;
+    clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext, deviceId /*deviceX*/, 0/*CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE*/, &err);
+    if (hasOPENCLError(err, "cl::CreateCommandQueue() failed ")) {
+        return;
+    }
 
     coreLog.details(QObject::tr("OPENCL: Running CL program"));
 
