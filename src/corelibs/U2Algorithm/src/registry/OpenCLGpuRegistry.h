@@ -32,8 +32,8 @@
 
 namespace U2 {
 
-typedef long OpenCLGpuId;
-typedef long OpenCLGpuContext;
+typedef long long OpenCLGpuId;
+typedef long long OpenCLGpuContext;
 
 #define OPENCL_GPU_REGISTRY_SETTINGS "/opencl_gpu_registry"
 //stores settings for concrete GPU. The key for appending - textual representation of OpenCLGpuId

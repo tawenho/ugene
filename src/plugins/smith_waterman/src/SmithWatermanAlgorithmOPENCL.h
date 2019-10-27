@@ -36,7 +36,7 @@ class SmithWatermanAlgorithmOPENCL : public SmithWatermanAlgorithm {
 public:
     typedef int ScoreType;
 
-    SmithWatermanAlgorithmOPENCL();
+    SmithWatermanAlgorithmOPENCL(QString _hardwareDeviceName = NULL);
     ~SmithWatermanAlgorithmOPENCL();
 
     virtual void launch(const SMatrix& m, const QByteArray & _patternSeq, const QByteArray & _searchSeq, int _gapOpen,
@@ -51,6 +51,8 @@ private:
     static int calcPartsNumber(int seqLibLength, int overlapLength);
     static int calcPartSeqSize(int seqLibLength, int overlapLength, int partsNumber);
     static int calcSizeRow(int partsNumber, int partSeqSize);
+
+    QString hardwareDeviceName;
 
     static int MAX_BLOCKS_NUMBER;
     static const int MAX_SHARED_VECTOR_LENGTH;

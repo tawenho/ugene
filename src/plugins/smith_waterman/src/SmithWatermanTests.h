@@ -93,6 +93,7 @@ private:
     QString searchSeqDocName;
     QString pathToSubst;
     QString impl;
+    QString hardwareDeviceName;
     int gapOpen;
     int gapExtension;
     float percentOfScore;

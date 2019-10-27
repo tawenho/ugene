@@ -42,6 +42,7 @@
 #define EXPECTED_RESULT_ATTR "expected_res"
 #define ENV_IMPL_ATTR "IMPL"
 #define IMPL_ATTR "impl"
+#define HARDWARE_DEVICE "hardware_device"
 
 using namespace std;
 namespace U2 {
@@ -329,6 +330,11 @@ void GTest_SmithWatermnanPerf::init(XMLTestFormat *tf, const QDomElement& el) {
         return;
     }
 
+    hardwareDeviceName = el.attribute(HARDWARE_DEVICE);
+    if (patternSeqDocName.isEmpty()) {
+        hardwareDeviceName = "__ANY_DEVICE__";
+    }
+
     pathToSubst = "smith_waterman2/blosum62.txt";
     gapOpen = -1;
     gapExtension = -1;
@@ -388,6 +394,7 @@ void GTest_SmithWatermnanPerf::prepare() {
     s.resultListener = NULL;
     s.resultFilter = 0;
     s.resultListener = new SmithWatermanResultListener();
+    s.hardwareDeviceName = hardwareDeviceName;
     if (0 != AppContext::getSmithWatermanTaskFactoryRegistry()->getFactory(impl)) {
         swAlgorithmTask = (Task *) AppContext::getSmithWatermanTaskFactoryRegistry()->getFactory(impl)->getTaskInstance(s, "test SW performance");
     } else {

@@ -92,6 +92,8 @@ struct SmithWatermanSettings {
                                 // to reference subsequences are to be included to algorithm
                                 // results in case of annotation result view
 
+    QString hardwareDeviceName;
+
     bool operator==(const SmithWatermanSettings& op) const {
         return  ptrn == op.ptrn &&
                 sqnc == op.sqnc &&

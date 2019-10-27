@@ -84,6 +84,7 @@ SWAlgorithmTask::SWAlgorithmTask(const SmithWatermanSettings& s,
         addTaskResource(TaskResourceUsage( RESOURCE_CUDA_GPU, 1, true /*prepareStage*/));
     } else if( SW_opencl == algType ) {
         addTaskResource(TaskResourceUsage( RESOURCE_OPENCL_GPU, 1, true /*prepareStage*/));
+        hardwareDeviceName = s.hardwareDeviceName;
     }
 
     setupTask(maxScore);
@@ -282,7 +283,7 @@ void SWAlgorithmTask::onRegion(SequenceWalkerSubtask* t, TaskStateInfo& ti) {
 #endif //SW2_BUILD_WITH_CUDA
     } else if (algType == SW_opencl) {
 #ifdef SW2_BUILD_WITH_OPENCL
-        sw = new SmithWatermanAlgorithmOPENCL;
+        sw = new SmithWatermanAlgorithmOPENCL(hardwareDeviceName);
 #else
         coreLog.error( "OPENCL was not enabled in this build" );
         return;
@@ -306,6 +307,10 @@ void SWAlgorithmTask::onRegion(SequenceWalkerSubtask* t, TaskStateInfo& ti) {
     QString algName;
     if (algType == SW_cuda) {
         algName = "CUDA";
+    } else if (algType == SW_sse2) {
+        algName = "SSE2";
+    } else if (algType == SW_opencl) {
+        algName = "OpenCL";
     } else {
         algName = "Classic";
     }

@@ -244,8 +244,8 @@ OpenCLSupportPlugin::OpenCLSupportError OpenCLSupportPlugin::obtainGpusInfo( QSt
 
             //create OpenCL model
             OpenCLGpuModel * openCLGpuModel = new OpenCLGpuModel( vendorName + " " + deviceName,
-                                                                  OpenCLGpuContext((long)deviceContext),
-                                                                  OpenCLGpuId((long)deviceId),
+                                                                  OpenCLGpuContext(deviceContext),
+                                                                  OpenCLGpuId(deviceId),
                                                                   (qint64)platformIDs.get()[i],
                                                                   globalMemSize,
                                                                   maxAllocateMemorySize,

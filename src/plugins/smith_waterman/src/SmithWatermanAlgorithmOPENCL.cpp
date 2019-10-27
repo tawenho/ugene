@@ -44,13 +44,13 @@ namespace U2 {
 int SmithWatermanAlgorithmOPENCL::MAX_BLOCKS_NUMBER = 0;
 const int SmithWatermanAlgorithmOPENCL::MAX_SHARED_VECTOR_LENGTH = 32;
 
-SmithWatermanAlgorithmOPENCL::SmithWatermanAlgorithmOPENCL()  :
+SmithWatermanAlgorithmOPENCL::SmithWatermanAlgorithmOPENCL(QString _hardwareDeviceName)  :
         clEvent(NULL), clKernel(NULL), clProgram(NULL),
         clCommandQueue(NULL), clContext(NULL), queryProfBuf(NULL),
         seqLibProfBuf(NULL), hDataMaxBuf(NULL), hDataUpBufTmp(NULL),
         hDataRecBufTmp(NULL), fDataUpBuf(NULL), directionsUpBufTmp(NULL),
         directionsRecBufTmp(NULL), directionsMaxBuf(NULL), directionsMatrix(NULL),
-        backtraceBegins(NULL)
+        backtraceBegins(NULL), hardwareDeviceName(_hardwareDeviceName)
 {}
 
 quint64 SmithWatermanAlgorithmOPENCL::estimateNeededGpuMemory(const SMatrix& sm, const QByteArray & _patternSeq,
@@ -177,7 +177,23 @@ void SmithWatermanAlgorithmOPENCL::launch(const SMatrix& sm, const QByteArray & 
     cl_int err = CL_SUCCESS;
 
     cl_uint clNumDevices = 1;
-    cl_device_id deviceId = (cl_device_id) AppContext::getOpenCLGpuRegistry()->getAnyEnabledGpu()->getId();
+    cl_device_id deviceId = NULL;
+    OpenCLGpuModel *opencl_device;
+    if (hardwareDeviceName == NULL) {
+        OpenCLGpuModel *gpu = AppContext::getOpenCLGpuRegistry()->getAnyEnabledGpu();
+        deviceId = (cl_device_id) gpu->getId();
+        opencl_device = gpu;
+    }
+    else {
+        QList<OpenCLGpuModel* > listGpus = AppContext::getOpenCLGpuRegistry()->getEnabledGpus();
+        for (OpenCLGpuModel *gpu : listGpus) {
+            if (gpu->getName().indexOf(hardwareDeviceName) >= 0) {
+                deviceId = (cl_device_id) gpu->getId();
+                opencl_device = gpu;
+            }
+        }
+    }
+    algoLog.trace(QString("OpenCL device '%1' is selected").arg(opencl_device->getName()));
 
     const OpenCLHelper* openCLHelper = AppContext::getOpenCLGpuRegistry()->getOpenCLHelper();
     SAFE_POINT(NULL != openCLHelper, "OpenCL support plugin does not loaded", );
@@ -187,7 +203,15 @@ void SmithWatermanAlgorithmOPENCL::launch(const SMatrix& sm, const QByteArray & 
     }
 
     algoLog.trace("Creating a context");
+    
+    //cl_platform_id platformX;
+    //cl_device_id deviceX;
+    //cl_context contextX;
 
+    //openCLHelper->clGetPlatformIDs_p(1, &platformX, NULL);
+    //openCLHelper->clGetDeviceIDs_p(platformX, CL_DEVICE_TYPE_GPU, 1, &deviceX, NULL);
+    //contextX = openCLHelper->clCreateContext_p(NULL, 1, &deviceX, NULL, NULL, NULL);
+    
     clContext = openCLHelper->clCreateContext_p(0, clNumDevices, &deviceId, NULL, NULL, &err);
     if (hasOPENCLError(err, "cl::Context() failed")) return;
 
@@ -417,7 +441,7 @@ void SmithWatermanAlgorithmOPENCL::launch(const SMatrix& sm, const QByteArray & 
 
     //************end: set arguments****************
 
-    clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext, deviceId, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, &err);
+    clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext, deviceId /*deviceX*/, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, &err);
     if (hasOPENCLError(err, "cl::CommandQueue() failed ")) return;
 
     coreLog.details(QObject::tr("OPENCL: Running CL program"));

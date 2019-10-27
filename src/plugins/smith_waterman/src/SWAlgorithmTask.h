@@ -81,6 +81,7 @@ private:
 
     CudaGpuModel * cudaGpu;
     OpenCLGpuModel * openClGpu;
+    QString hardwareDeviceName;
 };
 
 class SWResultsPostprocessingTask : public Task{
