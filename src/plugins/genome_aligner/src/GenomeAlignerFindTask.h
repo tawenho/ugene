@@ -98,6 +98,7 @@ public:
     bool absMismatches;
     bool bestMode;
     bool openCL;
+    QString openCLNameMask; // string mask gpu name, may be NULL if any enabled
     int minReadLength;
     int maxReadLength;
 

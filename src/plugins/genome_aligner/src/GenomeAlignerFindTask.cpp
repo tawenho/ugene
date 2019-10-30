@@ -318,8 +318,10 @@ void ShortReadAlignerOpenCL::run() {
             int length = dataBunch->bitValuesV.size();
             GA_CHECK_BREAK(length);
 
-            BinarySearchResult* binarySearchResults = index->bitMaskBinarySearchOpenCL(dataBunch->bitValuesV.constData(), dataBunch->bitValuesV.size(),
-                dataBunch->windowSizes.constData());
+            BinarySearchResult* binarySearchResults = index->bitMaskBinarySearchOpenCL(dataBunch->bitValuesV.constData(),
+                                                                                       dataBunch->bitValuesV.size(),
+                                                                                       dataBunch->windowSizes.constData(),
+                                                                                       alignContext->openCLNameMask);
             SAFE_POINT_EXT (NULL != binarySearchResults, {alignContext->listM.unlock(); setError("OpenCL binary find error");},);
 
             stateInfo.setProgress(stateInfo.getProgress() + 50/index->getPartCount());

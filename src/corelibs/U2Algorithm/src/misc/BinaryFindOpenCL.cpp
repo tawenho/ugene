@@ -39,10 +39,11 @@
 namespace U2 {
 
 BinaryFindOpenCL::BinaryFindOpenCL(const NumberType *_haystack,
-                           const int _haystackSize,
-                           const NumberType *_needles,
-                           const int _needlesSize,
-                           const int *_windowSizes) :
+                                   const int _haystackSize,
+                                   const NumberType *_needles,
+                                   const int _needlesSize,
+                                   const int *_windowSizes,
+                                   const QString gpuNameMask) :
         isError(false),
         haystack(_haystack),
         haystackSize(_haystackSize),
@@ -59,7 +60,8 @@ BinaryFindOpenCL::BinaryFindOpenCL(const NumberType *_haystack,
     buf_needlesArray = 0;
     buf_windowSizesArray = 0;
 
-    device = AppContext::getOpenCLGpuRegistry()->getAnyEnabledGpu();
+    device = AppContext::getOpenCLGpuRegistry()->getAnyEnabledGpu(gpuNameMask);
+
     deviceId = (cl_device_id) device->getId();
     clContext = (cl_context) device->getContext();
 
@@ -119,18 +121,47 @@ int BinaryFindOpenCL::initOpenCL() {
     cl_int err = CL_SUCCESS;
 
     // try creating a queue with profiling enabled if that's possible and without if not
-    clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext, deviceId, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE | CL_QUEUE_PROFILING_ENABLE, &err);
-    if(CL_INVALID_QUEUE_PROPERTIES == err) {
-        clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext, deviceId, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, &err);
+    static cl_command_queue_properties clQueueProperties = CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE
+            | CL_QUEUE_PROFILING_ENABLE;
+    clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext
+                                                          , deviceId
+                                                          , clQueueProperties
+                                                          , &err);
+    if(err != CL_SUCCESS) {
+        clQueueProperties = CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE;
+        clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext
+                                                              , deviceId
+                                                              , clQueueProperties
+                                                              , &err);
+        if(err != CL_SUCCESS) {
+            clQueueProperties = CL_QUEUE_PROFILING_ENABLE;
+            clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext
+                                                                  , deviceId
+                                                                  , clQueueProperties
+                                                                  , &err);
+            if(err != CL_SUCCESS) {
+                clQueueProperties = 0;
+                clCommandQueue = openCLHelper->clCreateCommandQueue_p(clContext
+                                                                      , deviceId
+                                                                      , clQueueProperties
+                                                                      , &err);
+            }
+        }
     }
-    if (hasOPENCLError(err, "clCommandQueue() failed ")) return err;
+    if (hasOPENCLError(err, "clCommandQueue() failed ")) {
+        return err;
+    }
 
     //open and read file contains OPENCL code
     clProgram = OpenCLUtils::createProgramByResource(clContext, deviceId, ":src/util_gpu/opencl/BinaryFind.cl", *openCLHelper, err);
-    if (hasOPENCLError(err, "createProgramByResource() failed")) return err;
+    if (hasOPENCLError(err, "createProgramByResource() failed")) {
+        return err;
+    }
 
     binaryFindKernel = openCLHelper->clCreateKernel_p(clProgram, "binarySearch_classic", &err);
-    if(hasOPENCLError(err, "clCreateKernel() binarySearch_classic failed")) return err;
+    if(hasOPENCLError(err, "clCreateKernel() binarySearch_classic failed")) {
+        return err;
+    }
 
     return err;
 }

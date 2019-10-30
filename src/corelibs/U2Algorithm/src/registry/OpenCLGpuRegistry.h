@@ -110,7 +110,7 @@ public:
     QList<OpenCLGpuModel*> getRegisteredGpus() const;
     QList<OpenCLGpuModel*> getEnabledGpus() const;
 
-    OpenCLGpuModel * getAnyEnabledGpu() const;
+    OpenCLGpuModel * getAnyEnabledGpu(const QString gpuNameMask = NULL) const;
 
     OpenCLGpuModel * acquireAnyReadyGpu();
 

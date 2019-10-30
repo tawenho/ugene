@@ -57,6 +57,7 @@ public:
     QString getIndexPath();
     static const QString OPTION_ALIGN_REVERSED;
     static const QString OPTION_OPENCL;
+    static const QString OPTION_OPENCL_NAME_MASK;
     static const QString OPTION_IF_ABS_MISMATCHES;
     static const QString OPTION_MISMATCHES;
     static const QString OPTION_PERCENTAGE_MISMATCHES;

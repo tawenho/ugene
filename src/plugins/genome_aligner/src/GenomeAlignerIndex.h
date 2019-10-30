@@ -48,7 +48,7 @@ public:
     void alignShortRead(SearchQuery *qu, BMType bitValue, int startPos, BinarySearchResult firstResult, AlignContext *settings, BMType bitFilter, int w);
     BinarySearchResult bitMaskBinarySearch(BMType bitValue, BMType bitFilter);
 #ifdef OPENCL_SUPPORT
-    BinarySearchResult *bitMaskBinarySearchOpenCL(const BMType *bitValues, int size, const int *windowSizes);
+    BinarySearchResult *bitMaskBinarySearchOpenCL(const BMType *bitValues, int size, const int *windowSizes, QString gpuNameMask = NULL);
 #endif
     const QString& getFirstSequenceObjectName() const {return firstSequenceObjectName;}
     int getNumberOfSequencesInIndex() const {return objCount;}

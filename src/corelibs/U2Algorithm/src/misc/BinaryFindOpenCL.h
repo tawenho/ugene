@@ -35,7 +35,12 @@ typedef cl_long NumberType;
 
 class U2ALGORITHM_EXPORT BinaryFindOpenCL {
 public:
-    BinaryFindOpenCL(const NumberType* _haystack, const int _haystackSize, const NumberType* _needles, const int _needlesSize, const int *_windowSizes);
+    BinaryFindOpenCL(const NumberType* _haystack,
+                     const int _haystackSize,
+                     const NumberType* _needles,
+                     const int _needlesSize,
+                     const int *_windowSizes,
+                     const QString gpuNameMask = NULL);
     ~BinaryFindOpenCL();
     NumberType* launch();
     bool hasError() {return isError;}

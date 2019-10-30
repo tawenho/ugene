@@ -363,7 +363,10 @@ signals:
 protected:
     /// Called by scheduler when subtask is finished.
     virtual QList<Task*> onSubTaskFinished(Task* subTask);
-    void setRunResources(const TaskResources& taskR) {assert(state <= State_Prepared); taskResources = taskR;}
+    void setRunResources(const TaskResources& taskR) {
+        assert(state <= State_Prepared);
+        taskResources = taskR;
+    }
 
     void setTaskName(const QString& taskName);
 
