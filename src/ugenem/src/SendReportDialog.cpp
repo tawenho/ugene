@@ -210,7 +210,10 @@ bool ReportSender::send(const QString &additionalInfo, const QString &dumpUrl) {
     multiPart->setParent(reply);
 
     loop.exec();
-    if (reply->error() != QNetworkReply::NoError) {
+    QNetworkReply::NetworkError er = reply->error();
+    if (er != QNetworkReply::NoError) {
+        QMessageBox mb(QMessageBox::NoIcon, "Error",  QString("Crash wasn't sent, error code %1").arg(er));
+        mb.exec();
         return false;
     }
 
