@@ -44,7 +44,8 @@ IOAdapter* GzippedLocalFileAdapterFactory::createIOAdapter() {
     return new ZlibAdapter(new LocalFileAdapter(this));
 }
 
-const quint64 LocalFileAdapter::BUF_SIZE = DocumentFormat::READ_BUFF_SIZE;
+const quint64 LocalFileAdapter::BUF_SIZE = 4194304; //4Mb optimal buffer size for reading from network drives
+
 
 LocalFileAdapter::LocalFileAdapter(LocalFileAdapterFactory* factory, QObject* o, bool b)
     : IOAdapter(factory, o), f(NULL), fileSize(0), bufferOptimization(b) {

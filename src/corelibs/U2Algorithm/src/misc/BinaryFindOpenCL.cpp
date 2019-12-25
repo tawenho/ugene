@@ -197,9 +197,26 @@ int BinaryFindOpenCL::createBuffers() {
     cl_int err = CL_SUCCESS;
 
     size_t usageGPUMem = 0;
-    err |= checkCreateBuffer("buf_windowSizesArray", buf_windowSizesArray, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(cl_int)*needlesSize, (void*)windowSizes, usageGPUMem);
-    err |= checkCreateBuffer("buf_needlesArray", buf_needlesArray, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(NumberType)*needlesSize, (void*)needles, usageGPUMem);
-    err |= checkCreateBuffer("buf_sortedHaystackArray", buf_sortedHaystackArray, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(NumberType)*haystackSize, (void*)haystack, usageGPUMem);
+    err |= checkCreateBuffer("buf_windowSizesArray",
+                             buf_windowSizesArray,
+                             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+                             sizeof(cl_int)*needlesSize,
+                             (void*)windowSizes,
+                             usageGPUMem);
+    SAFE_POINT(err == 0, "Creating OpenCL buffer error", err);
+    err |= checkCreateBuffer("buf_needlesArray",
+                             buf_needlesArray,
+                             CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+                             sizeof(NumberType)*needlesSize,
+                             (void*)needles,
+                             usageGPUMem);
+    SAFE_POINT(err == 0, "Creating OpenCL buffer error", err);
+    err |= checkCreateBuffer("buf_sortedHaystackArray",
+                             buf_sortedHaystackArray,
+                             CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+                             sizeof(NumberType)*haystackSize,
+                             (void*)haystack,
+                             usageGPUMem);
     SAFE_POINT(err == 0, "Creating OpenCL buffer error", err);
 
     algoLog.trace(QObject::tr("GPU memory usage: %1 Mb").arg(usageGPUMem / (1 << 20)));

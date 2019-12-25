@@ -34,10 +34,10 @@ public:
     virtual FormatCheckResult checkRawData(const QByteArray& rawData, const GUrl& = GUrl()) const;
 
 protected:
-    virtual DNASequence* loadSequence(IOAdapter* io, U2OpStatus& ti);
+    virtual DNASequence* loadSequence(IOAdapter* io, U2OpStatus& ti, const QByteArray& = NULL); // TODO: ichebyki
     virtual Document* loadDocument(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& fs, U2OpStatus& os);
     virtual FormatCheckResult checkRawTextData(const QByteArray& rawData, const GUrl& = GUrl()) const = 0;
-    virtual DNASequence* loadTextSequence(IOAdapter* io, U2OpStatus& ti);
+    virtual DNASequence* loadTextSequence(IOAdapter* io, U2OpStatus& ti, const QByteArray& = NULL); // TODO: ichebyki
     virtual Document* loadTextDocument(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& fs, U2OpStatus& os) = 0;
 
 };

@@ -392,9 +392,9 @@ void FastaFormat::storeEntry( IOAdapter *io, const QMap<GObjectType, QList<GObje
     saveSequence(io, seq, os);
 }
 
-DNASequence *FastaFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os) {
+DNASequence *FastaFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os, const QByteArray& qbuff) {
     try {
-        MemoryLocker l(os);
+        MemoryLocker memLocker(os);
         CHECK_OP(os, NULL);
 
         static QBitArray fastaHeaderStart = TextUtils::createBitMap(FASTA_HEADER_START_SYMBOL);
@@ -402,8 +402,9 @@ DNASequence *FastaFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os) {
 
         CHECK_EXT(io != NULL && io->isOpen(), os.setError(L10N::badArgument("IO adapter")), NULL);
 
-        QByteArray readBuff(READ_BUFF_SIZE+1, 0);
-        char* buff = readBuff.data();
+        //QByteArray readBuff(READ_BUFF_SIZE+1, 0);
+        int READ_BUFF_SIZE = qbuff.size() - 1;
+        char* buff = (char *)qbuff.constData(); // TODO: ichebyki
         qint64 len = 0;
 
         //skip leading whites if present
@@ -419,7 +420,7 @@ DNASequence *FastaFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os) {
         QByteArray headerLine = QByteArray(buff + 1, len-1).trimmed();
         CHECK_EXT(buff[0] == FASTA_HEADER_START_SYMBOL, os.setError(FastaFormat::tr("First line is not a FASTA header")), NULL);
 
-        l.tryAcquire(headerLine.capacity());
+        memLocker.tryAcquire(headerLine.capacity());
         CHECK_OP(os, NULL);
 
         //read sequence
@@ -432,10 +433,10 @@ DNASequence *FastaFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os) {
             CHECK_EXT(!io->hasError(), os.setError(io->errorString()), NULL);
             CHECK_BREAK(len > 0);
 
-            len = TextUtils::remove(buff, len, TextUtils::WHITES);
-            buff[len] = 0;
+            int len2 = TextUtils::remove(buff, len, TextUtils::WHITES);
+            buff[len2] = 0;
 
-            l.tryAcquire(len);
+            memLocker.tryAcquire(len);
             CHECK_OP(os, NULL);
 
             sequence.append(buff);

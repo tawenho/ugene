@@ -53,7 +53,7 @@ public:
 
 protected:
     virtual FormatCheckResult checkRawTextData(const QByteArray& rawData, const GUrl& = GUrl()) const;
-    virtual DNASequence *loadTextSequence(IOAdapter* io, U2OpStatus& os);
+    virtual DNASequence *loadTextSequence(IOAdapter* io, U2OpStatus& os, const QByteArray& = NULL); // TODO: ichebyki
     virtual Document* loadTextDocument(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& fs, U2OpStatus& os);
 };
 

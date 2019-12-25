@@ -65,7 +65,8 @@ public:
 
     void message(LogLevel level, const QString& msg, const QStringList& extraCategories);
 
-    void trace(const QString& msg)  { message(LogLevel_TRACE, msg);}
+    //void trace(const QString& msg)  { message(LogLevel_TRACE, msg);}
+    void trace(const QString& msg)  { }
 
     void details(const QString& msg)  { message(LogLevel_DETAILS, msg);}
 

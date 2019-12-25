@@ -120,8 +120,8 @@ defineTest( use_sse2 ) {
 
 # CUDA environment
 UGENE_NVCC         = nvcc
-UGENE_CUDA_LIB_DIR = $$(CUDA_LIB_PATH)
-UGENE_CUDA_INC_DIR = $$(CUDA_INC_PATH)
+UGENE_CUDA_LIB_DIR = $${CUDA_LIB_PATH}
+UGENE_CUDA_INC_DIR = $${CUDA_INC_PATH}
 
 # CUDA detection tools
 isEmpty(UGENE_CUDA_DETECTED) : UGENE_CUDA_DETECTED = 0

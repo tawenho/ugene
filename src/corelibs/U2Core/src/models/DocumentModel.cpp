@@ -52,7 +52,7 @@ const QString DocumentFormat::DBI_FOLDER_HINT("dbi_folder");
 const QString DocumentFormat::DEEP_COPY_OBJECT("deep_copy_object");
 const QString DocumentMimeData::MIME_TYPE("application/x-ugene-document-mime");
 
-const int DocumentFormat::READ_BUFF_SIZE = 4194304; //4Mb optimal buffer size for reading from network drives
+//const int DocumentFormat::READ_BUFF_SIZE = 4194304; // TODO: experiment, 4Mb optimal buffer size for reading from network drives
 
 DocumentFormat::DocumentFormat(QObject* p, const DocumentFormatId& _id, DocumentFormatFlags _flags, const QStringList& fileExts) : QObject(p),
 id(_id),
@@ -117,7 +117,7 @@ U2DbiRef DocumentFormat::fetchDbiRef(const QVariantMap &hints, U2OpStatus &os) c
     }
 }
 
-DNASequence* DocumentFormat::loadSequence(IOAdapter*, U2OpStatus& os) {
+DNASequence* DocumentFormat::loadSequence(IOAdapter*, U2OpStatus& os, const QByteArray& buff) { // TODO: ichebyki
     os.setError("This document format does not support streaming reading mode");
     return NULL;
 }

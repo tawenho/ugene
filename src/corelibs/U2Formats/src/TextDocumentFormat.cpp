@@ -29,9 +29,9 @@ namespace U2 {
 
 TextDocumentFormat::TextDocumentFormat(QObject* p, const DocumentFormatId& id, DocumentFormatFlags _flags, const QStringList& fileExts) : DocumentFormat(p, id, _flags, fileExts) {}
 
-DNASequence* TextDocumentFormat::loadSequence(IOAdapter* io, U2OpStatus& ti) {
+DNASequence* TextDocumentFormat::loadSequence(IOAdapter* io, U2OpStatus& ti, const QByteArray& buff) {
     io->setFormatMode(IOAdapter::TextMode);
-    DNASequence* seq = loadTextSequence(io, ti);
+    DNASequence* seq = loadTextSequence(io, ti, buff); // TODO: ichebyki
 
     return seq;
 }
@@ -53,7 +53,7 @@ Document* TextDocumentFormat::loadDocument(IOAdapter* io, const U2DbiRef& dbiRef
     return doc;
 }
 
-DNASequence* TextDocumentFormat::loadTextSequence(IOAdapter* io, U2OpStatus& ti) {
+DNASequence* TextDocumentFormat::loadTextSequence(IOAdapter* io, U2OpStatus& ti, const QByteArray& buff) { // TODO: ichebyki
     Q_UNUSED(io);
     ti.setError("This document format does not support streaming reading mode");
     return NULL;

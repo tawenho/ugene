@@ -315,6 +315,7 @@ void ShortReadAlignerOpenCL::run() {
             GA_CHECK_BREAK(dataBunch);
             algoLog.trace(QString("[%1] Got for aligning").arg(taskNo));
 
+
             int length = dataBunch->bitValuesV.size();
             GA_CHECK_BREAK(length);
 

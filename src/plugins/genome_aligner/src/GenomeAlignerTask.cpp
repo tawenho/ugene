@@ -275,8 +275,8 @@ QList<Task*> GenomeAlignerTask::onSubTaskFinished( Task* subTask ) {
         }
 
         readsCount += readTask->bunchSize;
-        taskLog.details(QString("GenomeAlignerTask: %1 short reads loaded and complemented in %2 sec, file progress %3%.")
-            .arg(readTask->bunchSize).arg(time / (double)1000000, 0, 'f', 2).arg(seqReader->getProgress()));
+        //taskLog.details(QString("GenomeAlignerTask: %1 short reads loaded and complemented in %2 sec, file progress %3%.")
+        //    .arg(readTask->bunchSize).arg(time / (double)1000000, 0, 'f', 2).arg(seqReader->getProgress()));
     }
 
     if (subTask == createIndexTask || subTask == findTask || subTask == writeTask) {
@@ -349,6 +349,9 @@ Task::ReportResult GenomeAlignerTask::report() {
     if (readsCount > 0) {
         taskLog.info(tr("The aligning is finished."));
         taskLog.info(tr("Whole working time = %1.").arg((GTimer::currentTimeMicros() - inf.startTime)/(1000*1000)));
+        taskLog.info(tr("Short reads count = %1").arg(readsCount));
+        taskLog.info(tr("Aligned reads count = %1").arg(aligned));
+        taskLog.info(tr("Align context best mode = %1").arg(alignContext.bestMode));
         taskLog.info(tr("%1% reads aligned.").arg(100*(double)aligned/readsCount));
         if (alignContext.bestMode) { // not parallel writing could be measured
             taskLog.info(tr("Short-reads loading time = %1").arg(shortreadLoadTime/(1000*1000)));

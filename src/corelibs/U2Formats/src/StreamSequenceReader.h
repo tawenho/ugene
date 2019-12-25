@@ -52,6 +52,8 @@ class U2FORMATS_EXPORT StreamSequenceReader : public QObject {
         ReaderContext() : io(NULL), format(NULL) {}
         IOAdapter* io;
         DocumentFormat* format;
+        QByteArray buff;
+        int READ_BUFF_SIZE = 4194304; // TODO: experimental 4Mb buffer size for reading from file
     };
     QList<ReaderContext> readers;
     int currentReaderIndex;

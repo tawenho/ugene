@@ -134,7 +134,7 @@ public:
     static const QString DBI_FOLDER_HINT;
     static const QString DEEP_COPY_OBJECT;
 
-    static const int READ_BUFF_SIZE;
+    static const int READ_BUFF_SIZE = 4194304; // TODO
 
     enum DocObjectOp {
         DocObjectOp_Add,
@@ -181,7 +181,7 @@ public:
         Loads single dna sequence in streaming mode.
         Note! this function is available only if format supports streaming mode and sequences as an stored data type
     */
-    virtual DNASequence* loadSequence( IOAdapter* io, U2OpStatus& ti);
+    virtual DNASequence* loadSequence( IOAdapter* io, U2OpStatus& ti, const QByteArray& buff = NULL); // TODO: ichebyki
 
     virtual void storeDocument(Document* d, U2OpStatus& os, IOAdapterFactory* io = NULL, const GUrl& newDocURL = GUrl());
 
