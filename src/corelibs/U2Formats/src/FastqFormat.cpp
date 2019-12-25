@@ -165,7 +165,7 @@ static bool checkFirstSymbol(const QByteArray& b, char symbol) {
 static void readSequence(U2OpStatus& os, IOAdapter *io, QByteArray &sequence, char readUntil = '+') {
 
     QByteArray buffArray(DocumentFormat::READ_BUFF_SIZE + 1, 0);
-    char* buff = buffArray.data();
+    char* buff = buffArray.data(); // TODO use same static buffer as in FastaFormat
 
     // reading until readUntil symbol i.e. quality or dna sequence name start, ignoring whitespace at the beginning and the end of lines
 
@@ -550,10 +550,10 @@ void FastqFormat::storeEntry(IOAdapter *io, const QMap< GObjectType, QList<GObje
     CHECK_OP(os, );
 }
 
-DNASequence *FastqFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os) {
+DNASequence *FastqFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os, const QByteArray& qbuff) {
     U2OpStatus2Log logOs;
     CHECK_EXT((io != NULL) && (io->isOpen() == true), os.setError(L10N::badArgument("IO adapter")), NULL);
-    QByteArray readBuff;
+    // QByteArray readBuff; // TODO remove
     QByteArray sequence;
     QByteArray qualityScores;
     int predictedSize = 1000;
@@ -561,7 +561,7 @@ DNASequence *FastqFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os) {
     qualityScores.reserve(predictedSize);
 
     //read header
-    readBuff.clear();
+    // readBuff.clear(); // TODO remove
     QString sequenceName = readSequenceName(os, io, '@');
     // check for eof while trying to read another FASTQ block
     CHECK(!io->isEof(), NULL);
