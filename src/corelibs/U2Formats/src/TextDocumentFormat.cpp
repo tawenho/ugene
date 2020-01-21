@@ -29,9 +29,9 @@ namespace U2 {
 
 TextDocumentFormat::TextDocumentFormat(QObject* p, const DocumentFormatId& id, DocumentFormatFlags _flags, const QStringList& fileExts) : DocumentFormat(p, id, _flags, fileExts) {}
 
-DNASequence* TextDocumentFormat::loadSequence(IOAdapter* io, U2OpStatus& ti, const QByteArray& buff) {
+DNASequence* TextDocumentFormat::loadSequence(IOAdapter* io, U2OpStatus& ti, const QByteArray& qbuff) {
     io->setFormatMode(IOAdapter::TextMode);
-    DNASequence* seq = loadTextSequence(io, ti, buff); // TODO: ichebyki
+    DNASequence* seq = loadTextSequence(io, ti, qbuff); // TODO: ichebyki
 
     return seq;
 }

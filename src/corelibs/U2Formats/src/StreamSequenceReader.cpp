@@ -58,7 +58,7 @@ bool StreamSequenceReader::hasNext() {
 
         while (currentReaderIndex < readers.count()) {
             ReaderContext ctx = readers.at(currentReaderIndex);
-            DNASequence *newSeq = ctx.format->loadSequence(ctx.io, taskInfo, ctx.buff); // TODO: ichebyki
+            DNASequence *newSeq = ctx.format->loadSequence(ctx.io, taskInfo, ctx.qbuff); // TODO: ichebyki
             if (taskInfo.hasError()) {
                 errorMessage = taskInfo.getError();
             }
@@ -106,7 +106,8 @@ bool StreamSequenceReader::init( const QList<GUrl>& urls ) {
             break;
         }
         ctx.io = io;
-        ctx.buff = QByteArray(ctx.READ_BUFF_SIZE + 1, 0);
+        ctx.qbuff = QByteArray(ctx.READ_BUFF_SIZE + 1, 0);
+        ctx.qbuff.reserve(ctx.READ_BUFF_SIZE + 1);
         readers.append(ctx);
     }
 

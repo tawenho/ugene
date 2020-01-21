@@ -132,29 +132,29 @@ FormatCheckResult FastqFormat::checkRawTextData(const QByteArray& rawData, const
     return res;
 }
 
-static QString readSequenceName(U2OpStatus& os, IOAdapter *io, char beginWith = '@') {
+static QString readSequenceName(U2OpStatus& os, IOAdapter *io, QByteArray& qbuff, char beginWith = '@') {
 
-    QByteArray buffArray(DocumentFormat::READ_BUFF_SIZE + 1, 0);
     { // read name string
-        char *buff = buffArray.data();
+        char *buff = qbuff.data(); // TODO: ichebyki
+        int  READ_BUFF_SIZE = qbuff.capacity() - 1;
         bool sequenceNameStartFound = false;
         int readedCount = 0;
         while ((readedCount == 0) && !io->isEof()) { // skip \ns
-            readedCount = io->readLine(buff, DocumentFormat::READ_BUFF_SIZE, &sequenceNameStartFound);
+            readedCount = io->readLine(buff, READ_BUFF_SIZE, &sequenceNameStartFound);
             CHECK_EXT(!io->hasError(), os.setError(io->errorString()), QString());
         }
         CHECK(io->isEof() == false, QString());
         CHECK_EXT(!io->hasError(), os.setError(io->errorString()), QString());
         CHECK_EXT(readedCount >= 0, os.setError(U2::FastqFormat::tr("Error while trying to find sequence name start")), "");
 
-        buffArray.resize(readedCount);
-        buffArray = buffArray.trimmed();
+        qbuff.resize(readedCount);
+        qbuff = qbuff.trimmed();
     }
 
-    const char *buff = buffArray.constData();
-    CHECK_EXT((buffArray.size() > 0) && (buff[0] == beginWith), os.setError(U2::FastqFormat::tr("Error while trying to find sequence name start")), "");
+    char *buff = qbuff.data();
+    CHECK_EXT((qbuff.size() > 0) && (buff[0] == beginWith), os.setError(U2::FastqFormat::tr("Error while trying to find sequence name start")), "");
 
-    QString sequenceName = QString::fromLatin1(buff+1, buffArray.size()-1);
+    QString sequenceName = QString::fromLatin1(buff+1, qbuff.size()-1);
     return sequenceName;
 }
 
@@ -162,20 +162,29 @@ static bool checkFirstSymbol(const QByteArray& b, char symbol) {
     return (b.size()>0 && b.data()[0] == symbol);
 }
 
-static void readSequence(U2OpStatus& os, IOAdapter *io, QByteArray &sequence, char readUntil = '+') {
+static void readSequence(U2OpStatus& os, IOAdapter *io, QByteArray &sequence, const QByteArray& qbuff, char readUntil = '+') {
+    char* buff;
+    int READ_BUFF_SIZE;
 
-    QByteArray buffArray(DocumentFormat::READ_BUFF_SIZE + 1, 0);
-    char* buff = buffArray.data(); // TODO use same static buffer as in FastaFormat
+     // TODO: ichebyki
+    if (qbuff == nullptr) {
+        QByteArray buffArray(DocumentFormat::READ_BUFF_SIZE + 1, 0);
+        buff = buffArray.data();
+        READ_BUFF_SIZE = DocumentFormat::READ_BUFF_SIZE;
+    } else {
+        buff = const_cast<char *>(qbuff.data());
+        READ_BUFF_SIZE = qbuff.capacity() - 1;
+    }
 
     // reading until readUntil symbol i.e. quality or dna sequence name start, ignoring whitespace at the beginning and the end of lines
 
     while (!io->isEof()) {
         bool eolnFound = false;
-        int readedCount = io->readUntil(buff, DocumentFormat::READ_BUFF_SIZE, TextUtils::LINE_BREAKS, IOAdapter::Term_Include, &eolnFound);
+        int readedCount = io->readUntil(buff, READ_BUFF_SIZE, TextUtils::LINE_BREAKS, IOAdapter::Term_Include, &eolnFound);
         CHECK_EXT(!io->hasError(), os.setError(io->errorString()), );
         CHECK_EXT(readedCount >= 0, os.setError(U2::FastqFormat::tr("Error while reading sequence")),);
 
-        QByteArray trimmed = QByteArray(buffArray.data(), readedCount);
+        QByteArray trimmed = QByteArray(buff, readedCount);
         trimmed = trimmed.trimmed();
 
         if (eolnFound && checkFirstSymbol(trimmed, readUntil)) { // read quality sequence name line, reverting back
@@ -249,6 +258,9 @@ static void load(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& hints
     Q_UNUSED(opBlock);
     writeLockReason.clear();
 
+    QByteArray qbuff;
+    qbuff.reserve(predictedSize);
+
     bool merge = gapSize!=-1;
     QByteArray sequence;
     QByteArray qualityScores;
@@ -276,7 +288,7 @@ static void load(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& hints
         U2OpStatus2Log warningOs;
 
         //read header
-        QString sequenceName = readSequenceName(warningOs, io, '@');
+        QString sequenceName = readSequenceName(warningOs, io, qbuff, '@'); // ichebyki
         // check for eof while trying to read another FASTQ block
         if (io->isEof()) {
             if (io->hasError()) {
@@ -321,7 +333,7 @@ static void load(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& hints
         }
 
         sequence.clear();
-        readSequence(warningOs, io, sequence);
+        readSequence(warningOs, io, qbuff, nullptr); // ichebyki
         if(errorLoggingBreak(warningOs, skippedLines, sequenceName)){
             U2OpStatusImpl seqOs;
             seqImporter.finalizeSequenceAndValidate(seqOs);
@@ -338,7 +350,7 @@ static void load(IOAdapter* io, const U2DbiRef& dbiRef, const QVariantMap& hints
             continue;
         }
 
-        QString qualSequenceName = readSequenceName(warningOs, io, '+');
+        QString qualSequenceName = readSequenceName(warningOs, io, qbuff, '+'); // ichebyki
         if (!qualSequenceName.isEmpty()) {
             if (sequenceName != qualSequenceName){
                 warningOs.setError(U2::FastqFormat::tr("Sequence name differs from quality scores name: %1 and %2").arg(sequenceName).arg(qualSequenceName));
@@ -553,7 +565,6 @@ void FastqFormat::storeEntry(IOAdapter *io, const QMap< GObjectType, QList<GObje
 DNASequence *FastqFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os, const QByteArray& qbuff) {
     U2OpStatus2Log logOs;
     CHECK_EXT((io != NULL) && (io->isOpen() == true), os.setError(L10N::badArgument("IO adapter")), NULL);
-    // QByteArray readBuff; // TODO remove
     QByteArray sequence;
     QByteArray qualityScores;
     int predictedSize = 1000;
@@ -561,17 +572,17 @@ DNASequence *FastqFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os, const 
     qualityScores.reserve(predictedSize);
 
     //read header
-    // readBuff.clear(); // TODO remove
-    QString sequenceName = readSequenceName(os, io, '@');
+    QString sequenceName = readSequenceName(os, io, (QByteArray &)qbuff, '@');
     // check for eof while trying to read another FASTQ block
     CHECK(!io->isEof(), NULL);
     CHECK_OP(os, new DNASequence());
 
     sequence.clear();
-    readSequence(logOs, io, sequence);
+    int qbuff_capacity = qbuff.capacity(); // ichebyki
+    readSequence(logOs, io, sequence, qbuff);
     CHECK_OP(logOs, new DNASequence());
 
-    QString qualSequenceName = readSequenceName(logOs, io, '+');
+    QString qualSequenceName = readSequenceName(logOs, io, (QByteArray &)qbuff, '+');
     CHECK_EXT(!io->hasError(), os.setError(io->errorString()), NULL);
     if (!qualSequenceName.isEmpty()) {
         CHECK_EXT(sequenceName == qualSequenceName, logOs.setError(U2::FastqFormat::tr("Not a valid FASTQ file, sequence name differs from quality scores name")), new DNASequence());
@@ -580,9 +591,12 @@ DNASequence *FastqFormat::loadTextSequence(IOAdapter* io, U2OpStatus& os, const 
     // read qualities
     qualityScores.clear();
     readQuality(logOs, io, qualityScores, sequence.size());
+
     CHECK_OP(logOs, new DNASequence());
 
-    CHECK_EXT(sequence.length() == qualityScores.length(), logOs.setError(U2::FastqFormat::tr("Not a valid FASTQ file. Bad quality scores: inconsistent size.")), new DNASequence());
+    int sequence_length = sequence.length();
+    int qualityScores_length = qualityScores.length();
+    CHECK_EXT(sequence_length == qualityScores_length, logOs.setError(U2::FastqFormat::tr("Not a valid FASTQ file. Bad quality scores: inconsistent size.")), new DNASequence());
 
     DNASequence *seq = new DNASequence(sequenceName, sequence);
     seq->quality = DNAQuality(qualityScores);
