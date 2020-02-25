@@ -38,7 +38,8 @@ public:
         PairwiseAlignment,
         TreeSettings,
         ExportConsensus,
-        Statistics
+        Statistics,
+        Search
     };
 
     enum AddRefMethod {

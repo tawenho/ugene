@@ -4350,6 +4350,15 @@ GUI_TEST_CLASS_DEFINITION(test_6684_1) {
                                                 << "Build dotplot...");
 }
 
+GUI_TEST_CLASS_DEFINITION(test_6691_1) {
+    GTFileDialog::openFile(os, dataDir + "samples/CLUSTALW", "COI.aln");
+    GTUtilsTaskTreeView::waitTaskFinished(os);
+    GTUtilsOptionPanelMsa::openTab(os, GTUtilsOptionPanelMsa::Search);
+}
+
+GUI_TEST_CLASS_DEFINITION(test_6691_2) {
+}
+
 GUI_TEST_CLASS_DEFINITION(test_6692) {
 
     // 1. Open "_common_data/scenarios/msa/ma.aln".

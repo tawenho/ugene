@@ -53,6 +53,7 @@ QMap<GTUtilsOptionPanelMsa::Tabs, QString> GTUtilsOptionPanelMsa::initNames() {
     result.insert(TreeSettings, "OP_MSA_ADD_TREE_WIDGET");
     result.insert(ExportConsensus, "OP_EXPORT_CONSENSUS");
     result.insert(Statistics, "OP_SEQ_STATISTICS_WIDGET");
+    result.insert(Search, "OP_MSA_FIND_PATTERN_WIDGET");
     return result;
 }
 
@@ -64,6 +65,7 @@ QMap<GTUtilsOptionPanelMsa::Tabs, QString> GTUtilsOptionPanelMsa::initInnerWidge
     result.insert(TreeSettings, "AddTreeWidget");
     result.insert(ExportConsensus, "ExportConsensusWidget");
     result.insert(Statistics, "SequenceStatisticsOptionsPanelTab");
+    result.insert(Search, "FindPatternMsaWidget");
     return result;
 }
 const QMap<GTUtilsOptionPanelMsa::Tabs, QString> GTUtilsOptionPanelMsa::tabsNames = initNames();
