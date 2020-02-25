@@ -80,8 +80,9 @@ QString Tokenizer::get() {
             if (len == 0 || len == -1) {
                 break;
             }
-
-            buff = tmp.left(len);
+            QByteArray buffQB(tmp.left(len));
+            QTextStream bufferStream(buffQB);
+            buff = bufferStream.read(len);
             buffStream.setString(&buff);
         }
 

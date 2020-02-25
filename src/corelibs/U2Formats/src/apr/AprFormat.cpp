@@ -64,6 +64,7 @@ static QString getLine(IOAdapter* io, char* buff, const QString& pattern, U2OpSt
         }
         QByteArray buffQB(buff);
         QTextStream bufferStream(buffQB);
+        bufferStream.setAutoDetectUnicode(true);
         line = bufferStream.readLine();
         if (line.contains(pattern)) {
             finishedReading = true;
