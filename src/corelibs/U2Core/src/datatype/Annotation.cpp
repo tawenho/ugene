@@ -548,18 +548,29 @@ QString Annotation::getQualifiersTip(const SharedAnnotationData &data, int maxRo
 
     if (NULL != seqObj && rows <= maxRows && (data->location->strand.isCompementary() || complTT != NULL) && canShowSeq) {
         QVector<U2Region> loc = data->location->regions;
-        std::stable_sort(loc.begin(), loc.end());
+        const bool isComplementaryStrand = data->location->strand.isCompementary();
+        if (isComplementaryStrand) {
+            std::stable_sort(loc.begin(), loc.end(), qGreater<U2Region>());
+        } else {
+            std::stable_sort(loc.begin(), loc.end());
+        }
+
         QString seqVal;
         QString aminoVal;
         bool complete = true;
         bool hasAnnotationOnJunctionPoint = seqObj->isCircular() && U1AnnotationUtils::isRegionsAroundJunctionPoint(loc, seqLen);
         if (hasAnnotationOnJunctionPoint) {
-            U2Region start = loc.takeFirst();
-            loc.push_back(start);
+            if (isComplementaryStrand) {
+                U2Region end = loc.takeLast();
+                loc.push_front(end);
+            } else {
+                U2Region start = loc.takeFirst();
+                loc.push_back(start);
+            }
         }
         QByteArray tripletBeginingBeforeJunctionPoint;
         for (int i = 0; i < loc.size(); i++) {
-            if (!hasAnnotationOnJunctionPoint || i != loc.size() - 1) {
+            if (!hasAnnotationOnJunctionPoint || i != (isComplementaryStrand ? 1 : loc.size() - 1)) {
                 if (!seqVal.isEmpty()) {
                     seqVal += "^";
                 }
@@ -574,15 +585,15 @@ QString Annotation::getQualifiersTip(const SharedAnnotationData &data, int maxRo
             if (currentRegionLength != r.length) {
                 complete = false;
             }
-            bool isAminoBeforeJunctionPoint = hasAnnotationOnJunctionPoint && i == loc.size() - 2;
-            bool isAminoAfterJunctionPoint = hasAnnotationOnJunctionPoint && i == loc.size() - 1;
-            bool isComlpementary = data->location->strand.isCompementary() && nullptr != complTT;
+            bool isAminoBeforeJunctionPoint = hasAnnotationOnJunctionPoint && i == (isComplementaryStrand ? 0 : loc.size() - 2);
+            bool isAminoAfterJunctionPoint = hasAnnotationOnJunctionPoint && i == (isComplementaryStrand ? 1 : loc.size() - 1);
+            bool isComlpementary = isComplementaryStrand && nullptr != complTT;
             QByteArray ba = seqObj->getSequenceData(U2Region((isComlpementary ? r.endPos() - currentRegionLength : r.startPos), currentRegionLength));
              if (isAminoBeforeJunctionPoint) {
                 tripletBeginingBeforeJunctionPoint = ba;
             } else {
                 if (isAminoAfterJunctionPoint) {
-                    ba.insert(0, tripletBeginingBeforeJunctionPoint);
+                    ba.insert(isComlpementary ? (ba.size()) : 0, tripletBeginingBeforeJunctionPoint);
                     tripletBeginingBeforeJunctionPoint.clear();
                 }
                 if (isComlpementary) {
