@@ -100,8 +100,13 @@ public:
     * Return true if the "Annotation Selection Data" argument contains two selected regions and two location IDs,
     * And if one of these regions has start point equals to zero, and another one has end pos equals to sequence length
     */
-    static bool isAnnotationAroundJunctionPoint(const Annotation* annotation, const qint64 sequenceLength);
-    static bool isRegionsAroundJunctionPoint(const QVector<U2Region>& regions, const qint64 sequenceLength);
+    static bool isAnnotationContainsJunctionPoint(const Annotation *annotation, const qint64 sequenceLength);
+    static bool isAnnotatiedRegionsContainJunctionPoint(const QVector<U2Region> &regions, const qint64 sequenceLength);
+
+    /**
+     * Returns a pair of merged regions: the second one was added to the first
+     */
+    static QPair<U2Region, U2Region> mergeAnnotatiedRegionsAroundJunctionPoint(QVector<U2Region> &regions, const qint64 sequenceLength);
 
     static char * applyLowerCaseRegions(char *seq, qint64 first, qint64 len, qint64 globalOffset, const QList<U2Region> &regs);
 

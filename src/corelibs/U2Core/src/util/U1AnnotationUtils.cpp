@@ -355,30 +355,33 @@ QList<U2Region> U1AnnotationUtils::getRelatedLowerCaseRegions(const U2SequenceOb
     return lowerCaseRegs;
 }
 
-bool U1AnnotationUtils::isAnnotationAroundJunctionPoint(const Annotation* annotation, const qint64 sequenceLength) {
-    return isRegionsAroundJunctionPoint(annotation->getRegions(), sequenceLength);
+bool U1AnnotationUtils::isAnnotationContainsJunctionPoint(const Annotation *annotation, const qint64 sequenceLength) {
+    return isAnnotatiedRegionsContainJunctionPoint(annotation->getRegions(), sequenceLength);
 }
 
-bool U1AnnotationUtils::isRegionsAroundJunctionPoint(const QVector<U2Region> &regions, const qint64 sequenceLength) {
-    CHECK(regions.size() > 1, false);
+bool U1AnnotationUtils::isAnnotatiedRegionsContainJunctionPoint(const QVector<U2Region> &regions, const qint64 sequenceLength) {
+    return mergeAnnotatiedRegionsAroundJunctionPoint(QVector<U2Region>(regions), sequenceLength) != QPair<U2Region, U2Region>();
+}
 
-    bool hasCorrectStart = false;
-    bool hasCorrectEnd = false;
-    foreach (const U2Region &reg, regions) {
-        if (reg.startPos == 0) {
-            hasCorrectStart = true;
-            continue;
-        }
-        const qint64 endPos = reg.endPos();
-        if (endPos == sequenceLength) {
-            hasCorrectEnd = true;
-            continue;
-        }
+QPair<U2Region, U2Region> U1AnnotationUtils::mergeAnnotatiedRegionsAroundJunctionPoint(QVector<U2Region> &regions, const qint64 sequenceLength) {
+    QPair<U2Region, U2Region> res;
+    CHECK(regions.size() > 1, res);
+
+    for (U2Region &reg : regions) {
+        CHECK_CONTINUE(reg.endPos() == sequenceLength);
+        CHECK_BREAK((regions.indexOf(reg) + 1) < regions.size());
+
+        U2Region &secondReg = regions.value(regions.indexOf(reg) + 1);
+        res.first = reg;
+        res.second = secondReg;
+        reg.length += secondReg.length;
+        regions.remove(regions.indexOf(reg) + 1);
+        break;
     }
-    bool hasJunctionPoint = hasCorrectStart && hasCorrectEnd;
 
-    return hasJunctionPoint;
+    return res;
 }
+
 
 char * U1AnnotationUtils::applyLowerCaseRegions(char *seq, qint64 first, qint64 len,
     qint64 globalOffset, const QList<U2Region> &regs)
