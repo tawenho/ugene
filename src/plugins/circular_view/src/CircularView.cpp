@@ -894,21 +894,19 @@ void CircularViewRenderArea::buildAnnotationItem(DrawAnnotationPass pass, Annota
     removeRegionsOutOfRange(location, seqLen);
 
     int yLevel = predefinedOrbit == -1 ? findOrbit(location, a) : predefinedOrbit;
-    QPair<U2Region, U2Region> mergedRegions = U1AnnotationUtils::mergeAnnotatiedRegionsAroundJunctionPoint(location, seqLen);
+    QList<RegionsPair> mergedRegions;
+    if (circularView->isCircularTopology()) {
+        mergedRegions = U1AnnotationUtils::mergeAnnotatiedRegionsAroundJunctionPoint(location, seqLen);
+    }
 
     QList<CircularAnnotationRegionItem *> regions;
-    foreach (const U2Region &r, location) {
-        int idx = aDataLocation.indexOf(r);
-        bool addJoinedRegion = false;
-        if (mergedRegions != QPair<U2Region, U2Region>()) {
-            idx = aDataLocation.indexOf(mergedRegions.first);
-            addJoinedRegion = true;
-        }
-        CircularAnnotationRegionItem *regItem = createAnnotationRegionItem(r, seqLen, yLevel, aData, idx);
-        if (regItem != NULL) {
+    foreach (const RegionsPair &pair, mergedRegions) {
+        int idx = aDataLocation.indexOf(pair.first);
+        CircularAnnotationRegionItem *regItem = createAnnotationRegionItem(U2Region(pair.first.startPos, pair.first.length + pair.second.length), seqLen, yLevel, aData, idx);
+        if (regItem != nullptr) {
             regions.append(regItem);
-            if (addJoinedRegion) {
-                regItem->setJoinedRegion(mergedRegions.second);
+            if (!pair.second.isEmpty()) {
+                regItem->setJoinedRegion(pair.second);
             }
         }
     }
@@ -1103,10 +1101,19 @@ void CircularViewRenderArea::buildAnnotationLabel(const QFont &font, Annotation 
     QVector<U2Region> location = aData->getRegions();
     removeRegionsOutOfRange(location, seqLen);
 
-    U1AnnotationUtils::mergeAnnotatiedRegionsAroundJunctionPoint(location, seqLen);
+    QList<RegionsPair> mergedRegions;
+    if (circularView->isCircularTopology()) {
+        mergedRegions = U1AnnotationUtils::mergeAnnotatiedRegionsAroundJunctionPoint(location, seqLen);
+    }
 
-    for (int r = 0; r < location.count(); r++) {
-        CircularAnnotationLabel *label = new CircularAnnotationLabel(a, location, isAutoAnnotation, r, seqLen, font, this);
+    int r = 0;
+    QVector<U2Region> newLocation;
+    foreach(const RegionsPair & pair, mergedRegions) {
+        newLocation.append(U2Region(pair.first.startPos, pair.first.length + pair.second.length));
+    }
+
+    for (int r = 0; r < newLocation.count(); r++) {
+        CircularAnnotationLabel *label = new CircularAnnotationLabel(a, newLocation, isAutoAnnotation, r, seqLen, font, this);
         labelList.append(label);
         CircularAnnotationRegionItem *ri = circItems[a]->getRegions()[r];
         label->setAnnRegion(ri);
