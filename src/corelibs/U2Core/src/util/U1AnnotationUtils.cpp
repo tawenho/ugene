@@ -359,11 +359,20 @@ QList<RegionsPair> U1AnnotationUtils::mergeAnnotatiedRegionsAroundJunctionPoint(
 
     for (int i = 0; i < regions.size(); i++) {
         const U2Region reg = regions[i];
-        CHECK_OPERATIONS(reg.endPos() == sequenceLength, result.append(RegionsPair(reg, U2Region())), continue);
-        CHECK_OPERATIONS((i + 1) < regions.size(), result.append(RegionsPair(reg, U2Region())), break);
+        if (reg.endPos() != sequenceLength) {
+            result.append(RegionsPair(reg, U2Region()));
+            continue;
+        }
+        if ((i + 1) >= regions.size()) {
+            result.append(RegionsPair(reg, U2Region()));
+            break;
+        }
 
         const U2Region secondReg = regions.value(i + 1);
-        CHECK_OPERATIONS(secondReg.startPos == 0, result.append(RegionsPair(reg, U2Region())), continue);
+        if (secondReg.startPos != 0) {
+            result.append(RegionsPair(reg, U2Region()));
+            continue;
+        }
 
         result.append(RegionsPair(reg, secondReg));
         i++;

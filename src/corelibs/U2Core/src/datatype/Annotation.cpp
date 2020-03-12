@@ -573,6 +573,9 @@ QString Annotation::getQualifiersTip(const SharedAnnotationData &data, int maxRo
             U2Region secondRegion;
             if (hasAnnotatiedRegionsContainJunctionPoint && !pair.second.isEmpty()) {
                 if (isComplementary) {
+                    /*
+                     * If the sequence is circular and the annotation is complementary the region from 0 to N should be shown first from N to 0 and the region from M to 'sequeceLength' should be shown second from 'sequeceLength' to M
+                     */
                     firstRegionLength = qMin<qint64>(pair.second.length, QUALIFIER_VALUE_CUT - seqVal.length());
                     if (firstRegionLength != pair.second.length) {
                         complete = false;
@@ -611,11 +614,11 @@ QString Annotation::getQualifiersTip(const SharedAnnotationData &data, int maxRo
                     TextUtils::reverse(second.data(), secondPartRegionLength);
                 }
             }
-            QByteArray ba = first + second;
-            seqVal += QString::fromLocal8Bit(ba.constData());
+            QByteArray resultSequenceTip = first + second;
+            seqVal += QString::fromLocal8Bit(resultSequenceTip);
             if (nullptr != aminoTT) {
-                const int aminoLen = aminoTT->translate(ba.data(), firstRegionLength + secondPartRegionLength);
-                aminoVal += QString::fromLocal8Bit(ba.data(), aminoLen);
+                const int aminoLen = aminoTT->translate(resultSequenceTip.data(), firstRegionLength + secondPartRegionLength);
+                aminoVal += QString::fromLocal8Bit(resultSequenceTip, aminoLen);
             }
             if (seqVal.length() >= QUALIFIER_VALUE_CUT) {
                 complete = complete && merged.last() == pair;
