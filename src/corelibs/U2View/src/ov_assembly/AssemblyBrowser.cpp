@@ -353,12 +353,24 @@ void AssemblyBrowser::sl_onPosChangeRequest(int pos) {
 void AssemblyBrowser::buildStaticMenu(QMenu* staticMenu) {
     U2OpStatusImpl os;
     if(model->hasReads(os)) {
-        staticMenu->addAction(zoomInAction);
-        staticMenu->addAction(zoomOutAction);
-        staticMenu->addAction(saveScreenShotAction);
-        staticMenu->addAction(exportToSamAction);
-        staticMenu->addAction(extractAssemblyRegionAction);
-        staticMenu->addAction(setReferenceAction);
+        QMenu *assembly = new QMenu(tr("Assembly"));
+        assembly->addAction(exportToSamAction);
+        assembly->addAction(extractAssemblyRegionAction);
+
+        QMenu *reference = new QMenu(tr("Reference"));
+        reference->addAction(setReferenceAction);
+        reference->addAction(ui->getReferenceArea()->getUnassociateReferenceAction());
+
+        QMenu *appearance = new QMenu(tr("Appearance"));
+        appearance->addAction(zoomInAction);
+        appearance->addAction(zoomOutAction);
+        appearance->addSeparator();
+        appearance->addAction(saveScreenShotAction);
+
+        staticMenu->addMenu(assembly);
+        staticMenu->addMenu(reference);
+        staticMenu->addMenu(appearance);
+        staticMenu->addSeparator();
     }
     GObjectView::buildStaticMenu(staticMenu);
     GUIUtils::disableEmptySubmenus(staticMenu);
@@ -688,7 +700,7 @@ void AssemblyBrowser::setupActions() {
     connect(setReferenceAction, SIGNAL(triggered()), SLOT(sl_setReference()));
 
     addAnnotationsAction = new QAction(QIcon(":core/images/add_annotations_to_reference.png"), tr("Add annotations to reference"), this);
-    addAnnotationsAction->setObjectName("setReferenceAction");
+    addAnnotationsAction->setObjectName("setAnnotationsToReferenceAction");
     connect(addAnnotationsAction, SIGNAL(triggered()), SLOT(sl_addAnnotations()));
 
     extractAssemblyRegionAction = new QAction(QIcon(":core/images/extract_assembly_region.png"), tr("Export assembly region"), this);
