@@ -52,12 +52,12 @@ private:
 
     static void getSysInfo(QString &name,
                            QString &version,
-                           QString &kernelType = QString("unknown"),
-                           QString &kernelVersion = QString("unknown"),
-                           QString &productVersion = QString("unknown"),
-                           QString &productType = QString("unknown"),
-                           QString &prettyProductName = QString("unknown"),
-                           QString &cpuArchitecture = QString("unknown"));
+                           QString &kernelType,
+                           QString &kernelVersion,
+                           QString &productVersion,
+                           QString &productType,
+                           QString &prettyProductName,
+                           QString &cpuArchitecture);
 
     static void getFirstLaunchInfo(bool &allVersions, bool &majorVersions);
     static bool enabled();
