@@ -151,15 +151,14 @@ bool CreateDesktopShortcutTask::createDesktopShortcut() {
     return true;
 #endif    // Q_OS_WIN
 }
+
 void CreateDesktopShortcutTask::run() {
     if (!runOnStartup) {
-        if (getAnswer() == Create) {
-            createDesktopShortcut();
-        }
+        createDesktopShortcut();
     }
 }
 
-CreateDesktopShortcutTask::Answer CreateDesktopShortcutTask::getAnswer() const {
+CreateDesktopShortcutTask::Answer CreateDesktopShortcutTask::getAnswer() {
     QMessageBox::StandardButton answer = QMessageBox::question(AppContext::getMainWindow()->getQMainWindow(),
         tr("Desktop shortcut"),
         tr("Create desktop shortcut?"));
