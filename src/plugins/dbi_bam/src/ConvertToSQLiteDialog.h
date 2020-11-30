@@ -24,6 +24,7 @@
 
 #include <QDialog>
 #include <QList>
+#include <QWaitCondition>
 
 #include <U2Core/GUrl.h>
 
@@ -46,6 +47,9 @@ public:
     QString getReferenceUrl() const;
     bool addToProject() const;
     void hideAddToProjectOption();
+
+    QWaitCondition *getWaitCondition() { return &waitCondition; }
+    QMutex *getWaitMutex() { return &waitMutex; }
 
 public slots:
     virtual void accept();
@@ -72,6 +76,9 @@ private:
     GUrl destinationUrl;
     GUrl sourceUrl;
     BAMInfo &bamInfo;
+
+    QWaitCondition waitCondition;
+    QMutex waitMutex;
 };
 
 }    // namespace BAM

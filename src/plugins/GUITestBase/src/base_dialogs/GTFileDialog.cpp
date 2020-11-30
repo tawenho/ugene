@@ -107,6 +107,7 @@ void GTFileDialogUtils::commonScenario() {
 
     } else {
         clickButton(button);
+        qCritical("**** %s:%d: 'GTFileDialogUtils::commonScenario()' button clicked, ending...", __FILE__, __LINE__);
     }
     GTGlobals::sleep(500);
 }
@@ -289,6 +290,7 @@ void GTFileDialogUtils::clickButton(Button btn) {
     case GTGlobals::UseMouse:
         GTGlobals::sleep(100);
         GTWidget::click(os, button_to_click);
+        qCritical("**** %s:%d: '%s' button was clicked", __FILE__, __LINE__, button[btn].toLocal8Bit().constData());
         break;
     default:
         break;
@@ -329,38 +331,59 @@ void GTFileDialogUtils::setViewMode(ViewMode v) {
 
 #define GT_METHOD_NAME "openFile"
 void GTFileDialog::openFile(GUITestOpStatus &os, const QString &path, const QString &fileName, Button button, GTGlobals::UseMethod m) {
+    qCritical("**** %s:%d: 'GTFileDialog::openFile' 1", __FILE__, __LINE__);
     bool isDirectApiMode = button == Open && qgetenv("UGENE_USE_DIRECT_API_TO_OPEN_FILES") == "1";
+    qCritical("**** %s:%d: 'GTFileDialog::openFile' 2", __FILE__, __LINE__);
     if (!isDirectApiMode) {
+        qCritical("**** %s:%d: 'GTFileDialog::openFile' 3", __FILE__, __LINE__);
         openFileWithDialog(os, path, fileName, button, m);
+        qCritical("**** %s:%d: 'openFileWithDialog' completed", __FILE__, __LINE__);
         return;
     }
+    qCritical("**** %s:%d: 'GTFileDialog::openFile' 4", __FILE__, __LINE__);
     class OpenFileScenario : public CustomScenario {
     public:
         OpenFileScenario(const QString &pathToFile)
             : pathToFile(pathToFile) {
+            qCritical("**** %s:%d: 'GTFileDialog::openFile' 11", __FILE__, __LINE__);
         }
         void run(HI::GUITestOpStatus &os) {
+            qCritical("**** %s:%d: 'GTFileDialog::openFile' 12", __FILE__, __LINE__);
             auto openFileTask = U2::AppContext::getProjectLoader()->openWithProjectTask(pathToFile);
+            qCritical("**** %s:%d: 'GTFileDialog::openFile' 13", __FILE__, __LINE__);
             if (openFileTask == nullptr) {
+                qCritical("**** %s:%d: 'GTFileDialog::openFile' 14", __FILE__, __LINE__);
                 os.setError("Failed to create open file task: " + pathToFile + ". Is the file already in the project?");
+                qCritical("**** %s:%d: 'GTFileDialog::openFile' 15", __FILE__, __LINE__);
                 return;
             }
+            qCritical("**** %s:%d: 'GTFileDialog::openFile' 16", __FILE__, __LINE__);
             U2::AppContext::getTaskScheduler()->registerTopLevelTask(openFileTask);
+            qCritical("**** %s:%d: 'GTFileDialog::openFile' 17", __FILE__, __LINE__);
         }
         QString pathToFile;
     };
+    qCritical("**** %s:%d: 'GTFileDialog::openFile' 5", __FILE__, __LINE__);
     GTThread::runInMainThread(os, new OpenFileScenario(path + "/" + fileName));
+    qCritical("**** %s:%d: 'GTFileDialog::openFile' 6", __FILE__, __LINE__);
     GTThread::waitForMainThread();
+    qCritical("**** %s:%d: 'GTFileDialog::openFile' 7", __FILE__, __LINE__);
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "openFileWithDialog"
 void GTFileDialog::openFileWithDialog(GUITestOpStatus &os, const QString &path, const QString &fileName, Button button, GTGlobals::UseMethod m) {
+    qCritical("**** %s:%d: 'openFileWithDialog' 1", __FILE__, __LINE__);
     auto utils = new GTFileDialogUtils(os, path, fileName, (GTFileDialogUtils::Button)button, m);
+    qCritical("**** %s:%d: 'openFileWithDialog' 2", __FILE__, __LINE__);
     GTUtilsDialog::waitForDialog(os, utils);
+    qCritical("**** %s:%d: 'openFileWithDialog' 3", __FILE__, __LINE__);
     utils->openFileDialog();
+    qCritical("**** %s:%d: 'openFileWithDialog' 4", __FILE__, __LINE__);
     GTThread::waitForMainThread();
+    qCritical("**** %s:%d: 'openFileWithDialog' 5", __FILE__, __LINE__);
     GTGlobals::sleep(100);
+    qCritical("**** %s:%d: 'openFileWithDialog' 6", __FILE__, __LINE__);
 }
 #undef GT_METHOD_NAME
 

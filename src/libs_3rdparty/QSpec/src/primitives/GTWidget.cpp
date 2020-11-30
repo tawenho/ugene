@@ -48,8 +48,7 @@ void GTWidget::click(GUITestOpStatus &os, QWidget *widget, Qt::MouseButton mouse
         }
     }
     QPoint globalPoint = widget->mapToGlobal(p);
-    GTMouseDriver::moveTo(globalPoint);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::click(globalPoint, mouseButton);
     GTThread::waitForMainThread();
 }
 #undef GT_METHOD_NAME

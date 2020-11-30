@@ -158,9 +158,9 @@ ExternalToolSupportPlugin::ExternalToolSupportPlugin()
 
     // python with modules
     etRegistry->registerEntry(new PythonSupport());
-    etRegistry->registerEntry(new PythonModuleDjangoSupport());
-    etRegistry->registerEntry(new PythonModuleNumpySupport());
-    etRegistry->registerEntry(new PythonModuleBioSupport());
+    //etRegistry->registerEntry(new PythonModuleDjangoSupport());
+    //etRegistry->registerEntry(new PythonModuleNumpySupport());
+    //etRegistry->registerEntry(new PythonModuleBioSupport());
 
     // Rscript with modules
     etRegistry->registerEntry(new RSupport());

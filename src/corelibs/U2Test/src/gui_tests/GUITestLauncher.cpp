@@ -366,20 +366,28 @@ QString GUITestLauncher::runTest(const QString &testName) {
 
 QString GUITestLauncher::runTestOnce(U2OpStatus &os, const QString &testName, int iteration, bool enableVideoRecording) {
     QProcessEnvironment environment = prepareTestRunEnvironment(testName, iteration);
+    const QStringList env = environment.toStringList();
+    foreach (QString v, env) {
+        qCritical("%s", v.toLocal8Bit().constData());
+    }
 
+    QString dir = QCoreApplication::applicationDirPath();
     QString path = QCoreApplication::applicationFilePath();
     QStringList arguments = getTestProcessArguments(testName);
 
     // ~QProcess is killing the process, will not return until the process is terminated.
     QProcess process;
     process.setProcessEnvironment(environment);
-    process.start(path, arguments);
-    qint64 processId = process.processId();
+    process.setWorkingDirectory(dir);
+    process.setProgram(path);
+    process.setArguments(arguments);
 
     QProcess screenRecorderProcess;
     if (enableVideoRecording) {
         screenRecorderProcess.start(getScreenRecorderString(testName));
     }
+    process.start();
+    qint64 processId = process.processId();
 
     bool isStarted = process.waitForStarted();
     if (!isStarted) {

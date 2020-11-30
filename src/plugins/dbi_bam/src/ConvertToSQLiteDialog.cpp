@@ -389,21 +389,25 @@ void ConvertToSQLiteDialog::accept() {
                                                BAMDbiPlugin::tr("Cancel"),
                                                2);
             switch (result) {
-            case 0: {
-                bool ok = QFile::remove(destinationUrl.getURLString());
-                if (!ok) {
-                    QMessageBox::critical(this, windowTitle(), BAMDbiPlugin::tr("Destination file '%1' cannot be removed").arg(destinationUrl.getURLString()));
-                    return;
+            case 0:
+                {
+                    bool ok = QFile::remove(destinationUrl.getURLString());
+                    if (!ok) {
+                        QMessageBox::critical(this, windowTitle(), BAMDbiPlugin::tr("Destination file '%1' cannot be removed").arg(destinationUrl.getURLString()));
+                        return;
+                    }
                 }
-            }
-                QDialog::accept();
+                //QDialog::accept();
+                QDialog::done(QDialog::Accepted);
                 break;
             case 1:
-                QDialog::accept();
+                //QDialog::accept();
+                QDialog::done(QDialog::Accepted);
                 break;
             }
         } else {
-            QDialog::accept();
+            //QDialog::accept();
+            QDialog::done(QDialog::Accepted);
         }
     }
 }

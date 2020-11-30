@@ -41,10 +41,12 @@ namespace HI {
 void GTMenuPrivate::clickMainMenuItem(GUITestOpStatus &os, const QStringList &itemPath, GTGlobals::UseMethod method, Qt::MatchFlag matchFlag) {
     GT_CHECK(itemPath.count() > 1, QString("Menu item path is too short: { %1 }").arg(itemPath.join(" -> ")));
     qWarning("clickMainMenuItem is going to click menu: '%s'", itemPath.join(" -> ").toLocal8Bit().constData());
+    qCritical("**** clickMainMenuItem is going to click menu: '%s'", itemPath.join(" -> ").toLocal8Bit().constData());
 
     QStringList cuttedItemPath = itemPath;
     const QString menuName = cuttedItemPath.takeFirst();
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, cuttedItemPath, method, matchFlag));
+    qCritical("**** clickMainMenuItem waits for dialog");
     showMainMenu(os, menuName, method);
 }
 #undef GT_METHOD_NAME
@@ -121,8 +123,7 @@ void GTMenuPrivate::showMainMenu(GUITestOpStatus &os, const QString &menuName, G
         pos = mainWindow->menuBar()->actionGeometry(menu).center();
         gPos = mainWindow->menuBar()->mapToGlobal(pos);
 
-        GTMouseDriver::moveTo(gPos);
-        GTMouseDriver::click();
+        GTMouseDriver::click(gPos);
         break;
 
     case GTGlobals::UseKey:
