@@ -88,6 +88,7 @@
 #include "GTUtilsWizard.h"
 #include "GTUtilsWorkflowDesigner.h"
 #include "primitives/GTMainWindow.h"
+
 #include "runnables/ugene/corelibs/U2Gui/AlignShortReadsDialogFiller.h"
 #include "runnables/ugene/corelibs/U2Gui/AppSettingsDialogFiller.h"
 #include "runnables/ugene/corelibs/U2Gui/DownloadRemoteFileDialogFiller.h"
@@ -106,6 +107,7 @@
 #include "runnables/ugene/plugins/enzymes/FindEnzymesDialogFiller.h"
 #include "runnables/ugene/plugins/external_tools/AlignToReferenceBlastDialogFiller.h"
 #include "runnables/ugene/plugins/external_tools/TrimmomaticDialogFiller.h"
+#include "runnables/ugene/plugins/workflow_designer/ConfigurationWizardFiller.h"
 #include "runnables/ugene/plugins/workflow_designer/CreateElementWithCommandLineToolFiller.h"
 #include "runnables/ugene/plugins/workflow_designer/StartupDialogFiller.h"
 #include "runnables/ugene/plugins/workflow_designer/WizardFiller.h"
@@ -938,6 +940,65 @@ GUI_TEST_CLASS_DEFINITION(test_6136) {
         QVector<U2Region> sel = GTUtilsSequenceView::getSelection(os);
         CHECK_SET_ERR(sel.size() == 1, QString("Unexpected selection primer annotation regions, expected: 1, current: %1").arg(sel.size()));
     }
+}
+
+GUI_TEST_CLASS_DEFINITION(test_6163_1) {
+    class IlluminaSEWizard : public WizardFiller {
+    public:
+        IlluminaSEWizard(HI::GUITestOpStatus &_os)
+            : WizardFiller(_os, "Illumina SE Reads De Novo Assembly Wizard") {
+        }
+
+        virtual void commonScenario() {
+            /*QWidget *dialog = QApplication::activeModalWidget();
+            CHECK_SET_ERR(dialog, "activeModalWidget is NULL");
+
+            QComboBox *combo = GTWidget::findExactWidget<QComboBox *>(os, "modeCombo", dialog);
+            CHECK_SET_ERR(combo->currentText() == runningMode, "running mode doesn't match");
+
+            combo = GTWidget::findExactWidget<QComboBox *>(os, "typeCombo", dialog);
+            CHECK_SET_ERR(combo->currentText() == datasetType, "type mode doesn't match");
+
+            QLineEdit *lineEdit = GTWidget::findExactWidget<QLineEdit *>(os, "kmerEdit", dialog);
+            CHECK_SET_ERR(lineEdit->text() == kmerSizes, "kmer doesn't match");
+
+            QSpinBox *spinbox = GTWidget::findExactWidget<QSpinBox *>(os, "memlimitSpin", dialog);
+            CHECK_SET_ERR(spinbox->text() == QString::number(memLimit), "memlimit doesn't match");
+
+            spinbox = GTWidget::findExactWidget<QSpinBox *>(os, "numThreadsSpinbox", dialog);
+            CHECK_SET_ERR(spinbox->text() == QString::number(numThreads), "threads doesn't match");
+
+            combo = GTWidget::findExactWidget<QComboBox *>(os, "libraryComboBox", dialog);
+            CHECK_SET_ERR(combo->currentText() == library, QString("library doesn't match, expected %1, actual:%2.").arg(library).arg(combo->currentText()));
+
+            GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Cancel);*/
+        }
+    };
+
+    GTUtilsDialog::waitForDialog(os, new ConfigurationWizardFiller(os,
+                                                                   "Configure De Novo Assembly Workflow",
+                                                                   QStringList() << "Illumina SE Reads"));
+    //GTUtilsDialog::waitForDialog(os, new IlluminaSEWizard(os));
+    GTMenu::clickMainMenuItem(os, QStringList() << "Tools"
+                                                << "NGS data analysis"
+                                                << "Reads de novo assembly (with SPAdes)...");
+
+    /*QWidget *dialog = QApplication::activeModalWidget();
+    CHECK_SET_ERR(dialog != nullptr, "activeModalWidget is NULL");*/
+
+
+    GTUtilsTaskTreeView::waitTaskFinished(os);
+
+}
+
+GUI_TEST_CLASS_DEFINITION(test_6163_2) {
+
+
+}
+
+GUI_TEST_CLASS_DEFINITION(test_6163_3) {
+
+
 }
 
 GUI_TEST_CLASS_DEFINITION(test_6167) {
