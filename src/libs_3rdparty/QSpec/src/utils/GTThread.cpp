@@ -19,7 +19,6 @@
  * MA 02110-1301, USA.
  */
 
-#include <QCoreApplication>
 #include <core/MainThreadRunnable.h>
 
 #include "GTGlobals.h"

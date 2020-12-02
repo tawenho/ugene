@@ -43,21 +43,13 @@ using namespace HI;
 const QString GTUtilsTaskTreeView::widgetName = DOCK_TASK_TREE_VIEW;
 
 void GTUtilsTaskTreeView::waitTaskFinished(HI::GUITestOpStatus &os, long timeoutMillis) {
-    qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d)' 1", __FILE__, __LINE__, (int)timeoutMillis);
     TaskScheduler *scheduler = AppContext::getTaskScheduler();
-    qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d)' 2", __FILE__, __LINE__, (int)timeoutMillis);
     for (int time = 0; time < timeoutMillis && !scheduler->getTopLevelTasks().isEmpty(); time += GT_OP_CHECK_MILLIS) {
-        qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d, time=%d)' 3", __FILE__, __LINE__, (int)timeoutMillis, time);
         GTGlobals::sleep(GT_OP_CHECK_MILLIS);
-        qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d, time=%d)' 4", __FILE__, __LINE__, (int)timeoutMillis, time);
     }
-    qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d)' 5", __FILE__, __LINE__, (int)timeoutMillis);
     if (!scheduler->getTopLevelTasks().isEmpty()) {
-        qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d)' 6", __FILE__, __LINE__, (int)timeoutMillis);
         os.setError(os.getError() + getTasksInfo(scheduler->getTopLevelTasks(), 0));
-        qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d)' 7", __FILE__, __LINE__, (int)timeoutMillis);
     }
-    qCritical("**** %s:%d: 'GTUtilsTaskTreeView::waitTaskFinished(timeout=%d)' 8", __FILE__, __LINE__, (int)timeoutMillis);
 }
 
 QString GTUtilsTaskTreeView::getTasksInfo(QList<Task *> tasks, int level) {

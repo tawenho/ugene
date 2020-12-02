@@ -41,14 +41,8 @@
 
 #define GUI_TEST_TIMEOUT_MILLIS 240000
 
-// Workaround for Mac
 #ifdef Q_OS_MAC
-#undef GUI_TEST_TIMEOUT_MILLIS
-#define GUI_TEST_TIMEOUT_MILLIS 480000
-#endif
-
-#ifdef Q_OS_MAC
-#    define NUMBER_OF_TEST_SUITES 8
+#    define NUMBER_OF_TEST_SUITES 4
 #elif defined(Q_OS_LINUX)
 #    define NUMBER_OF_TEST_SUITES 5
 #elif defined(Q_OS_WIN)
@@ -366,28 +360,20 @@ QString GUITestLauncher::runTest(const QString &testName) {
 
 QString GUITestLauncher::runTestOnce(U2OpStatus &os, const QString &testName, int iteration, bool enableVideoRecording) {
     QProcessEnvironment environment = prepareTestRunEnvironment(testName, iteration);
-    const QStringList env = environment.toStringList();
-    foreach (QString v, env) {
-        qCritical("%s", v.toLocal8Bit().constData());
-    }
 
-    QString dir = QCoreApplication::applicationDirPath();
     QString path = QCoreApplication::applicationFilePath();
     QStringList arguments = getTestProcessArguments(testName);
 
     // ~QProcess is killing the process, will not return until the process is terminated.
     QProcess process;
     process.setProcessEnvironment(environment);
-    process.setWorkingDirectory(dir);
-    process.setProgram(path);
-    process.setArguments(arguments);
+    process.start(path, arguments);
+    qint64 processId = process.processId();
 
     QProcess screenRecorderProcess;
     if (enableVideoRecording) {
         screenRecorderProcess.start(getScreenRecorderString(testName));
     }
-    process.start();
-    qint64 processId = process.processId();
 
     bool isStarted = process.waitForStarted();
     if (!isStarted) {

@@ -27,7 +27,6 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QTemporaryFile>
-#include <QWaitCondition>
 
 #include <U2Core/AddDocumentTask.h>
 #include <U2Core/AppContext.h>
@@ -241,17 +240,7 @@ void BAMImporterTask::initPrepareToImportTask() {
     if (useGui) {
         QObjectScopedPointer<ConvertToSQLiteDialog> convertDialog = new ConvertToSQLiteDialog(loadInfoTask->getSourceUrl(), loadInfoTask->getInfo(), loadInfoTask->isSam());
         convertDialog->hideAddToProjectOption();
-        int rc = QDialog::Rejected;
-
-        QWaitCondition *dialogWaitCondition = convertDialog->getWaitCondition();
-        QMutex *waitMutex = convertDialog->getWaitMutex();
-        //waitMutex->lock();
-        QThread *tt = new QThread( );
-        convertDialog->moveToThread(tt);
-        convertDialog->exec();
-        //dialogWaitCondition->wait(waitMutex);
-        //waitMutex->unlock();
-
+        const int rc = convertDialog->exec();
         CHECK_EXT(!convertDialog.isNull(), setError("NULL dialog"), );
 
         if (rc == QDialog::Accepted) {

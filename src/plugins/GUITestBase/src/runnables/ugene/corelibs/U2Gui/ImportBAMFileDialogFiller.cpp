@@ -28,7 +28,6 @@
 
 #include <QApplication>
 #include <QDialogButtonBox>
-#include <QMouseEvent>
 #include <QPushButton>
 
 namespace U2 {
@@ -54,7 +53,6 @@ ImportBAMFileFiller::ImportBAMFileFiller(HI::GUITestOpStatus &os, CustomScenario
 }
 
 void ImportBAMFileFiller::commonScenario() {
-    qCritical("**** %s:%d: 'ImportBAMFileFiller::commonScenario()' 1", __FILE__, __LINE__);
     QWidget *dialog = GTWidget::getActiveModalWidget(os);
     if (!referenceFolderPath.isEmpty()) {
         GTFileDialogUtils *ob = new GTFileDialogUtils(os, referenceFolderPath, referenceFileName);
@@ -62,23 +60,19 @@ void ImportBAMFileFiller::commonScenario() {
         GTWidget::click(os, GTWidget::findWidget(os, "refUrlButton", dialog));
     }
 
-    qCritical("**** %s:%d: 'ImportBAMFileFiller::commonScenario()' 2", __FILE__, __LINE__);
     if (!destinationUrl.isEmpty()) {
         QLineEdit *destinationUrlEdit = qobject_cast<QLineEdit *>(GTWidget::findWidget(os, "destinationUrlEdit", dialog));
         GT_CHECK(destinationUrlEdit, "destinationUrlEdit not found");
         GTLineEdit::setText(os, destinationUrlEdit, destinationUrl);
     }
 
-    qCritical("**** %s:%d: 'ImportBAMFileFiller::commonScenario()' 3", __FILE__, __LINE__);
     QCheckBox *importUnmapped = qobject_cast<QCheckBox *>(GTWidget::findWidget(os, "importUnmappedBox", dialog));
     GT_CHECK(importUnmapped, "ImportUnmappedReads checkbox is NULL");
     if (importUnmapped->isChecked() != importUnmappedReads) {
         GTCheckBox::setChecked(os, importUnmapped, importUnmapped);
     }
 
-    qCritical("**** %s:%d: 'ImportBAMFileFiller::commonScenario()' 4", __FILE__, __LINE__);
     GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);
-    qCritical("**** %s:%d: 'ImportBAMFileFiller::commonScenario()' 5", __FILE__, __LINE__);
 }
 
 #undef GT_METHOD_NAME

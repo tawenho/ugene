@@ -76,18 +76,12 @@ PopupChooserByText::PopupChooserByText(GUITestOpStatus &os, const QStringList &n
 
 #define GT_METHOD_NAME "commonScenario"
 void PopupChooserByText::commonScenario() {
-    qCritical("**** %s:%d: PopupChooserByText::commonScenario() started", __FILE__, __LINE__);
     QMenu *activePopupMenu = PopupChooser::getMenuPopup(os);
-    qCritical("**** %s:%d: PopupChooserByText::commonScenario() 1", __FILE__, __LINE__);
     if (namePath.isEmpty()) {
-        qCritical("**** %s:%d: PopupChooserByText::commonScenario() 2", __FILE__, __LINE__);
         PopupChooser::clickEsc(os);
-        qCritical("**** %s:%d: PopupChooserByText::commonScenario() 3", __FILE__, __LINE__);
         return;
     }
-    qCritical("**** %s:%d: PopupChooserByText::commonScenario() 4", __FILE__, __LINE__);
     GTMenu::clickMenuItemByText(os, activePopupMenu, namePath, useMethod, matchFlag);
-    qCritical("**** %s:%d: PopupChooserByText::commonScenario() ended", __FILE__, __LINE__);
 }
 #undef GT_METHOD_NAME
 #undef GT_CLASS_NAME

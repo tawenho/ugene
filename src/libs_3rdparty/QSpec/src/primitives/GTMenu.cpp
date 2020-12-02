@@ -277,19 +277,12 @@ void GTMenu::clickMenuItemPrivate(GUITestOpStatus &os, const QMenu *menu, const 
     GT_CHECK(menu != nullptr, "menu is NULL");
     GT_CHECK(!itemPath.isEmpty(), "itemPath is empty");
 
-    qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 1", __FILE__, __LINE__);
     foreach (QString itemName, itemPath) {
-        qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 2", __FILE__, __LINE__);
         GT_CHECK(menu != nullptr, "menu not found for item " + itemName);
-        qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 3", __FILE__, __LINE__);
         GTGlobals::sleep(500);
-        qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 4", __FILE__, __LINE__);
         QAction *action = clickMenuItem(os, menu, itemName, useMethod, byText, matchFlag);
-        qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 5", __FILE__, __LINE__);
         menu = action ? action->menu() : nullptr;
-        qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 6", __FILE__, __LINE__);
     }
-    qCritical("**** %s:%d: GTMenu::clickMenuItemPrivate 7", __FILE__, __LINE__);
 }
 #undef GT_METHOD_NAME
 
