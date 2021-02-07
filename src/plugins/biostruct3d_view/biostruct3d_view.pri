@@ -1,11 +1,5 @@
 defineTest( use_deprecated_view ) {
-    !macx: return (true);
-    equals(QT_MAJOR_VERSION, 5) : lessThan(QT_MINOR_VERSION, 4) {
-        return (true)
-    }
-    lessThan(QT_MAJOR_VERSION, 5) {
-        return (true)
-    }
+    win32: return (true);
     return (false)
 }
 
