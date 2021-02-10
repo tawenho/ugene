@@ -146,6 +146,7 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
 bool GTMouseDriver::press(Qt::MouseButton button) {
     bp |= button;
     QPoint mousePos = QCursor::pos();
+
     CGEventType eventType;
     CGMouseButton btn;
     if (button == Qt::LeftButton) {
@@ -163,7 +164,7 @@ bool GTMouseDriver::press(Qt::MouseButton button) {
     CGPoint pt = CGPointMake(mousePos.x(), mousePos.y());
     CGEventRef event = CGEventCreateMouseEvent(NULL, eventType, pt, btn);
     DRIVER_CHECK(event != NULL, "Can't create event");
-    CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
+    //CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
 
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
@@ -194,7 +195,7 @@ bool GTMouseDriver::release(Qt::MouseButton button) {
     CGPoint pt = CGPointMake(mousePos.x(), mousePos.y());
     CGEventRef event = CGEventCreateMouseEvent(NULL, eventType, pt, btn);
     DRIVER_CHECK(event != NULL, "Can't create event");
-    CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
+    //CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
 
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
