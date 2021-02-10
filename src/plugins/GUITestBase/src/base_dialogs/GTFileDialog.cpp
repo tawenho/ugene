@@ -101,11 +101,7 @@ void GTFileDialogUtils::commonScenario() {
     setViewMode(Detail);
     GTGlobals::sleep(300);
     selectFile();
-#ifdef Q_OS_MAC
-    GTGlobals::sleep(3900);
-#else
     GTGlobals::sleep(300);
-#endif
     if (method == GTGlobals::UseKey) {
         GTKeyboardDriver::keyClick(Qt::Key_Enter);
 
