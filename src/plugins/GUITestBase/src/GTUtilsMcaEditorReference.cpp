@@ -53,7 +53,7 @@ void GTUtilsMcaEditorReference::clickToPosition(HI::GUITestOpStatus &os, int pos
     GT_CHECK(referenceArea->rect().contains(positionCenter, false), QString("Position %1 is not visible").arg(position));
 
     GTMouseDriver::moveTo(referenceArea->mapToGlobal(positionCenter));
-    GTMouseDriver::click();
+    GTMouseDriver::click(referenceArea->mapToGlobal(positionCenter));
 }
 #undef GT_METHOD_NAME
 

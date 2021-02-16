@@ -44,11 +44,11 @@ void PrimerLibrarySelectorFiller::commonScenario() {
     int librarySize = GTUtilsPrimerLibrary::librarySize(os);
     int primerNumber = number == -1 ? librarySize - 1 : number;
     GTMouseDriver::moveTo(GTUtilsPrimerLibrary::getPrimerPoint(os, primerNumber));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPrimerLibrary::getPrimerPoint(os, primerNumber));
     CHECK_SET_ERR(okButton->isEnabled(), "the OK button is disabled, but is expected to be enabled");
 
     if (doubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(GTUtilsPrimerLibrary::getPrimerPoint(os, primerNumber));
     } else {
         GTWidget::click(os, okButton);
     }

@@ -172,7 +172,7 @@ QString GTUtilsSequenceView::getBeginOfSequenceAsString(HI::GUITestOpStatus &os,
 QString GTUtilsSequenceView::getEndOfSequenceAsString(HI::GUITestOpStatus &os, int length) {
     QWidget *mdiWindow = getActiveSequenceViewWindow(os);
     GTMouseDriver::moveTo(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
-    GTMouseDriver::click();
+    GTMouseDriver::click(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
 
     Runnable *filler = new SelectSequenceRegionDialogFiller(os, length, false);
     GTUtilsDialog::waitForDialog(os, filler);
@@ -205,7 +205,7 @@ int GTUtilsSequenceView::getLengthOfSequence(HI::GUITestOpStatus &os) {
     GTGlobals::sleep();
 
     GTMouseDriver::moveTo(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
-    GTMouseDriver::click();
+    GTMouseDriver::click(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
 
     int length = -1;
     GTUtilsDialog::waitForDialog(os, new SelectSequenceRegionDialogFiller(os, &length));
@@ -261,7 +261,7 @@ void GTUtilsSequenceView::openSequenceView(HI::GUITestOpStatus &os, const QStrin
 
     QPoint itemPos = GTUtilsProjectTreeView::getItemCenter(os, sequenceName);
     GTMouseDriver::moveTo(itemPos);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(itemPos, Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -273,7 +273,7 @@ void GTUtilsSequenceView::addSequenceView(HI::GUITestOpStatus &os, const QString
 
     QPoint itemPos = GTUtilsProjectTreeView::getItemCenter(os, sequenceName);
     GTMouseDriver::moveTo(itemPos);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(itemPos, Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -295,7 +295,7 @@ void GTUtilsSequenceView::clickMouseOnTheSafeSequenceViewArea(HI::GUITestOpStatu
     QWidget *panOrDetView = getPanOrDetView(os);
     GT_CHECK(panOrDetView != nullptr, "No pan or det-view found!");
     GTMouseDriver::moveTo(panOrDetView->mapToGlobal(panOrDetView->rect().center()));
-    GTMouseDriver::click();
+    GTMouseDriver::click(panOrDetView->mapToGlobal(panOrDetView->rect().center()));
 }
 #undef GT_METHOD_NAME
 
@@ -481,9 +481,9 @@ void GTUtilsSequenceView::clickAnnotationDet(HI::GUITestOpStatus &os, const QStr
     const QRect clickRect(x1, yRegion.startPos, x2 - x1, yRegion.length);
     GTMouseDriver::moveTo(renderArea->mapToGlobal(clickRect.center()));
     if (isDoubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(renderArea->mapToGlobal(clickRect.center()));
     } else {
-        GTMouseDriver::click(button);
+        GTMouseDriver::click(renderArea->mapToGlobal(clickRect.center()), button);
     }
 }
 #undef GT_METHOD_NAME
@@ -542,9 +542,9 @@ void GTUtilsSequenceView::clickAnnotationPan(HI::GUITestOpStatus &os, QString na
     const QRect annotationRect(x1, y.startPos, rw, y.length);
     GTMouseDriver::moveTo(pan->mapToGlobal(annotationRect.center()));
     if (isDoubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(pan->mapToGlobal(annotationRect.center()));
     } else {
-        GTMouseDriver::click(button);
+        GTMouseDriver::click(pan->mapToGlobal(annotationRect.center()), button);
     }
 }
 #undef GT_METHOD_NAME
@@ -590,7 +590,7 @@ void GTUtilsSequenceView::enableEditingMode(GUITestOpStatus &os, bool enable, in
         } else {
             const QPoint gp = detView->mapToGlobal(QPoint(10, detView->rect().height() - 5));
             GTMouseDriver::moveTo(gp);
-            GTMouseDriver::click();
+            GTMouseDriver::click(gp);
             GTGlobals::sleep(500);
             GTKeyboardDriver::keyClick(Qt::Key_Up);
             GTGlobals::sleep(200);
@@ -659,9 +659,9 @@ void GTUtilsSequenceView::setCursor(GUITestOpStatus &os, qint64 position, bool c
         GTMouseDriver::moveTo(renderArea->mapToGlobal(QPoint(coord, yPos)));
     }
     if (doubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(GTMouseDriver::getMousePosition());
     } else {
-        GTMouseDriver::click();
+        GTMouseDriver::click(GTMouseDriver::getMousePosition());
     }
 }
 #undef GT_METHOD_NAME
@@ -705,7 +705,7 @@ void GTUtilsSequenceView::clickOnDetView(HI::GUITestOpStatus &os) {
     GT_CHECK(mdiWindow != NULL, "MDI window == NULL");
 
     GTMouseDriver::moveTo(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
-    GTMouseDriver::click();
+    GTMouseDriver::click(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
 
     GTGlobals::sleep(500);
 }

@@ -202,7 +202,7 @@ void GTUtilsPhyTree::clickNode(HI::GUITestOpStatus &os, GraphicsButtonItem *node
     node->ensureVisible();
     GTThread::waitForMainThread();
     GTMouseDriver::moveTo(getGlobalCenterCoord(os, node));
-    GTMouseDriver::click();
+    GTMouseDriver::click(getGlobalCenterCoord(os, node));
 }
 #undef GT_METHOD_NAME
 
@@ -212,7 +212,7 @@ void GTUtilsPhyTree::doubleClickNode(HI::GUITestOpStatus &os, GraphicsButtonItem
     node->ensureVisible();
     GTThread::waitForMainThread();
     GTMouseDriver::moveTo(getGlobalCenterCoord(os, node));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(getGlobalCenterCoord(os, node));
     GTThread::waitForMainThread();
 }
 #undef GT_METHOD_NAME

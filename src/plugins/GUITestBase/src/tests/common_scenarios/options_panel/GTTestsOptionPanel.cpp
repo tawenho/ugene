@@ -240,10 +240,10 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
     QPoint point = GTMouseDriver::getMousePosition();
 
     GTMouseDriver::moveTo(point - QPoint(15, 0));    //move 15 pix left
-    GTMouseDriver::press();
+    GTMouseDriver::press(point - QPoint(15, 0));
 
     GTMouseDriver::moveTo(point + QPoint(80, 0));    //move 80 pix right
-    GTMouseDriver::release();
+    GTMouseDriver::release(point + QPoint(80, 0));
 
     GTThread::waitForMainThread();
 
@@ -304,7 +304,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
     GTUtilsDocument::checkDocument(os, "1.gb");
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 sequence"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 sequence"));
     GTGlobals::sleep();
 
     // 3. Press ctrl+f. Check focus. Find subsequence TA
@@ -344,7 +344,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_1) {
     }
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTGlobals::sleep();
 }

@@ -40,7 +40,7 @@ void GTListWidget::click(GUITestOpStatus &os, QListWidget *listWidget, const QSt
     QPoint p = QPoint(r.left() + 30, r.center().y());
     QPoint global = listWidget->viewport()->mapToGlobal(p);
     GTMouseDriver::moveTo(global);
-    GTMouseDriver::click(button);
+    GTMouseDriver::click(global, button);
     GTGlobals::sleep();
     GT_CHECK(true, "click method completed");
 }

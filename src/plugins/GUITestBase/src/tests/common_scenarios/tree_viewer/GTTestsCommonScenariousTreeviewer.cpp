@@ -168,7 +168,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
 
     //4. Remove document "COI.nwk" from project view.
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.nwk"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     GTGlobals::sleep(500);
@@ -179,7 +179,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     //5. Double click on COI object.
     //Expected state: MSA editor view window opens
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     //6. Click on "Build tree" button on toolbar
@@ -219,7 +219,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
     //4. Remove document "COI.nwk" from project view.
     //GTUtilsDialog::waitForDialog(os,new MessageBoxDialogFiller(os,QMessageBox::No));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.nwk"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     GTGlobals::sleep(500);
@@ -234,7 +234,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
     //Expected state: MSA editor view window opens
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
     GTGlobals::sleep(500);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     //6. Click on "Build tree" button on toolbar
     //Expected state: "Create Philogenetic Tree" dialog appears
@@ -277,7 +277,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
     //4. Remove document "COI.nwk" from project view.
     //GTUtilsDialog::waitForDialog(os,new MessageBoxDialogFiller(os,QMessageBox::No));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.nwk"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     GTGlobals::sleep(500);
@@ -291,7 +291,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
     //5. Double click on COI object.
     //Expected state: MSA editor view window opens
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     //6. Click on "Build tree" button on toolbar
@@ -682,7 +682,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
     QPoint p = GTUtilsBookmarksTreeView::getItemCenter(os, "Tree [COI.nwk]");
     GTMouseDriver::moveTo(p);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK, GTGlobals::UseMouse));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTKeyboardDriver::keyClick('a', Qt::ControlModifier);
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
@@ -693,7 +693,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
 
     p = GTUtilsBookmarksTreeView::getItemCenter(os, "start bookmark");
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     QWidget *treeView = GTWidget::findWidget(os, "treeView");
     CHECK_SET_ERR(treeView != NULL, "treeView not found");
@@ -729,8 +729,8 @@ GUI_TEST_CLASS_DEFINITION(test_0010) {
     GTUtilsDialog::waitForDialog(os, new BranchSettingsDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Branch Settings"));
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos();
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     globalCoord.setX(globalCoord.x() - 15);    // pick a branch coordinate
 
@@ -756,8 +756,8 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     //    2. Do context menu {Collapse} for any node
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Collapse"));
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos();
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTGlobals::sleep(500);
 
@@ -779,7 +779,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     //    3. Do context menu {Expand} for same
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Collapse"));
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     foreach (QGraphicsSimpleTextItem *item, branchList) {
         CHECK_SET_ERR(item->isVisible(), item->text() + " is not visible");
@@ -804,7 +804,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
 
     //    2. Do context menu {Collapse} for any node
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     QList<QGraphicsSimpleTextItem *> branchList;
@@ -825,7 +825,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
     //    3. Do context menu {Expand} for same
     GTMouseDriver::moveTo(globalCoord);
     GTGlobals::sleep(1000);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     foreach (QGraphicsSimpleTextItem *item, branchList) {
@@ -923,11 +923,11 @@ GUI_TEST_CLASS_DEFINITION(test_0012) {
     QPoint globalCoord = treeView->mapToGlobal(viewCord);
 
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     // TODO: Wait until is hovered.
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Swap Siblings"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     qreal finalW = 0;
     foreach (QGraphicsItem *item, lineList) {
@@ -969,10 +969,10 @@ GUI_TEST_CLASS_DEFINITION(test_0023) {
 
     // 5. Close the tree view
     GTUtilsMdi::click(os, GTGlobals::Close);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     optionsPanelWidget = GTWidget::findWidget(os, "OP_MSA_ADD_TREE_WIDGET");
@@ -1134,7 +1134,7 @@ GUI_TEST_CLASS_DEFINITION(test_0026) {
 
     //    3. Do the context menu command "Reroot tree".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Reroot tree"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -1166,7 +1166,7 @@ GUI_TEST_CLASS_DEFINITION(test_0027) {
 
     //    3. Do the context menu command "Swap siblings".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Swap Siblings"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -1201,7 +1201,7 @@ GUI_TEST_CLASS_DEFINITION(test_0028) {
 
     //    3. Do the context menu command "Swap siblings".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Swap Siblings"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -1233,7 +1233,7 @@ GUI_TEST_CLASS_DEFINITION(test_0029) {
 
     //    3. Do the context menu command "Reroot tree".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Reroot tree"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 

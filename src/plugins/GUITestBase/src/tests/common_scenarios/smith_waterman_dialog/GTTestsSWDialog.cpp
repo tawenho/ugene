@@ -81,7 +81,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
         GTUtilsDocument::checkDocument(os, expectedFileName);
 
         GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, expectedFileName.left(expectedFileName.length() - alignmentFileExtension.length())));
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClickCurPos();
         GTGlobals::sleep();
 
         const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -101,7 +101,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
             assert(0);
         }
         GTUtilsMdi::click(os, GTGlobals::Close);
-        GTMouseDriver::click();
+        GTMouseDriver::clickCurPos();
     }
 }
 
@@ -135,10 +135,10 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
 
     // 4. Close sequence view, then reopen it
     GTUtilsMdi::click(os, GTGlobals::Close);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "S"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(3000);
 
     // 5. Check names and count of annotations

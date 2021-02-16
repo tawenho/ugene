@@ -68,7 +68,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to BB.
@@ -79,7 +79,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
     GTUtilsDialog::waitForDialog(os, filler);
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -101,7 +101,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_1) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation B in annotation tree. Click F2. Change name to BB.
@@ -112,7 +112,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_1) {
     GTUtilsDialog::waitForDialog(os, filler);
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -125,7 +125,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_1) {
     GTUtilsDialog::waitForDialog(os, filler1);
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -147,7 +147,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_2) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to BB.
@@ -158,7 +158,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_2) {
     GTUtilsDialog::waitForDialog(os, filler);
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -171,7 +171,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_2) {
     GTUtilsDialog::waitForDialog(os, filler1);
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -193,7 +193,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -202,7 +202,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     Runnable *filler = new EditAnnotationFiller(os, "CC", "80 ..90");
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
     CHECK_SET_ERR(GTUtilsAnnotationsTreeView::findItem(os, "CC") != NULL, "Item CC not found in tree widget");
@@ -222,7 +222,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -231,7 +231,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
     Runnable *filler = new EditAnnotationFiller(os, "CC", "80 ..90");
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -242,7 +242,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
     Runnable *filler1 = new EditAnnotationFiller(os, "C", "80 ..90");
     GTUtilsDialog::waitForDialog(os, filler1);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -264,7 +264,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -273,7 +273,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
     Runnable *filler = new EditAnnotationFiller(os, "CC", "80 ..90");
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -284,7 +284,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
     Runnable *filler1 = new EditAnnotationFiller(os, "BB", "30 ..120");
     GTUtilsDialog::waitForDialog(os, filler1);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -306,7 +306,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -315,7 +315,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
     Runnable *filler = new EditAnnotationFiller(os, "C", "20 ..40");
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -338,7 +338,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_1) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -347,7 +347,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_1) {
     Runnable *filler = new EditAnnotationFiller(os, "C", "20 ..40");
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -360,7 +360,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_1) {
     Runnable *filler1 = new EditAnnotationFiller(os, "C", "10 ..90");
     GTUtilsDialog::waitForDialog(os, filler1);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -383,7 +383,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_2) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -391,7 +391,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_2) {
     Runnable *filler = new EditAnnotationFiller(os, "CC", "20 ..40");
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -403,7 +403,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_2) {
     Runnable *filler1 = new EditAnnotationFiller(os, "BB", "20 ..40");
     GTUtilsDialog::waitForDialog(os, filler1);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
@@ -425,7 +425,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -434,14 +434,14 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
     Runnable *filler = new EditAnnotationFiller(os, "C", "20 ..40", true);
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
     Runnable *checker = new EditAnnotationChecker(os, "", "complement(20..40)");
     GTUtilsDialog::waitForDialog(os, checker);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 }
@@ -458,7 +458,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_1) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -467,14 +467,14 @@ GUI_TEST_CLASS_DEFINITION(test_0004_1) {
     Runnable *filler = new EditAnnotationFiller(os, "CC", "20 ..40", true);
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
     Runnable *checker = new EditAnnotationChecker(os, "CC", "complement(20..40)");
     GTUtilsDialog::waitForDialog(os, checker);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 }
@@ -491,7 +491,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_2) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation C in annotation tree. Click F2. Change name to CC.
@@ -500,14 +500,14 @@ GUI_TEST_CLASS_DEFINITION(test_0004_2) {
     Runnable *filler = new EditAnnotationFiller(os, "B", "20 ..40", true);
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 
     Runnable *checker = new EditAnnotationChecker(os, "", "complement(20..40)");
     GTUtilsDialog::waitForDialog(os, checker);
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 }
@@ -538,7 +538,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
 
     //5. Select misc_feature annotation and press <DEL>
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep();
     //6. CHECK if misc_feature annotation is removed
@@ -575,7 +575,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005_1) {
 
     //5. Select misc_feature annotation and press <DEL>
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep();
     //6. CHECK if misc_feature annotation is removed
@@ -596,7 +596,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005_1) {
     QTreeWidgetItem *item1 = GTUtilsAnnotationsTreeView::findItem(os, "misc_feature_1");
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     GTGlobals::sleep();
@@ -641,12 +641,12 @@ GUI_TEST_CLASS_DEFINITION(test_0005_2) {
 
     //5. Select misc_feature annotation and press <DEL>
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep();
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep();
 
@@ -676,7 +676,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Check that menu item { Edit -> Annotation } is absent at popup menu of sequence view.
@@ -706,18 +706,18 @@ GUI_TEST_CLASS_DEFINITION(test_0006_1) {
 
     // 2. Open view for "1.gb"
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "1.gb"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     // 3. Select annotation B in annotation tree.
     QTreeWidgetItem *item = GTUtilsAnnotationsTreeView::findItem(os, "B_group  (0, 2)");
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     item = GTUtilsAnnotationsTreeView::findItem(os, "B");
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(100);
 
     // 4. Check that menu item { Edit -> Annotation } is enabled at popup menu of sequence view.
@@ -746,7 +746,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_2) {
     // 2. Select a group on annotations editor
     QTreeWidgetItem *item = GTUtilsAnnotationsTreeView::findItem(os, "CDS  (0, 4)");
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     // 3. Open context menu on sequence area
     // Expected state: { Edit -> Annotation } action is disabled

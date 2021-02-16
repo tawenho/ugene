@@ -59,7 +59,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     //  2. Create a bookmark
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK, GTGlobals::UseMouse));
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "NC_014267 sequence [NC_014267.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     //  3. Close project
@@ -77,12 +77,12 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
     // 2. Create a bookmark. Change: Create 2 bookmarks.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK, GTGlobals::UseMouse));
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "NC_014267 sequence [NC_014267.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK, GTGlobals::UseMouse));
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "NC_014267 sequence [NC_014267.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     // 3. Close project
@@ -100,13 +100,13 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
     // 2. Create a bookmark
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK, GTGlobals::UseMouse));
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "NC_014267 sequence [NC_014267.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     //2'. Change: Remove the bookmark
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_REMOVE_BOOKMARK, GTGlobals::UseMouse));
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "NC_014267 sequence [NC_014267.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     // 3. Close project

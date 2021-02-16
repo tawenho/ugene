@@ -71,7 +71,7 @@ void GTSpinBox::setValue(GUITestOpStatus &os, QSpinBox *spinBox, int v, GTGlobal
 
             GTMouseDriver::moveTo(spinBox->mapToGlobal(arrowPos));
             while (spinBox->value() != v) {
-                GTMouseDriver::click();
+                GTMouseDriver::click(spinBox->mapToGlobal(arrowPos));
                 GTGlobals::sleep(100);
             }
             break;

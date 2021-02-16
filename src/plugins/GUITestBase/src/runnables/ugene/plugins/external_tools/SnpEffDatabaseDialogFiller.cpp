@@ -71,7 +71,7 @@ void SnpEffDatabaseDialogFiller::commonScenario() {
         GT_CHECK(row != -1, QString("Genome %1 is not found in the table").arg(dbName));
 
         GTMouseDriver::moveTo(GTTableView::getCellPoint(os, table, row, 0));
-        GTMouseDriver::click();
+        GTMouseDriver::click(GTTableView::getCellPoint(os, table, row, 0));
 
         GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);
     } else {

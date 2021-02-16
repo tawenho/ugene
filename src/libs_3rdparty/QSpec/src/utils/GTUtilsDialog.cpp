@@ -401,11 +401,11 @@ void Filler::releaseMouseButtons() {
     Qt::MouseButtons buttons = QGuiApplication::mouseButtons();
 
     if (buttons | Qt::LeftButton) {
-        GTMouseDriver::release(Qt::LeftButton);
+        GTMouseDriver::release(GTMouseDriver::getMousePosition(), Qt::LeftButton);
     }
 
     if (buttons | Qt::RightButton) {
-        GTMouseDriver::release(Qt::RightButton);
+        GTMouseDriver::release(GTMouseDriver::getMousePosition(), Qt::RightButton);
     }
 }
 

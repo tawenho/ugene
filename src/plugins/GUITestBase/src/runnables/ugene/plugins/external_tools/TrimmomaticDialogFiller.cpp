@@ -78,7 +78,7 @@ void TrimmomaticDialogFiller::openDialog(HI::GUITestOpStatus &os, WorkflowProces
     GTUtilsWorkflowDesigner::click(os, trimmomaticElement);
     QTableView *table = GTWidget::findExactWidget<QTableView *>(os, "table");
     GTMouseDriver::moveTo(GTTableView::getCellPoint(os, table, 1, 1));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTTableView::getCellPoint(os, table, 1, 1));
     GTGlobals::sleep();
     GTWidget::click(os, GTWidget::findWidget(os, "trimmomaticPropertyToolButton", table));
     GTGlobals::sleep(500);

@@ -92,7 +92,7 @@ void ProjectTreeItemSelectorDialogFiller::commonScenario() {
             foreach (const QString &objectName, itemsToSelect.value(documentName)) {
                 QModelIndex objectIndex = GTUtilsProjectTreeView::findIndex(os, treeView, objectName, documentIndex, options);
                 GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, treeView, objectIndex));
-                GTMouseDriver::click();
+                GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, treeView, objectIndex));
                 if (!firstIsSelected && mode == Continuous) {
                     GTKeyboardDriver::keyPress(Qt::Key_Shift);
                     firstIsSelected = true;
@@ -100,7 +100,7 @@ void ProjectTreeItemSelectorDialogFiller::commonScenario() {
             }
         } else {
             GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, treeView, documentIndex));
-            GTMouseDriver::click();
+            GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, treeView, documentIndex));
         }
     }
 

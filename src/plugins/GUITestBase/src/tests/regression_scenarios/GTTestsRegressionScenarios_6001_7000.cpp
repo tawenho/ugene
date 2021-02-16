@@ -495,7 +495,7 @@ GUI_TEST_CLASS_DEFINITION(test_6045) {
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Ok, tr("Editing of \"comment\" annotation is not allowed!")));
     QTreeWidgetItem *item = GTUtilsAnnotationsTreeView::findItem(os, "comment");
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_F2);
     GTGlobals::sleep();
 }
@@ -847,7 +847,7 @@ GUI_TEST_CLASS_DEFINITION(test_6118) {
     GTUtilsDialog::waitForDialog(os, new DefaultDialogFiller(os, "TrimmomaticPropertyDialog", QDialogButtonBox::Ok, new Scenario()));
     QTableView *table = GTWidget::findExactWidget<QTableView *>(os, "table");
     GTMouseDriver::moveTo(GTTableView::getCellPoint(os, table, 1, 1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep();
     GTWidget::click(os, GTWidget::findWidget(os, "trimmomaticPropertyToolButton", table));
     GTGlobals::sleep(500);
@@ -888,7 +888,7 @@ GUI_TEST_CLASS_DEFINITION(test_6135) {
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
     ;
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::No));
 
@@ -1380,7 +1380,7 @@ GUI_TEST_CLASS_DEFINITION(test_6233) {
                     GTMouseDriver::moveTo(globalPos);
                     Qt::CursorShape shape = selectToolPackLabel->cursor().shape();
                     if (shape != Qt::ArrowCursor) {
-                        GTMouseDriver::click(Qt::RightButton);
+                        GTMouseDriver::clickCurPos(Qt::RightButton);
                         GTGlobals::sleep(200);
                         GTKeyboardDriver::keyClick(Qt::Key_Down);
                         GTGlobals::sleep(200);
@@ -1605,7 +1605,7 @@ GUI_TEST_CLASS_DEFINITION(test_6236) {
 
     //3. Set the input sequence file: "data/samples/Genbank/NC_014267.1.gb".
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(300);
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Genbank/NC_014267.1.gb");
 
@@ -1748,7 +1748,7 @@ GUI_TEST_CLASS_DEFINITION(test_6249_1) {
 
     //3. Set the input sequence files: "data\samples\FASTQ\eas.fastq" and "data\samples\Assembly\chrM.sam"
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read File URL(s)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTQ/eas.fastq");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Assembly/chrM.sam");
 
@@ -1772,13 +1772,13 @@ GUI_TEST_CLASS_DEFINITION(test_6249_2) {
 
     //3. Set the input sequence files: "data\samples\FASTQ\eas.fastq" and "data\samples\FASTQ\eas.fastq"
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read File URL(s)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTQ/eas.fastq");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Assembly/chrM.sam");
 
     //4. Set parameter "Output file" to any location
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "FastQC Quality Control"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", QDir(sandBoxDir).absolutePath() + "/test_6249_2_zzzz.html", GTUtilsWorkflowDesigner::textValue);
 
     //5. Run workflow, and check result files on dashboard
@@ -1803,7 +1803,7 @@ GUI_TEST_CLASS_DEFINITION(test_6249_3) {
 
     //3. Set the input sequence files: "data\samples\FASTQ\eas.fastq" and "data\samples\Assembly\chrM.sam"
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read File URL(s)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTQ/eas.fastq");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Assembly/chrM.sam");
 
@@ -3112,7 +3112,7 @@ GUI_TEST_CLASS_DEFINITION(test_6546) {
     // Hold Ctrl key (or Cmd on macOS) and click on a sequence name.
     GTUtilsMsaEditor::moveToSequenceName(os, "Montana_montana");
     GTKeyboardDriver::keyPress(Qt::Key_Control);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     const MSAEditor *msaEditor = GTUtilsMsaEditor::getEditor(os);
     const MaEditorSelection &selection = msaEditor->getSelection();
@@ -3133,7 +3133,7 @@ GUI_TEST_CLASS_DEFINITION(test_6546_1) {
     // Hold Ctrl key (or Cmd on macOS) and click on a sequence name.
     GTUtilsMsaEditor::moveToSequenceName(os, "Montana_montana");
     GTKeyboardDriver::keyPress(Qt::Key_Control);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     const MSAEditor *msaEditor = GTUtilsMsaEditor::getEditor(os);
     const MaEditorSelection &selection = msaEditor->getSelection();
@@ -3154,7 +3154,7 @@ GUI_TEST_CLASS_DEFINITION(test_6546_2) {
     // Hold Ctrl key (or Cmd on macOS) and click on a sequence name.
     GTUtilsMsaEditor::moveToSequenceName(os, "Montana_montana");
     GTKeyboardDriver::keyPress(Qt::Key_Control);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     const MSAEditor *msaEditor = GTUtilsMsaEditor::getEditor(os);
     const MaEditorSelection &selection = msaEditor->getSelection();
@@ -3175,7 +3175,7 @@ GUI_TEST_CLASS_DEFINITION(test_6546_3) {
     // Hold Ctrl key (or Cmd on macOS) and click on a sequence name.
     GTUtilsMsaEditor::moveToSequenceName(os, "Montana_montana");
     GTKeyboardDriver::keyPress(Qt::Key_Control);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     const MSAEditor *msaEditor = GTUtilsMsaEditor::getEditor(os);
     const MaEditorSelection &selection = msaEditor->getSelection();
@@ -4329,7 +4329,7 @@ GUI_TEST_CLASS_DEFINITION(test_6654) {
     GTFileDialog::openFile(os, dataDir + "samples/CLUSTALW", "COI.aln");
 
     GTUtilsMsaEditor::moveToSequenceName(os, "Roeseliana_roeseli");
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     const MSAEditor *msaEditor = GTUtilsMsaEditor::getEditor(os);
     const MaEditorSelection &selection = msaEditor->getSelection();
@@ -5537,7 +5537,7 @@ GUI_TEST_CLASS_DEFINITION(test_6742) {
                                                                               << "Custom schemes"
                                                                               << "Create new color scheme",
                                                             PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 }
 GUI_TEST_CLASS_DEFINITION(test_6746) {
@@ -5717,7 +5717,7 @@ GUI_TEST_CLASS_DEFINITION(test_6752) {
 
     // 3. Right-click on the last "Hetrodes_pupus_EF540832" sequence.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 18));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected result: the first sequence is selected only, the context menu is shown.
     GTUtilsMSAEditorSequenceArea::checkSelectedRect(os, QRect(0, 0, 604, 1));
@@ -6006,7 +6006,7 @@ GUI_TEST_CLASS_DEFINITION(test_6847) {
 
     QPoint editButtonPoint = GTMouseDriver::getMousePosition();
     GTMouseDriver::moveTo(editButtonPoint + QPoint(100, 0));    // Move mouse to the right into the sequence area.
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //3. Paste content with non-sequence characters
     //Expected state: log contains error message
@@ -6016,7 +6016,7 @@ GUI_TEST_CLASS_DEFINITION(test_6847) {
                                                                               << "Paste sequence"));
     MWMDIWindow *mdiWindow = AppContext::getMainWindow()->getMDIManager()->getActiveWindow();
     GTMouseDriver::moveTo(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsLog::checkContainsError(os, lt, "No sequences detected in the pasted content.");
     GTWidget::click(os, GTAction::button(os, editMode));
 }

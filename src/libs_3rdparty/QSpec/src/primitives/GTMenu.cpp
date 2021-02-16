@@ -64,7 +64,7 @@ QMenu *GTMenu::showMainMenu(GUITestOpStatus &os, const QString &menuName, GTGlob
         gPos = mainWindow->menuBar()->mapToGlobal(pos);
 
         GTMouseDriver::moveTo(gPos);
-        GTMouseDriver::click();
+        GTMouseDriver::click(gPos);
         break;
 
     case GTGlobals::UseKeyBoard:
@@ -247,12 +247,12 @@ QAction *GTMenu::clickMenuItem(GUITestOpStatus &os, const QMenu *menu, const QSt
         GTGlobals::sleep(200);
 
 #ifdef Q_OS_WIN
-        GTMouseDriver::click();
+        GTMouseDriver::click(actionPosition);
 #else
         QMenu *actionMenu = action->menu();
         bool isClickingSubMenu = actionMenu != nullptr;
         if (!isClickingSubMenu) {
-            GTMouseDriver::click();
+            GTMouseDriver::click(actionPosition);
         }
 #endif
         break;

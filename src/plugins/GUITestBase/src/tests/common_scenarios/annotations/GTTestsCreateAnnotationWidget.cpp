@@ -200,7 +200,7 @@ public:
 
     void run(HI::GUITestOpStatus &os) {
         GTGlobals::sleep(1000);
-        GTMouseDriver::release();
+        GTMouseDriver::releaseCurPos();
         QMenu *activePopupMenu = qobject_cast<QMenu *>(QApplication::activePopupWidget());
         CHECK_SET_ERR(NULL != activePopupMenu, "Active popup menu is NULL");
 
@@ -1913,7 +1913,7 @@ GUI_TEST_CLASS_DEFINITION(test_0031) {
                     //    5. Select "NC_001363 annotations" object.
                     const QModelIndex objectIndex = GTUtilsProjectTreeView::findIndex(os, treeView, "NC_001363 annotations", documentIndex);
                     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, treeView, objectIndex));
-                    GTMouseDriver::click();
+                    GTMouseDriver::clickCurPos();
 
                     GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);
                 }
@@ -2019,7 +2019,7 @@ GUI_TEST_CLASS_DEFINITION(test_0032) {
                     //    5. Select "NC_001363 annotations" object.
                     const QModelIndex objectIndex = GTUtilsProjectTreeView::findIndex(os, treeView, "NC_001363 annotations", documentIndex);
                     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, treeView, objectIndex));
-                    GTMouseDriver::click();
+                    GTMouseDriver::clickCurPos();
 
                     GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);
                 }
@@ -2121,7 +2121,7 @@ GUI_TEST_CLASS_DEFINITION(test_0033) {
             //    5. Select "NC_001363 annotations" object.
             const QModelIndex objectIndex = GTUtilsProjectTreeView::findIndex(os, treeView, "NC_001363 annotations", documentIndex);
             GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, treeView, objectIndex));
-            GTMouseDriver::click();
+            GTMouseDriver::clickCurPos();
 
             GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);
         }

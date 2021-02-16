@@ -225,7 +225,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
     //    2. Select some area in msa view and move it with mouse.
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(10, 10));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(5, 5));
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(15, 5));
 
     //    Expected state: while mouse button is pressed graph overview is blocked. On mouse release overview updating starts.
@@ -243,7 +243,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
     const QColor c = GTWidget::getColor(os, overviewGraph, point);
     CHECK_SET_ERR(c.name() == "#a0a0a4", "simple overview has wrong color. Expected: #a0a0a4, Found: " + c.name());
 
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
 }
 
@@ -262,7 +262,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
 
     //    2. Select one symbol.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(5, 5));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    3. Press Delete button and release it after a while.
     GTKeyboardDriver::keyPress(Qt::Key_Delete);
@@ -289,7 +289,7 @@ GUI_TEST_CLASS_DEFINITION(test_0010) {
 
     //    2. Select one symbol.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(5, 5));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    3. Press Delete button and release it after a while.
     GTKeyboardDriver::keyPress(Qt::Key_Space);

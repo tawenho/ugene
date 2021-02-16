@@ -110,7 +110,7 @@ void GTUtilsBookmarksTreeView::addBookmark(GUITestOpStatus &os, const QString &v
     Q_UNUSED(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK));
     GTMouseDriver::moveTo(getItemCenter(os, viewName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, viewName), Qt::RightButton);
     GTGlobals::sleep(500);
 
     if (!bookmarkName.isEmpty()) {
@@ -131,14 +131,14 @@ void GTUtilsBookmarksTreeView::deleteBookmark(GUITestOpStatus &os, const QString
 #define GT_METHOD_NAME "clickBookmark"
 void GTUtilsBookmarksTreeView::clickBookmark(GUITestOpStatus &os, const QString &bookmarkName) {
     GTMouseDriver::moveTo(getItemCenter(os, bookmarkName));
-    GTMouseDriver::click();
+    GTMouseDriver::click(getItemCenter(os, bookmarkName));
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "doubleClickBookmark"
 void GTUtilsBookmarksTreeView::doubleClickBookmark(GUITestOpStatus &os, const QString &bookmarkName) {
     GTMouseDriver::moveTo(getItemCenter(os, bookmarkName));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(getItemCenter(os, bookmarkName));
 }
 #undef GT_METHOD_NAME
 

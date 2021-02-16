@@ -144,7 +144,7 @@ void GTSequenceReadingModeDialogUtils::selectSaveDocument() {
         switch (GTSequenceReadingModeDialog::useMethod) {
         case GTGlobals::UseMouse:
             GTMouseDriver::moveTo(saveBox->mapToGlobal(QPoint(saveBox->rect().left() + 10, saveBox->rect().height() / 2)));
-            GTMouseDriver::click();
+            GTMouseDriver::clickCurPos();
             break;
 
         case GTGlobals::UseKey:
@@ -197,7 +197,7 @@ void GTSequenceReadingModeDialogUtils::changeSpinBoxValue(QSpinBox *sb, int val)
 
             GTMouseDriver::moveTo(sb->mapToGlobal(arrowPos));
             while (sb->value() != val) {
-                GTMouseDriver::click();
+                GTMouseDriver::clickCurPos();
                 GTGlobals::sleep(100);
             }
             break;

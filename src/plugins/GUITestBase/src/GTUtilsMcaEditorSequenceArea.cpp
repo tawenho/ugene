@@ -105,7 +105,7 @@ void GTUtilsMcaEditorSequenceArea::clickToPosition(GUITestOpStatus &os, const QP
     GT_CHECK(mcaSeqArea->rect().contains(positionCenter, false), "Position is not visible");
 
     GTMouseDriver::moveTo(mcaSeqArea->mapToGlobal(positionCenter));
-    GTMouseDriver::click();
+    GTMouseDriver::click(mcaSeqArea->mapToGlobal(positionCenter));
 }
 #undef GT_METHOD_NAME
 
@@ -161,7 +161,7 @@ void GTUtilsMcaEditorSequenceArea::clickCollapseTriangle(GUITestOpStatus &os, QS
     QPoint localCoord = QPoint(15, yPos);
     QPoint globalCoord = nameList->mapToGlobal(localCoord);
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click();
+    GTMouseDriver::click(globalCoord);
 }
 #undef GT_METHOD_NAME
 
@@ -196,7 +196,7 @@ void GTUtilsMcaEditorSequenceArea::callContextMenu(GUITestOpStatus &os, const QP
         GTWidget::click(os, getSequenceArea(os), Qt::RightButton);
     } else {
         moveTo(os, innerCoords);
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::click(GTMouseDriver::getMousePosition(), Qt::RightButton);
     }
 }
 #undef GT_METHOD_NAME
@@ -259,21 +259,22 @@ void GTUtilsMcaEditorSequenceArea::moveTheBorderBetweenAlignmentAndRead(HI::GUIT
 
     const QRect sequenceNameRect = GTUtilsMcaEditor::getReadNameRect(os, firstVisible);
     GTMouseDriver::moveTo(QPoint(sequenceNameRect.right() + 2, sequenceNameRect.center().y()));
-    GTMouseDriver::press(Qt::LeftButton);
+    GTMouseDriver::press(QPoint(sequenceNameRect.right() + 2, sequenceNameRect.center().y()), Qt::LeftButton);
     GTGlobals::sleep(1000);
     GTMouseDriver::moveTo(QPoint(sequenceNameRect.right() + 2 + shift, sequenceNameRect.center().y()));
-    GTMouseDriver::release(Qt::LeftButton);
+    GTMouseDriver::release(QPoint(sequenceNameRect.right() + 2 + shift, sequenceNameRect.center().y()), Qt::LeftButton);
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "dragAndDrop"
 void GTUtilsMcaEditorSequenceArea::dragAndDrop(HI::GUITestOpStatus & /*os*/, const QPoint p) {
-    GTMouseDriver::click();
+    QPoint currentPos = GTMouseDriver::getMousePosition();
+    GTMouseDriver::click(currentPos);
     GTGlobals::sleep(1000);
-    GTMouseDriver::press(Qt::LeftButton);
+    GTMouseDriver::press(currentPos, Qt::LeftButton);
     GTGlobals::sleep(1000);
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::release(Qt::LeftButton);
+    GTMouseDriver::release(p, Qt::LeftButton);
 }
 #undef GT_METHOD_NAME
 
@@ -327,7 +328,7 @@ QRect GTUtilsMcaEditorSequenceArea::getPositionRect(GUITestOpStatus &os, int row
 #define GT_METHOD_NAME "clickToReferencePositionCenter"
 void GTUtilsMcaEditorSequenceArea::clickToReferencePositionCenter(GUITestOpStatus &os, qint64 position, const QPoint &clickPointAdjustment) {
     moveCursorToReferencePositionCenter(os, position, clickPointAdjustment);
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTMouseDriver::getMousePosition());
 }
 #undef GT_METHOD_NAME
 

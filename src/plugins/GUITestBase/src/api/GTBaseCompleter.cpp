@@ -42,7 +42,7 @@ void GTBaseCompleter::click(HI::GUITestOpStatus &os, QWidget *widgetCompleterFor
     QRect itemRect = tree->visualItemRect(item);
     QPoint globalCenter = tree->mapToGlobal(itemRect.center());
     GTMouseDriver::moveTo(globalCenter);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 }
 #undef GT_METHOD_NAME
 

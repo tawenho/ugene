@@ -68,7 +68,7 @@ void GTUtilsMSAEditorSequenceArea::callContextMenu(GUITestOpStatus &os, const QP
         GTWidget::click(os, getSequenceArea(os), Qt::RightButton);
     } else {
         moveTo(os, innerCoords);
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::click(GTMouseDriver::getMousePosition(), Qt::RightButton);
     }
 }
 #undef GT_METHOD_NAME
@@ -149,7 +149,7 @@ void GTUtilsMSAEditorSequenceArea::cancelSelection(GUITestOpStatus & /*os*/) {
 #define GT_METHOD_NAME "click"
 void GTUtilsMSAEditorSequenceArea::click(GUITestOpStatus &os, const QPoint &screenMaPoint) {
     GTMouseDriver::moveTo(convertCoordinates(os, screenMaPoint));
-    GTMouseDriver::click();
+    GTMouseDriver::click(convertCoordinates(os, screenMaPoint));
 }
 #undef GT_METHOD_NAME
 
@@ -176,7 +176,7 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
         const QPoint bottomEdge(sliderSpaceRect.width() / 2, sliderSpaceRect.y() + sliderSpaceRect.height());
 
         GTMouseDriver::moveTo(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));
-        GTMouseDriver::click();
+        GTMouseDriver::click(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));
     }
 
     // scroll right
@@ -198,7 +198,7 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
             p = hBar->mapToGlobal(rightEdge) - QPoint(1, 0);
         }
         GTMouseDriver::moveTo(p);
-        GTMouseDriver::click();
+        GTMouseDriver::click(p);
     }
 
     SAFE_POINT(msaSeqArea->isVisible(position, false), "The position is still invisible after scrolling", );
@@ -223,7 +223,7 @@ void GTUtilsMSAEditorSequenceArea::scrollToBottom(GUITestOpStatus &os) {
         const QPoint bottomEdge(sliderSpaceRect.width() / 2 + 10, sliderSpaceRect.y() + sliderSpaceRect.height());
 
         GTMouseDriver::moveTo(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));
-        GTMouseDriver::click();
+        GTMouseDriver::click(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));
     }
 }
 #undef GT_METHOD_NAME
@@ -251,7 +251,7 @@ void GTUtilsMSAEditorSequenceArea::moveMouseToPosition(GUITestOpStatus &os, cons
 #define GT_METHOD_NAME "clickToPosition"
 void GTUtilsMSAEditorSequenceArea::clickToPosition(GUITestOpStatus &os, const QPoint &globalMaPosition) {
     GTUtilsMSAEditorSequenceArea::moveMouseToPosition(os, globalMaPosition);
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTMouseDriver::getMousePosition());
 }
 #undef GT_METHOD_NAME
 
@@ -337,7 +337,7 @@ void GTUtilsMSAEditorSequenceArea::clickCollapseTriangle(GUITestOpStatus &os, QS
     QPoint localCoord = QPoint(15, msaEditArea->getEditor()->getUI()->getRowHeightController()->getScreenYRegionByViewRowIndex(rowNum).startPos + 7);
     QPoint globalCoord = nameList->mapToGlobal(localCoord);
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click();
+    GTMouseDriver::click(globalCoord);
 }
 #undef GT_METHOD_NAME
 
@@ -557,7 +557,7 @@ void GTUtilsMSAEditorSequenceArea::selectColumnInConsensus(GUITestOpStatus &os, 
 
     const int posY = consArea->mapToGlobal(consArea->rect().center()).y();
     GTMouseDriver::moveTo(QPoint(posX, posY));
-    GTMouseDriver::click();
+    GTMouseDriver::click(QPoint(posX, posY));
 }
 #undef GT_METHOD_NAME
 
@@ -671,7 +671,7 @@ void GTUtilsMSAEditorSequenceArea::renameSequence(GUITestOpStatus &os, const QSt
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, newName, seqToRename, useCopyPaste));
     moveTo(os, QPoint(-10, num));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTMouseDriver::getMousePosition());
     GTGlobals::sleep(500);
 }
 #undef GT_METHOD_NAME
@@ -693,7 +693,7 @@ void GTUtilsMSAEditorSequenceArea::createColorScheme(GUITestOpStatus &os, const 
                                                                         << "Custom schemes"
                                                                         << "Create new color scheme"));
     GTUtilsDialog::waitForDialog(os, new NewColorSchemeCreator(os, colorSchemeName, al));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition(), Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 }
 #undef GT_METHOD_NAME
@@ -705,7 +705,7 @@ void GTUtilsMSAEditorSequenceArea::deleteColorScheme(GUITestOpStatus &os, const 
                                                                         << "Custom schemes"
                                                                         << "Create new color scheme"));
     GTUtilsDialog::waitForDialog(os, new NewColorSchemeCreator(os, colorSchemeName, NewColorSchemeCreator::nucl, NewColorSchemeCreator::Delete));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition(), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -799,7 +799,7 @@ void GTUtilsMSAEditorSequenceArea::expandSelectedRegion(GUITestOpStatus &os, con
 
     GTMouseDriver::moveTo(startPos);
     GTGlobals::sleep(500);
-    GTMouseDriver::press();
+    GTMouseDriver::press(startPos);
 
     QPoint endPos;
     switch (expandedBorder) {
@@ -822,7 +822,7 @@ void GTUtilsMSAEditorSequenceArea::expandSelectedRegion(GUITestOpStatus &os, con
     }
 
     GTMouseDriver::moveTo(endPos);
-    GTMouseDriver::release();
+    GTMouseDriver::release(endPos);
     GTGlobals::sleep(500);
 }
 #undef GT_METHOD_NAME

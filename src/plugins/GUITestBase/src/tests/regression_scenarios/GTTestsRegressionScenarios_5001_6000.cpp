@@ -531,11 +531,11 @@ GUI_TEST_CLASS_DEFINITION(test_5110) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, QString("NC_001363 features [murine.gb]")));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "CDS  (0, 4)"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     QList<QTreeWidgetItem *> items = GTUtilsAnnotationsTreeView::findItems(os, "CDS");
@@ -805,7 +805,7 @@ GUI_TEST_CLASS_DEFINITION(test_5220) {
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     GTUtilsOptionPanelMsa::openTab(os, GTUtilsOptionPanelMsa::PairwiseAlignment);
@@ -2652,7 +2652,7 @@ GUI_TEST_CLASS_DEFINITION(test_5638) {
     U2MsaListGapModel startGapModel = GTUtilsMsaEditor::getEditor(os)->getMaObject()->getGapModel();
 
     GTKeyboardDriver::keyPress(Qt::Key_Control);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     QPoint curPos = GTMouseDriver::getMousePosition();
     QPoint moveMouseTo(curPos.x() + 200, curPos.y());
     GTMouseDriver::moveTo(moveMouseTo);
@@ -2660,20 +2660,20 @@ GUI_TEST_CLASS_DEFINITION(test_5638) {
     GTGlobals::sleep();
     U2MsaListGapModel gapModel = GTUtilsMsaEditor::getEditor(os)->getMaObject()->getGapModel();
     if (gapModel.size() < 11) {
-        GTMouseDriver::release();
+        GTMouseDriver::releaseCurPos();
         GTKeyboardDriver::keyRelease(Qt::Key_Control);
         CHECK_SET_ERR(false, "Can't find selected sequence");
     }
 
     if (gapModel[10].size() != 1) {
-        GTMouseDriver::release();
+        GTMouseDriver::releaseCurPos();
         GTKeyboardDriver::keyRelease(Qt::Key_Control);
         CHECK_SET_ERR(false, QString("Unexpected selected sequence's gap model size, expected: 1, current: %1").arg(gapModel[10].size()));
     }
 
     // 4. Drag and drop selection to the left to the begining
     GTMouseDriver::moveTo(curPos);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTKeyboardDriver::keyRelease(Qt::Key_Control);
 
     GTGlobals::sleep();
@@ -2714,7 +2714,7 @@ GUI_TEST_CLASS_DEFINITION(test_5659) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(os, new Scenario()));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "source"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -3719,7 +3719,7 @@ GUI_TEST_CLASS_DEFINITION(test_5761) {
     QPoint moveMouseTo(curPos.x() + 140, curPos.y());
 
     //3. Press left button and move mouse to the right (add some gaps)
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(moveMouseTo);
     int i = 10;
     while (i != 0) {
@@ -3730,7 +3730,7 @@ GUI_TEST_CLASS_DEFINITION(test_5761) {
         i--;
         GTGlobals::sleep(300);
     }
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     QStringList errors = GTUtilsLog::getErrors(os, trace);
 
     //Expected: no errors in the log
@@ -4027,7 +4027,7 @@ GUI_TEST_CLASS_DEFINITION(test_5783) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(os, sandBoxDir + "ann_export_test_0011_1.gtf", ExportAnnotationsFiller::gtf, false, false, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
     GTUtilsLog::check(os, l);
 }
@@ -4391,7 +4391,7 @@ GUI_TEST_CLASS_DEFINITION(test_5815) {
     GTUtilsMsaEditor::moveToColumn(os, 13);
     QPoint p = GTMouseDriver::getMousePosition();
     GTMouseDriver::moveTo(QPoint(p.x() + 100, p.y()));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //Expected: no crash
 }
@@ -4939,7 +4939,7 @@ GUI_TEST_CLASS_DEFINITION(test_5948) {
                                                             PopupChecker::CheckOptions(PopupChecker::IsDisabled)));
     MWMDIWindow *mdiWindow = AppContext::getMainWindow()->getMDIManager()->getActiveWindow();
     GTMouseDriver::moveTo(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_5950) {
@@ -4954,7 +4954,7 @@ GUI_TEST_CLASS_DEFINITION(test_5950) {
 
     QPoint point = GTMouseDriver::getMousePosition();
     GTMouseDriver::moveTo(QPoint(point.x() + 100, point.y()));
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
 
     for (int i = 0; i < 2; i++) {
         for (int j = 1; j < 5; j++) {
@@ -4971,7 +4971,7 @@ GUI_TEST_CLASS_DEFINITION(test_5950) {
         }
     }
 
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
 }
 
 GUI_TEST_CLASS_DEFINITION(test_5970) {

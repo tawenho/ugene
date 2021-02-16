@@ -47,7 +47,7 @@ void GTRadioButton::click(GUITestOpStatus &os, QRadioButton *radioButton) {
     }
 
     GTMouseDriver::moveTo(buttonPos);
-    GTMouseDriver::click();
+    GTMouseDriver::click(buttonPos);
 }
 #undef GT_METHOD_NAME
 

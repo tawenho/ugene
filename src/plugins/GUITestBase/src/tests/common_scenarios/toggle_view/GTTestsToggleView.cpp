@@ -165,7 +165,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_4) {
     CHECK_SET_ERR(activeMDIWindow == nullptr, "there is active MDI window");
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se2"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     toolbar = GTWidget::findWidget(os, "views_tool_bar_se2");

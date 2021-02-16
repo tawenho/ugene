@@ -88,7 +88,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
     //    Expected state: messagebox "Script syntax check failed!" appears.
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "wd_scripting_test_0001"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new ScriptEditorDialogSyntaxChecker(os, "#$%not a script asdasd321 123", "Script syntax check failed!"));
     GTMenu::clickMainMenuItem(os, QStringList() << "Actions"
@@ -116,7 +116,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     //  3. Paste "#$%not a script asdasd321 123" at the script text area. Click "Check syntax" button
     //  Expected state: messagebox "Script syntax check failed!" appears.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write FASTA"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new ScriptEditorDialogFiller(os, "", "#$%not a script asdasd321 123", true, "Script syntax check failed! Line: 1, error: Expected `end of file'"));
     GTUtilsWorkflowDesigner::setParameterScripting(os, "output file", "user script");
@@ -139,14 +139,14 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
     GTUtilsDialog::waitAllFinished(os);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write FASTA"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new ScriptEditorDialogFiller(os, "", "url_out = url + \".result.fa\";"));
     GTUtilsWorkflowDesigner::setParameterScripting(os, "Output file", "user script", true);
     GTUtilsDialog::waitAllFinished(os);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTA/human_T1.fa");
     GTWidget::click(os, GTAction::button(os, "Run workflow"));
@@ -164,7 +164,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
                               GTGlobals::UseMouse);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "workflow_scripting_test_0004"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new ScriptEditorDialogFiller(os, "", "if(size(in_seq) >= 10000) {out_seq = in_seq;}"));
     GTMenu::clickMainMenuItem(os, QStringList() << "Actions"

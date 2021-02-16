@@ -428,7 +428,7 @@ void GTUtilsAnnotationsTreeView::createQualifier(HI::GUITestOpStatus &os, const 
                                                                         << "add_qualifier_action"));
     GTUtilsDialog::waitForDialog(os, new EditQualifierFiller(os, qualName, qualValue));
     GTMouseDriver::moveTo(getItemCenter(os, parentName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, parentName), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -438,7 +438,7 @@ void GTUtilsAnnotationsTreeView::selectItems(HI::GUITestOpStatus &os, const QStr
     // remove previous selection
     QPoint p = getItemCenter(os, items.first());
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(p);
     GTKeyboardDriver::keyPress(Qt::Key_Control);
 
     foreach (const QString &item, items) {
@@ -448,7 +448,7 @@ void GTUtilsAnnotationsTreeView::selectItems(HI::GUITestOpStatus &os, const QStr
         QTreeWidgetItem *treeItem = findItem(os, item);
         GT_CHECK_RESULT(treeItem != NULL, "Tree item is NULL", );
         if (!treeItem->isSelected()) {
-            GTMouseDriver::click();
+            GTMouseDriver::click(p);
         }
     }
     GTKeyboardDriver::keyRelease(Qt::Key_Control);
@@ -463,7 +463,7 @@ void GTUtilsAnnotationsTreeView::selectItems(HI::GUITestOpStatus &os, const QLis
     // remove previous selection
     QPoint p = GTTreeWidget::getItemCenter(os, items.first());
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(p);
     GTKeyboardDriver::keyPress(Qt::Key_Control);
 
     foreach (QTreeWidgetItem *item, items) {
@@ -472,7 +472,7 @@ void GTUtilsAnnotationsTreeView::selectItems(HI::GUITestOpStatus &os, const QLis
 
         GT_CHECK_RESULT(item != NULL, "Tree item is NULL", );
         if (!item->isSelected()) {
-            GTMouseDriver::click();
+            GTMouseDriver::click(p);
         }
     }
     GTKeyboardDriver::keyRelease(Qt::Key_Control);
@@ -490,9 +490,9 @@ void GTUtilsAnnotationsTreeView::clickItem(HI::GUITestOpStatus &os, const QStrin
     QPoint p = GTTreeWidget::getItemCenter(os, wgtItem);
     GTMouseDriver::moveTo(p);
     if (isDoubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(p);
     } else {
-        GTMouseDriver::click();
+        GTMouseDriver::click(p);
     }
     GTGlobals::sleep();
 }
@@ -528,14 +528,14 @@ void GTUtilsAnnotationsTreeView::deleteItem(HI::GUITestOpStatus &os, QTreeWidget
 #define GT_METHOD_NAME "callContextMenuOnItem"
 void GTUtilsAnnotationsTreeView::callContextMenuOnItem(HI::GUITestOpStatus &os, QTreeWidgetItem *item) {
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTTreeWidget::getItemCenter(os, item), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "callContextMenuOnItem"
 void GTUtilsAnnotationsTreeView::callContextMenuOnItem(HI::GUITestOpStatus &os, const QString &itemName) {
     GTMouseDriver::moveTo(getItemCenter(os, itemName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, itemName), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 

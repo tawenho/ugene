@@ -73,7 +73,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {    //DIFFERENCE: lock document is checked
     //4. lock document
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_DOCUMENT__LOCK));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //Expected state: Undo and redo buttons are disabled
     CHECK_SET_ERR(!undo->isEnabled(), "Undo button is enebled after locking document");
@@ -82,7 +82,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {    //DIFFERENCE: lock document is checked
     //5. Unlock document
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_DOCUMENT__UNLOCK));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //Expected state: undo and redo buttons are enebled and work properly
     CHECK_SET_ERR(undo->isEnabled(), "Undo button is disabled after unlocking document");
@@ -118,14 +118,14 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {    //DIFFERENCE: delete sequence is check
     //2. Delete 4-th sequence
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Roeseliana_roeseli", "Roeseliana_roeseli"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(500);
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     // Expected state: sequence deleted
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Montana_montana", "Montana_montana"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(500);
 
     //3. undo deletion
@@ -137,7 +137,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {    //DIFFERENCE: delete sequence is check
     //Expected state: deletion undone
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Roeseliana_roeseli", "Roeseliana_roeseli"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(500);
 
     //4. Redo delition
@@ -146,7 +146,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {    //DIFFERENCE: delete sequence is check
     //Expected state: delition is redone
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Montana_montana", "Montana_montana"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(500);
 }
 
@@ -165,7 +165,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {    //DIFFERENCE: add sequence is checked
     CHECK_SET_ERR(GTUtilsMSAEditorSequenceArea::getNameList(os).contains("raw"), "raw is not added");
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 18));
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "raw", "raw"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     //3. undo adding
     QAbstractButton *undo = GTAction::button(os, "msa_action_undo");
@@ -184,7 +184,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {    //DIFFERENCE: add sequence is checked
     CHECK_SET_ERR(GTUtilsMSAEditorSequenceArea::getNameList(os).contains("raw"), "Adding raw is not redone");
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 18));
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "raw", "raw"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0004) {    //DIFFERENCE: add sequence is checked
@@ -261,7 +261,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {    //undo replace_selected_rows_with_reve
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 2));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> CAA
     GTGlobals::sleep(500);
@@ -327,7 +327,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_1) {    //undo replace_selected_rows_with_re
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 2));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> GTT
     GTGlobals::sleep(500);
@@ -394,7 +394,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_2) {
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 2));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> AAC
     GTGlobals::sleep(500);
@@ -619,7 +619,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
     //rename msa
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Rename"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "ma2_gap_col"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTKeyboardDriver::keySequence("some_name");
     GTKeyboardDriver::keyClick(Qt::Key_Enter);
 

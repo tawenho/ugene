@@ -209,9 +209,9 @@ void GTUtilsMsaEditor::replaceSequence(GUITestOpStatus &os, const QString &seque
     const QPoint dragTo = getSequenceNameRect(os, targetSequenceName).center();
 
     GTMouseDriver::moveTo(dragFrom);
-    GTMouseDriver::press();
+    GTMouseDriver::press(dragFrom);
     GTMouseDriver::moveTo(dragTo);
-    GTMouseDriver::release();
+    GTMouseDriver::release(dragTo);
     GTThread::waitForMainThread();
 }
 #undef GT_METHOD_NAME
@@ -255,14 +255,14 @@ void GTUtilsMsaEditor::moveToSequenceName(GUITestOpStatus &os, const QString &se
 #define GT_METHOD_NAME "clickSequence"
 void GTUtilsMsaEditor::clickSequence(GUITestOpStatus &os, int rowNumber, Qt::MouseButton mouseButton) {
     moveToSequence(os, rowNumber);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition(), mouseButton);
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "clickSequenceName"
 void GTUtilsMsaEditor::clickSequenceName(GUITestOpStatus &os, const QString &sequenceName, Qt::MouseButton mouseButton) {
     moveToSequenceName(os, sequenceName);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition(), mouseButton);
 }
 #undef GT_METHOD_NAME
 
@@ -277,7 +277,7 @@ void GTUtilsMsaEditor::moveToColumn(GUITestOpStatus &os, int column) {
 #define GT_METHOD_NAME "clickColumn"
 void GTUtilsMsaEditor::clickColumn(GUITestOpStatus &os, int column, Qt::MouseButton mouseButton) {
     moveToColumn(os, column);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition(), mouseButton);
 }
 #undef GT_METHOD_NAME
 
@@ -365,7 +365,7 @@ void GTUtilsMsaEditor::toggleCollapsingGroup(GUITestOpStatus &os, const QString 
     magicExpandButtonOffset = QPoint(15, 5);
 #endif
     GTMouseDriver::moveTo(sequenceNameRect.topLeft() + magicExpandButtonOffset);
-    GTMouseDriver::click();
+    GTMouseDriver::click(sequenceNameRect.topLeft() + magicExpandButtonOffset);
 }
 #undef GT_METHOD_NAME
 

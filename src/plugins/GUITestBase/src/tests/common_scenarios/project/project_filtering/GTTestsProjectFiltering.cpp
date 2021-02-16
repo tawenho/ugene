@@ -277,7 +277,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
 
     // 5. Double click it
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, objectIndexes.first()));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected: Sequence view has opened
@@ -290,7 +290,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Open view"
                                                                               << "Open new view: Sequence View"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, objectIndexes.first()));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected: Sequence view has opened
     CHECK_SET_ERR(NULL != GTUtilsMdi::findWindow(os, "NC_001363"), "Sequence view hasn't opened");
@@ -308,7 +308,7 @@ void checkEditMenu(HI::GUITestOpStatus &os, const QString &groupName, const QStr
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Edit", PopupChecker::NotExists));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, objectIndexes.first()));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 void checkDeleteButton(HI::GUITestOpStatus &os, const QString &groupName, const QString &objectName) {
@@ -322,7 +322,7 @@ void checkDeleteButton(HI::GUITestOpStatus &os, const QString &groupName, const 
     GTUtilsProjectTreeView::getTreeView(os)->scrollTo(objectIndexes.first());
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, objectIndexes.first()));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep(200);
 
@@ -337,7 +337,7 @@ void makeRightClick(HI::GUITestOpStatus &os, const QString &groupName) {
     GTUtilsProjectTreeView::getTreeView(os)->scrollTo(groupIndexes.first());
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, groupIndexes.first()));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 }    // namespace
@@ -408,7 +408,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Export/Import"
                                                                               << "Export alignment to sequence format..."));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, objectIndex));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // 7. Type to the project filter field "acacacacac"
     GTUtilsProjectTreeView::filterProject(os, "acacacacac");
@@ -430,7 +430,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Export/Import"
                                                                               << "Export sequences..."));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, objectIndex));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0012) {

@@ -44,7 +44,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsDocument::checkDocument(os, "1.gb");
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
     GTUtilsDocument::checkDocument(os, "1.gb", AnnotatedDNAViewFactory::ID);
 }
 
@@ -68,7 +68,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     QModelIndex parent = GTUtilsProjectTreeView::findIndex(os, "1.gb");
     QModelIndex child = GTUtilsProjectTreeView::findIndex(os, "NC_001363 features", parent);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, child));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTUtilsProjectTreeView::getItemCenter(os, child));
     GTUtilsDocument::checkDocument(os, "1.gb", AnnotatedDNAViewFactory::ID);
 
     GTKeyboardDriver::keyClick('q', Qt::ControlModifier);

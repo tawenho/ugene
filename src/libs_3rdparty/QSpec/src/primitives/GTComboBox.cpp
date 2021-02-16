@@ -93,7 +93,7 @@ void GTComboBox::selectItemByIndex(GUITestOpStatus &os, QComboBox *comboBox, int
     GTThread::runInMainThread(os, new MainThreadAction(comboBox, index, method));
     // Activate the final action from a separate thread. Reason: it may trigger other popups or dialogs (they can't be processed in the main thread).
     if (method == GTGlobals::UseMouse) {
-        GTMouseDriver::click();
+        GTMouseDriver::click(GTMouseDriver::getMousePosition());
     } else {
         GTKeyboardDriver::keyClick(Qt::Key_Enter);
     }
@@ -163,7 +163,7 @@ void GTComboBox::checkValues(GUITestOpStatus &os, QComboBox *comboBox, const QSt
                 QRect itemRect = view->visualRect(modelIndex);
                 QPoint checkPoint(itemRect.left() + 10, itemRect.center().y());
                 GTMouseDriver::moveTo(view->viewport()->mapToGlobal(checkPoint));
-                GTMouseDriver::click();
+                GTMouseDriver::click(view->viewport()->mapToGlobal(checkPoint));
                 GTGlobals::sleep(500);
                 GT_CHECK(item->checkState() == Qt::Checked, "Item is not checked: " + item->data().toString());
             }
@@ -175,7 +175,7 @@ void GTComboBox::checkValues(GUITestOpStatus &os, QComboBox *comboBox, const QSt
                 QRect itemRect = view->visualRect(modelIndex);
                 QPoint checkPoint(itemRect.left() + 10, itemRect.center().y());
                 GTMouseDriver::moveTo(view->viewport()->mapToGlobal(checkPoint));
-                GTMouseDriver::click();
+                GTMouseDriver::click(view->viewport()->mapToGlobal(checkPoint));
                 GTGlobals::sleep(500);
                 GT_CHECK(item->checkState() != Qt::Checked, "Item is checked: " + item->data().toString());
             }

@@ -49,7 +49,7 @@ void GTTreeWidget::expand(GUITestOpStatus &os, QTreeWidgetItem *item) {
         QPoint p = QPoint(itemRect.left() - 8, itemRect.center().y());
 
         GTMouseDriver::moveTo(treeWidget->viewport()->mapToGlobal(p));
-        GTMouseDriver::click();
+        GTMouseDriver::click(treeWidget->viewport()->mapToGlobal(p));
     }
 }
 #undef GT_METHOD_NAME
@@ -73,14 +73,14 @@ void GTTreeWidget::checkItem(GUITestOpStatus &os, QTreeWidgetItem *item, int col
     case GTGlobals::UseKeyBoard: {
         const QPoint cellCenterOffset(tree->columnWidth(column) / 2, itemRect.height() / 2);
         GTMouseDriver::moveTo(itemStartPos + itemLevelOffset + columnOffset + cellCenterOffset);
-        GTMouseDriver::click();
+        GTMouseDriver::click(itemStartPos + itemLevelOffset + columnOffset + cellCenterOffset);
         GTKeyboardDriver::keyClick(Qt::Key_Space);
         break;
     }
     case GTGlobals::UseMouse: {
         const QPoint magicCheckBoxOffset = QPoint(15, 0);
         GTMouseDriver::moveTo(tree->viewport()->mapToGlobal(itemStartPos + itemLevelOffset + columnOffset + magicCheckBoxOffset));
-        GTMouseDriver::click();
+        GTMouseDriver::click(tree->viewport()->mapToGlobal(itemStartPos + itemLevelOffset + columnOffset + magicCheckBoxOffset));
         break;
     }
     default:
@@ -243,7 +243,7 @@ void GTTreeWidget::click(GUITestOpStatus &os, QTreeWidgetItem *item, int column)
     }
 
     GTMouseDriver::moveTo(point);
-    GTMouseDriver::click();
+    GTMouseDriver::click(point);
 }
 #undef GT_METHOD_NAME
 

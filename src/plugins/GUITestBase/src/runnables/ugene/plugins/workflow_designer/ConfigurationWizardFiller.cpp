@@ -40,7 +40,7 @@ void ConfigurationWizardFiller::commonScenario() {
     GTGlobals::sleep(500);
 
     GTMouseDriver::moveTo(QPoint(dialog->pos().x() + dialog->rect().width() / 2, dialog->pos().y() + 5));
-    GTMouseDriver::click();
+    GTMouseDriver::click(QPoint(dialog->pos().x() + dialog->rect().width() / 2, dialog->pos().y() + 5));
 
     foreach (const QString &s, radioNames) {
         QRadioButton *b = GTWidget::findExactWidget<QRadioButton *>(os, s, dialog);

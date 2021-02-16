@@ -173,7 +173,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
 
     //5. Click the result.
     GTMouseDriver::moveTo(GTUtilsPcr::getResultPoint(os, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPcr::getResultPoint(os, 0));
 
     //Expected: the extract button is enabled.
     QWidget *extractButton = GTWidget::findWidget(os, "extractProductButton");
@@ -183,14 +183,14 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
     QPoint emptyPoint = QPoint(GTUtilsPcr::getResultPoint(os, 0));
     emptyPoint.setY(emptyPoint.y() + 30);
     GTMouseDriver::moveTo(emptyPoint);
-    GTMouseDriver::click();
+    GTMouseDriver::click(emptyPoint);
 
     //Expected: the extract button is disabled.
     CHECK_SET_ERR(!extractButton->isEnabled(), "Extract button is enabled");
 
     //7. Double click the result.
     GTMouseDriver::moveTo(GTUtilsPcr::getResultPoint(os, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTUtilsPcr::getResultPoint(os, 0));
 
     //Expected: the new file is opened "pIB2-SEC13_9-1196.gb".
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -228,7 +228,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
 
     //5. Click the 3rd result.
     GTMouseDriver::moveTo(GTUtilsPcr::getResultPoint(os, 2));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPcr::getResultPoint(os, 2));
 
     //Expected: the sequence selection is [2..3775].
     // TODO
@@ -236,7 +236,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
     //6. Click the 2nd result with CTRL pressed.
     GTMouseDriver::moveTo(GTUtilsPcr::getResultPoint(os, 1));
     GTKeyboardDriver::keyPress(Qt::Key_Control);
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPcr::getResultPoint(os, 1));
     GTKeyboardDriver::keyRelease(Qt::Key_Control);
 
     //Expected: the sequence selection is not changed, two results are selected in the table.
@@ -287,7 +287,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
     GTGlobals::sleep();
     GTUtilsDialog::waitForDialog(os, new PrimersDetailsDialogFiller(os));
     GTMouseDriver::moveTo(GTUtilsPcr::getDetailsPoint(os));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPcr::getDetailsPoint(os));
 
     //6. Remove the last character of the forward primer.
     GTUtilsPcr::setPrimer(os, U2Strand::Direct, "AGACTCTTTCGTCTCACGCACTTCGCTGAT");
@@ -363,7 +363,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
     //5. Right click on the sequence object in the project view -> Mark as circular.
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "pIB2-SEC13"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Mark as circular"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "pIB2-SEC13"), Qt::RightButton);
 
     //6. Click the find button.
     GTWidget::click(os, GTWidget::findWidget(os, "findProductButton"));

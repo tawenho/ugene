@@ -76,7 +76,7 @@ void clickConnection(HI::GUITestOpStatus &os, QListWidget *list, const QString &
     QRect rect = list->visualItemRect(item);
     QPoint point = list->mapToGlobal(rect.center());
     GTMouseDriver::moveTo(point);
-    GTMouseDriver::click();
+    GTMouseDriver::click(point);
 }
 
 void checkDocument(HI::GUITestOpStatus &os, const QString &name, bool mustBe) {

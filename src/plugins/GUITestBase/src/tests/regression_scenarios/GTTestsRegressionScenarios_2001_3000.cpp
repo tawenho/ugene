@@ -172,10 +172,10 @@ GUI_TEST_CLASS_DEFINITION(test_2006) {
     // 3. Drag it to the first symbol in the first line
     const QPoint mouseDragPosition(1, 0);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTGlobals::sleep(200);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition + QPoint(0, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTGlobals::sleep(200);
 
@@ -210,10 +210,10 @@ GUI_TEST_CLASS_DEFINITION(test_2007) {
     // 3. Drag it to the left.
     const QPoint mouseDragPosition(3, 2);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTGlobals::sleep(200);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition - QPoint(1, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTGlobals::sleep(200);
 
@@ -379,7 +379,7 @@ GUI_TEST_CLASS_DEFINITION(test_2021_3) {
 
     // 2. Select a column in the sequence area
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsMSAEditorSequenceArea::selectColumnInConsensus(os, 9);
     GTGlobals::sleep(200);
 
@@ -765,11 +765,11 @@ GUI_TEST_CLASS_DEFINITION(test_2077) {
     // 4) Add file "human_T1.fa" to "Read Sequence" twice
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTA/human_T1.fa");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTA/human_T1.fa");
 
     // 5) Validate scheme
@@ -891,14 +891,14 @@ GUI_TEST_CLASS_DEFINITION(test_2124) {
                                                                         << "Custom schemes"
                                                                         << "Create new color scheme"));
     GTUtilsDialog::waitForDialog(os, new NewColorSchemeCreator(os, colorSchemeName, NewColorSchemeCreator::amino));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     // 3. Create a new color scheme for the amino alphabet.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(1, 1));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_APPEARANCE << "Colors"
                                                                         << "Custom schemes" << colorSchemeName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 }
 
@@ -918,7 +918,7 @@ GUI_TEST_CLASS_DEFINITION(test_2091) {
 
     //3. Call context menu on the name list area, select the {Edit -> Remove sequence} menu item.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "Remove sequence"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     //Expected state: the sequence is removed.
     QStringList modifiedNames = GTUtilsMSAEditorSequenceArea::getNameList(os);
 
@@ -933,7 +933,7 @@ GUI_TEST_CLASS_DEFINITION(test_2093_1) {
     // Simple scheme: read file list.
     GTUtilsWorkflowDesigner::addAlgorithm(os, "Read File URL(s)");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read File URL(s)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTA/human_T1.fa");
 
     GTUtilsWorkflowDesigner::runWorkflow(os);
@@ -1132,11 +1132,11 @@ GUI_TEST_CLASS_DEFINITION(test_2144) {
     //        "data/samples/Assembly/chrM.sam" as input to "Read Assembly SAM/BAM" element;
     //        "data/samples/Assembly/chrM.fa" as input to "Read Sequence" element;
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Assembly (BAM/SAM)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Assembly/chrM.sam");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Assembly/chrM.fa");
 
     //    4. Choose "Estimate" option in tool bar.
@@ -1156,7 +1156,7 @@ GUI_TEST_CLASS_DEFINITION(test_2150) {
 
     // 3. Set "data/samples/CLUSTALW/ty3.aln.gz" as the input file.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/CLUSTALW/ty3.aln.gz");
     GTGlobals::sleep();
 
@@ -1164,9 +1164,9 @@ GUI_TEST_CLASS_DEFINITION(test_2150) {
     //    QTableView* table = qobject_cast<QTableView*>(GTWidget::findWidget(os,"table"));
     //    CHECK_SET_ERR(table,"tableView not found");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     //    GTMouseDriver::moveTo(GTTableView::getCellPosition(os,table,1,1));
-    //    GTMouseDriver::click();
+    //    GTMouseDriver::clickCurPos();
     QString s = QFileInfo(testDir + "_common_data/scenarios/sandbox/").absoluteFilePath();
     GTKeyboardDriver::keySequence(s + "/2150_0001.sto");
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", s + "/2150_0001.aln", GTUtilsWorkflowDesigner::textValue);
@@ -1204,11 +1204,11 @@ GUI_TEST_CLASS_DEFINITION(test_2152) {
     GTUtilsWorkflowDesigner::connect(os, fileList, fileCAP3);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Assembly Sequences with CAP3"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", QDir().absoluteFilePath(sandBoxDir + "out.ace"), GTUtilsWorkflowDesigner::textValue);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read File URL(s)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/cap3/region1.fa");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/cap3/region2.fa");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/cap3/region3.fa");
@@ -1259,10 +1259,10 @@ GUI_TEST_CLASS_DEFINITION(test_2160) {
     // 3. Shift msa
     const QPoint mouseDragPosition(7, 7);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTGlobals::sleep(200);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition + QPoint(3, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTGlobals::sleep(200);
 
@@ -1365,7 +1365,7 @@ GUI_TEST_CLASS_DEFINITION(test_2187) {
     GTUtilsAnnotationsTreeView::getTreeWidget(os);
     QTreeWidgetItem *annotationsRoot = GTUtilsAnnotationsTreeView::findItem(os, "repeat_unit  (0, 5)");
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, annotationsRoot->child(0)));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     Runnable *filler = new EditAnnotationChecker(os, "repeat_unit", "251..251,252..252,253..253,254..254,255..255,256..256,257..257,258..258,259..259");
     GTUtilsDialog::waitForDialog(os, filler);
@@ -1383,7 +1383,7 @@ GUI_TEST_CLASS_DEFINITION(test_2187) {
     GTGlobals::sleep();
 
     GTUtilsMdi::click(os, GTGlobals::Close);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2192) {
@@ -1398,11 +1398,11 @@ GUI_TEST_CLASS_DEFINITION(test_2192) {
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
     //    3. Set valid input data.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Assembly (BAM/SAM)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/bam/chrM.sorted.bam");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/cmdline/call-variations/chrM.fa");
     //    4. Start the scheme.
     GTUtilsWorkflowDesigner::runWorkflow(os);
@@ -1501,11 +1501,11 @@ GUI_TEST_CLASS_DEFINITION(test_2266_1) {
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Assembly (BAM/SAM)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/ugenedb/Klebsislla.sort.bam.ugenedb");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/ugenedb/Klebsislla_ref.fa");
 
     GTUtilsWorkflowDesigner::click(os, "Call Variants");
@@ -1541,7 +1541,7 @@ GUI_TEST_CLASS_DEFINITION(test_2267_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_ADD << "add_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //     4. Press Enter
     //     Expected state: Edit qualifier window closes
@@ -1568,7 +1568,7 @@ GUI_TEST_CLASS_DEFINITION(test_2267_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_ADD << "add_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2268) {
@@ -1640,9 +1640,9 @@ GUI_TEST_CLASS_DEFINITION(test_2314) {
     //    3.1 Move the selected column with a mouse to the right. Do not click -> it will reset the selection.
     GTUtilsMSAEditorSequenceArea::moveMouseToPosition(os, QPoint(603, 0));
     QPoint p = GTMouseDriver::getMousePosition();
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(QPoint(p.x() + 30, p.y()));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
 
     //    Expected state: the column was moved
     CHECK_SET_ERR(GTUtilsMSAEditorSequenceArea::getLength(os) > 604, "The length of the alignment is not changed");
@@ -1653,9 +1653,9 @@ GUI_TEST_CLASS_DEFINITION(test_2314) {
     //    4. Move to the right 1 base region, that is close to the end of alignment
     GTUtilsMSAEditorSequenceArea::clickToPosition(os, QPoint(600, 5));
     p = GTMouseDriver::getMousePosition();
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(QPoint(p.x() + 30, p.y()));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
 
     //    Expected state: the region is moved if mouse goes beyond the right border of the alignment
     CHECK_SET_ERR(GTUtilsMSAEditorSequenceArea::getLength(os) > 604, "The length of the alignment is not changed");
@@ -1831,7 +1831,7 @@ GUI_TEST_CLASS_DEFINITION(test_2298) {
     treeView->ensureVisible(node);
     GTThread::waitForMainThread();
     GTMouseDriver::moveTo(GTUtilsPhyTree::getGlobalCenterCoord(os, node));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //    Expected state: the appropriate sequences in the msa view were collapsed into a group as well
@@ -2001,10 +2001,10 @@ GUI_TEST_CLASS_DEFINITION(test_2306) {
     // 3. Shift the region but don't release left mouse button
     const QPoint mouseDragPosition(12, 12);
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTUtilsMSAEditorSequenceArea::moveTo(os, mouseDragPosition + QPoint(3, 0));
     GTGlobals::sleep(200);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
     GTThread::waitForMainThread();
@@ -2038,7 +2038,7 @@ GUI_TEST_CLASS_DEFINITION(test_2309) {
         GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Refresh tree"));
         QToolBar *toolBar = qobject_cast<QToolBar *>(refresh->parent());
         GTMouseDriver::moveTo(toolBar->mapToGlobal(toolBar->geometry().bottomRight()) - QPoint(5, 15));
-        GTMouseDriver::click();
+        GTMouseDriver::clickCurPos();
     }
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -2067,7 +2067,7 @@ GUI_TEST_CLASS_DEFINITION(test_2318) {
 
         virtual void run() {
             GTGlobals::sleep(1000);
-            GTMouseDriver::release();
+            GTMouseDriver::releaseCurPos();
             GTKeyboardDriver::keyClick(Qt::Key_Down);
             GTKeyboardDriver::keyClick(Qt::Key_Enter);
         }
@@ -2225,7 +2225,7 @@ GUI_TEST_CLASS_DEFINITION(test_2343) {
     GTUtilsWorkflowDesigner::click(os, "Align with ClustalW");
 
     GTUtilsWorkflowDesigner::clickParameter(os, "Gap distance");
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     QWidget *wgt = QApplication::focusWidget();
     CHECK_SET_ERR(wgt != NULL, "No widnget in focus")
 
@@ -2291,7 +2291,7 @@ GUI_TEST_CLASS_DEFINITION(test_2360) {
     // 5. Click "Export".
     GTUtilsDialog::waitForDialog(os, new ExportMSA2MSADialogFiller(os, 6));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_PROJECT__EXPORT_TO_AMINO_ACTION));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2364) {
@@ -2306,13 +2306,13 @@ GUI_TEST_CLASS_DEFINITION(test_2364) {
 
     //3. Set the input sequence file: "data/samples/FASTA/human_T1.fa".
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(300);
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTA/human_T1.fa");
 
     //4. Set the output file: "out.fa".
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(300);
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", "out.fa", GTUtilsWorkflowDesigner::textValue);
 
@@ -2354,7 +2354,7 @@ GUI_TEST_CLASS_DEFINITION(test_2373) {
     //    5. Mouse press under the group in the name list
     //    Expected state:  nothing happens
     GTMouseDriver::moveTo(GTUtilsMsaEditor::getSequenceNameRect(os, "Mecopoda_elongata__Ishigaki__J").center() + QPoint(0, 20));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsLog::check(os, logTracer);
 }
@@ -2415,11 +2415,11 @@ GUI_TEST_CLASS_DEFINITION(test_2377) {
     GTUtilsWorkflowDesigner::connect(os, assemblyReader, assemblyWriter);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, assemblyReaderName));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/sam/broken_without_reads.sam");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, assemblyWriterName));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", "test", GTUtilsWorkflowDesigner::textValue);
 
     GTWidget::click(os, GTAction::button(os, "Run workflow"));
@@ -2445,12 +2445,12 @@ GUI_TEST_CLASS_DEFINITION(test_2378_1) {
     // 3. set _common_data\sam\scerevisiae.sam as input file
     GTUtilsWorkflowDesigner::addAlgorithm(os, "Read NGS Reads Assembly");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read NGS Reads Assembly"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/sam/scerevisiae.sam");
 
     GTUtilsWorkflowDesigner::addAlgorithm(os, "Write NGS Reads Assembly");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write NGS Reads Assembly"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QString path = QFileInfo(testDir + "_common_data/scenarios/sandbox/").absoluteFilePath();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", path + "/test_2378_1.bam", GTUtilsWorkflowDesigner::textValue);
 
@@ -2678,10 +2678,10 @@ GUI_TEST_CLASS_DEFINITION(test_2402) {
 
     //Expected state: all slots are connected
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/Genbank/sars.gb");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Assembly Sequences with CAP3"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", outputFilePath, GTUtilsWorkflowDesigner::textValue);
 
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Ok, "Well done!"));
@@ -2757,7 +2757,7 @@ GUI_TEST_CLASS_DEFINITION(test_2406) {
     //    2. Click on the output file field and input "TEST" file name and press Enter.
     //    Expected: TEST file name appears in the output file name field
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, sequenceWriterName));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", "TEST", GTUtilsWorkflowDesigner::textValue);
     GTKeyboardDriver::keyClick(Qt::Key_Enter);
     GTGlobals::sleep(500);
@@ -2789,12 +2789,12 @@ GUI_TEST_CLASS_DEFINITION(test_2407) {
 
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Yes));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__UNLOAD_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsDialog::waitAllFinished(os);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "10000_sequences.aln"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsMsaEditor::checkMsaEditorWindowIsActive(os);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -2850,7 +2850,7 @@ GUI_TEST_CLASS_DEFINITION(test_2415) {
 
     // 3. Click the menu {Edit -> Rename}.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Rename"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // 4. Enter the new name: "name".
     GTKeyboardDriver::keySequence("name");
@@ -2880,13 +2880,13 @@ GUI_TEST_CLASS_DEFINITION(test_2424) {
     GTUtilsWorkflowDesigner::connect(os, qualFilter, seqWriter);
     //     2. Connect workers into schema, set input data and output data (for example eas.fastq from samples)
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, dataDir + "samples/FASTA/human_T1.fa");
 
     const QString outputFilePath = workflowOutputDir.absolutePath() + "/test.gb";
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", outputFilePath, GTUtilsWorkflowDesigner::textValue);
     //     3. Launch the schema.
     //     Expected state: schema didnt start, error "Quality filter example"
@@ -2910,7 +2910,7 @@ GUI_TEST_CLASS_DEFINITION(test_2430) {
     GTUtilsWorkflowDesigner::toggleBreakpointManager(os);
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick('b', Qt::ControlModifier);
 
     GTGlobals::sleep();
@@ -3067,7 +3067,7 @@ GUI_TEST_CLASS_DEFINITION(test_2460) {
     //3. Align the result one-line-msa by kalign with default values.
     GTUtilsDialog::waitForDialog(os, new KalignDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "align_with_kalign"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -3115,7 +3115,7 @@ GUI_TEST_CLASS_DEFINITION(test_2470) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/2470/nice_base.nhr", testDir + "_common_data/scenarios/sandbox/2470_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::getItemCenter(os, "Conocephalus_sp.");
@@ -3159,7 +3159,7 @@ GUI_TEST_CLASS_DEFINITION(test_2470_1) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/2470/nice_base.nhr", testDir + "_common_data/scenarios/sandbox/2470_1_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::getItemCenter(os, "Conocephalus_sp.");
@@ -3183,12 +3183,12 @@ GUI_TEST_CLASS_DEFINITION(test_2475) {
     GTGlobals::sleep();
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read RNA-seq Short Reads"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/bowtie2/reads_1.fq");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/bowtie2/reads_2.fq");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Find Splice Junctions with TopHat"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setParameter(os, "Bowtie index folder", testDir + "_common_data/bowtie2/index", GTUtilsWorkflowDesigner::textValue);
     GTUtilsWorkflowDesigner::setParameter(os, "Bowtie index basename", "human_T1_cutted", GTUtilsWorkflowDesigner::textValue);
 
@@ -3212,16 +3212,16 @@ GUI_TEST_CLASS_DEFINITION(test_2482) {
     QPoint nodeCoords = GTUtilsPhyTree::getGlobalCenterCoord(os, items.at(3));
     GTMouseDriver::moveTo(nodeCoords);
 
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     // 4. Call context menu on the Tree Viewer.
     // Expected state: menu items "Swap Sublings" and "Reroot tree" are disabled.
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Reroot tree", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Swap Siblings", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -3239,14 +3239,14 @@ GUI_TEST_CLASS_DEFINITION(test_2487) {
 
     QPoint rootCoords = GTUtilsPhyTree::getGlobalCenterCoord(os, items.first());
     GTMouseDriver::moveTo(rootCoords);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Reroot tree", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Collapse", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -3271,7 +3271,7 @@ GUI_TEST_CLASS_DEFINITION(test_2498) {
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
 
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << MSAE_MENU_EXPORT << "amino_translation_of_alignment_rows", PopupChecker::IsDisabled, GTGlobals::UseMouse));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //TODO: Expected state: this menu item is disabled for the empty msa.
 }
@@ -3317,16 +3317,16 @@ GUI_TEST_CLASS_DEFINITION(test_2513) {
     GTUtilsPhyTree::clickNode(os, nodes[25]);
     CHECK_SET_ERR(!GTUtilsPhyTree::getSelectedNodes(os).isEmpty(), "A clicked node wasn't selected");
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Swap Siblings", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Reroot tree", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsPhyTree::clickNode(os, nodes[22]);
     CHECK_SET_ERR(!GTUtilsPhyTree::getSelectedNodes(os).isEmpty(), "A clicked node wasn't selected");
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Swap Siblings", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Reroot tree", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2519) {
@@ -3362,18 +3362,18 @@ GUI_TEST_CLASS_DEFINITION(test_2538) {
 
     //    2. Call context menu on node just near root. Click "Collapse"
     GTMouseDriver::moveTo(GTUtilsPhyTree::getGlobalCenterCoord(os, GTUtilsPhyTree::getNodes(os).at(1)));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(1000);
 
     QWidget *treeView = GTWidget::findWidget(os, "treeView");
 
     const QImage initImg = GTWidget::getImage(os, treeView);
 
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     //    3. Call context menu on node just near root. Click "Expand"
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     //    Expected state: tree has the same view as at the beginning
@@ -3408,7 +3408,7 @@ GUI_TEST_CLASS_DEFINITION(test_2542) {
     // 2. Lock the document
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_document_lock"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // 3. Do pairwise alignment with any sequences.
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(1, 1));
@@ -3708,11 +3708,11 @@ GUI_TEST_CLASS_DEFINITION(test_2569) {
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
     //    3. Set valid input data.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Assembly (BAM/SAM)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/bam/chrM.sorted.bam");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/cmdline/call-variations/chrM.fa");
     GTUtilsWorkflowDesigner::runWorkflow(os);
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -3818,7 +3818,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with muscle"));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3840,7 +3840,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581_1) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with ClustalW", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3899,7 +3899,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581_4) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with T-Coffee", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3921,7 +3921,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581_5) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "align_with_kalign", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3950,7 +3950,7 @@ GUI_TEST_CLASS_DEFINITION(test_2583) {
     GTUtilsDialog::waitForDialog(os, new ExportBlastResultDialogFiller(os, sandBoxDir + "test_2583/test_2583.aln", true));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_EXPORT"
                                                                         << "export_BLAST_result_to_alignment"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     //    "Export BLAST result to alignment" dialog appeared. Set some output file.
     //    check "add reference to alignment" checkBox
     //    Click "Export"
@@ -3991,7 +3991,7 @@ GUI_TEST_CLASS_DEFINITION(test_2612) {
     QTreeWidgetItem *item = GTUtilsAnnotationsTreeView::findItem(os, "Misc. Feature");
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
     // 3. Delete annotation from annotation editor.
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     // Expected state: there is no annotation in sequence view.
     GTGlobals::sleep(100);
@@ -4224,7 +4224,7 @@ GUI_TEST_CLASS_DEFINITION(test_2651) {
 
     // 7. delete this objects through context menu
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_project__remove_selected_action"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state : the objects are deleted, the popup is shown
     GTGlobals::FindOptions safeOptions(false);
@@ -4292,11 +4292,11 @@ GUI_TEST_CLASS_DEFINITION(test_2662) {
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
     //    3. Set valid input data.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Assembly (BAM/SAM)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/bam/chrM.sorted.bam");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/cmdline/call-variations/chrM.fa");
     //    4. Start the scheme.
     GTUtilsWorkflowDesigner::runWorkflow(os);
@@ -4324,7 +4324,7 @@ GUI_TEST_CLASS_DEFINITION(test_2667) {
 
     //    2. Select the annotation object in the project view.
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    3. Press "delete" key.
     //    Expected state: the annotation object is removed from the document.
@@ -4382,7 +4382,7 @@ GUI_TEST_CLASS_DEFINITION(test_2690) {
     GTWidget::click(os, GTWidget::findWidget(os, "OP_ANNOT_HIGHLIGHT"));
     //    5. Select the first annotation.
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "ann1"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     //    6. Click the "next annotation" button.
     QWidget *nextAnnotationButton = GTWidget::findWidget(os, "nextAnnotationButton");
     GTWidget::click(os, nextAnnotationButton);
@@ -4492,7 +4492,7 @@ GUI_TEST_CLASS_DEFINITION(test_2713) {
     point.setX(point.x() + 1);
     point.setY(point.y() + 1);
     GTMouseDriver::moveTo(point);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     QPoint endPoint = GTWidget::getWidgetCenter(GTUtilsAnnotationsTreeView::getTreeWidget(os));
     GTMouseDriver::dragAndDrop(point, endPoint);
@@ -4614,7 +4614,7 @@ GUI_TEST_CLASS_DEFINITION(test_2730) {
     GTGlobals::sleep(500);
     //Close file - UGENE does not crash.
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "abcd.fa"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep(500);
 }
@@ -4669,7 +4669,7 @@ GUI_TEST_CLASS_DEFINITION(test_2754) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363 features"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     class custom : public CustomScenario {
@@ -4692,7 +4692,7 @@ GUI_TEST_CLASS_DEFINITION(test_2754) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "find_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "CDS"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2761_1) {
@@ -4720,7 +4720,7 @@ GUI_TEST_CLASS_DEFINITION(test_2761_1) {
     };
 
     GTUtilsDialog::waitForDialog(os, new customFiller(os));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     //    4. Set the destination path to the dir without write permissions.
     //    5. Click "Extract".
     //    Expected: the message about write permissions to the dir appears. The extraction task is not run.
@@ -4749,7 +4749,7 @@ GUI_TEST_CLASS_DEFINITION(test_2761_2) {
     };
 
     GTUtilsDialog::waitForDialog(os, new customFiller(os));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     //    4. Set the destination path to the dir that does not exists
     //    5. Click "Extract".
     //    Expected: the message about write permissions to the dir appears. The extraction task is not run.
@@ -4928,7 +4928,7 @@ GUI_TEST_CLASS_DEFINITION(test_2784) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with muscle", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(10, 5));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //Expected state : Alignment task has started.After some time it finishes without errors
     //and alignment gets changed somehow.The "Undo" button becomes active
@@ -5086,7 +5086,7 @@ GUI_TEST_CLASS_DEFINITION(test_2808) {
 
     QPoint p = GTTableView::getCellPosition(os, groupTable, 0, 0);
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     CHECK_SET_ERR(addButton->isEnabled(), "AddButton is disabled!");
     CHECK_SET_ERR(editButton->isEnabled(), "EditButton is disabled!");
@@ -5177,7 +5177,7 @@ GUI_TEST_CLASS_DEFINITION(test_2829) {
     //Expected state: horisontal or vertical selection is shown on DotPlot
     QList<QTreeWidgetItem *> geneItems = GTUtilsAnnotationsTreeView::findItems(os, "gene", GTGlobals::FindOptions(false));
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, geneItems.at(1)));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //5) In second sequence view click Remove sequence on the toolbar
     //Expected state: DotPlot closed and UGENE didn't crash
@@ -5256,7 +5256,7 @@ GUI_TEST_CLASS_DEFINITION(test_2884) {
     CHECK_OP(os, );
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Test for Diff. Expression with Cuffdiff"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     CHECK_SET_ERR(GTUtilsWorkflowDesigner::getParameter(os, "Multi read correct") == "False", "'Mate inner distance', Parameter value doesn't amtch");
 }
 
@@ -5268,7 +5268,7 @@ GUI_TEST_CLASS_DEFINITION(test_2887) {
     CHECK_OP(os, );
     //3. check "Mate inner distance" parameter is 50
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Map RNA-Seq Reads with TopHat"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     CHECK_SET_ERR(GTUtilsWorkflowDesigner::getParameter(os, "Mate inner distance") == "50", "'Mate inner distance', Parameter value doesn't amtch");
 }
 
@@ -5833,9 +5833,9 @@ GUI_TEST_CLASS_DEFINITION(test_2945) {
     bottomLeftToolBar = mainToolBar->mapToGlobal(bottomLeftToolBar);
     GTGlobals::sleep();
 
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(bottomLeftToolBar);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     QPoint handlePosition = splitterHandler->pos();
 
@@ -5851,9 +5851,9 @@ GUI_TEST_CLASS_DEFINITION(test_2945) {
     GTWidget::click(os, handle);
 
     QPoint p = GTMouseDriver::getMousePosition();
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p + QPoint(0, 50));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
 
     CHECK_SET_ERR(handlePosition == splitterHandler->pos(), QString("Handler was moved: expected: %1, actual: %2").arg(splitter->pos().y()).arg(handlePosition.y()));
@@ -5874,12 +5874,12 @@ GUI_TEST_CLASS_DEFINITION(test_2951) {
 
     //4. Set the input sequence: _common_data/fasta/abcd.fa.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/fasta/abcd.fa");
 
     //5. Set the correct output sequence.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QString outFile = GUrl(sandBoxDir + "test_2951.gb").getURLString();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", outFile, GTUtilsWorkflowDesigner::textValue);
 
@@ -5887,7 +5887,7 @@ GUI_TEST_CLASS_DEFINITION(test_2951) {
     //    printToLog("test");
     //    1
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsDialog::waitForDialog(os, new ScriptEditorDialogFiller(os, "", "printToLog(\"test message\");\n1"));
     GTUtilsWorkflowDesigner::setParameterScripting(os, "Sequence count limit", "user script");
 
@@ -5954,7 +5954,7 @@ GUI_TEST_CLASS_DEFINITION(test_2962_2) {
 
     QPoint p = GTUtilsProjectTreeView::getItemCenter(os, "GXL_141618");
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTUtilsCv::commonCvBtn::click(os);
@@ -5982,7 +5982,7 @@ GUI_TEST_CLASS_DEFINITION(test_2971) {
     //Close file - UGENE does not crash.
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::No));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep(500);
 }
@@ -6084,7 +6084,7 @@ GUI_TEST_CLASS_DEFINITION(test_2987) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "ep_exportAnnotations2CSV"));
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "test_2987/test_2987", ExportAnnotationsFiller::csv, os));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "test_2987.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     const QFile csvFile(sandBoxDir + "test_2987/test_2987");

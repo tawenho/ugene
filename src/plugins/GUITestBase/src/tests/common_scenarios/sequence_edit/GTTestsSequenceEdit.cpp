@@ -338,7 +338,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
                                                                         << "action_copy_annotation_sequence"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "DUMMY_1"));
     GTGlobals::sleep(1000);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep(1000);
 
     const QString expectedSequence = "AATGA";

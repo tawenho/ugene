@@ -43,7 +43,7 @@ void AliasesDialogFiller::commonScenario() {
     QMap<QPoint *, QString>::iterator i;
     for (i = map.begin(); i != map.end(); ++i) {
         GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, i.key()->x(), i.key()->y()));
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(GTTableView::getCellPosition(os, table, i.key()->x(), i.key()->y()));
         GTKeyboardDriver::keySequence(i.value());
         GTKeyboardDriver::keyClick(Qt::Key_Enter);
     }

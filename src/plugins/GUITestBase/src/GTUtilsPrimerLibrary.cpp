@@ -97,7 +97,7 @@ QPoint GTUtilsPrimerLibrary::getPrimerPoint(HI::GUITestOpStatus &os, int number)
 
 void GTUtilsPrimerLibrary::clickPrimer(HI::GUITestOpStatus &os, int number) {
     GTMouseDriver::moveTo(getPrimerPoint(os, number));
-    GTMouseDriver::click();
+    GTMouseDriver::click(getPrimerPoint(os, number));
 }
 
 void GTUtilsPrimerLibrary::clearLibrary(HI::GUITestOpStatus &os) {

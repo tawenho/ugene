@@ -140,7 +140,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
     QPoint emptyPoint = GTUtilsPrimerLibrary::getPrimerPoint(os, librarySize);
     emptyPoint.setY(emptyPoint.y() + 40);
     GTMouseDriver::moveTo(emptyPoint);
-    GTMouseDriver::click();
+    GTMouseDriver::click(emptyPoint);
 
     //Expected: The remove button is disabled.
     QAbstractButton *removeButton = GTUtilsPrimerLibrary::getButton(os, GTUtilsPrimerLibrary::Remove);
@@ -148,7 +148,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
 
     //4. Select the primer.
     GTMouseDriver::moveTo(GTUtilsPrimerLibrary::getPrimerPoint(os, librarySize));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPrimerLibrary::getPrimerPoint(os, librarySize));
 
     //Expected: The remove button is enabled.
     CHECK_SET_ERR(removeButton->isEnabled(), "The remove button is disabled");
@@ -214,7 +214,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
     QPoint emptyPoint = GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer);
     emptyPoint.setY(emptyPoint.y() + 40);
     GTMouseDriver::moveTo(emptyPoint);
-    GTMouseDriver::click();
+    GTMouseDriver::click(emptyPoint);
 
     //Expected: The edit button is disabled.
     QAbstractButton *editButton = GTUtilsPrimerLibrary::getButton(os, GTUtilsPrimerLibrary::Edit);
@@ -222,10 +222,10 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
 
     //4. Select several primers.
     GTMouseDriver::moveTo(GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer));
     GTMouseDriver::moveTo(GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer - 2));
     GTKeyboardDriver::keyPress(Qt::Key_Shift);
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer - 2));
     GTKeyboardDriver::keyRelease(Qt::Key_Shift);
 
     //Expected: The edit button is disabled.
@@ -233,7 +233,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
 
     //5. Select the primer P.
     GTMouseDriver::moveTo(GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsPrimerLibrary::getPrimerPoint(os, lastPrimer));
 
     //Expected: The edit button is enabled.
     CHECK_SET_ERR(editButton->isEnabled(), "The remove button is disabled");
@@ -245,7 +245,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
     parameters.primer = "CCCCCCCCCCCCCC";
     parameters.name = "test_0005";
     GTUtilsDialog::waitForDialog(os, new AddPrimerDialogFiller(os, parameters));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     //Expected: the primer is changed in the table.
     CHECK_SET_ERR("CCCCCCCCCCCCCC" == GTUtilsPrimerLibrary::getPrimerSequence(os, lastPrimer), "The sequence is not changed");

@@ -204,7 +204,7 @@ GUI_TEST_CLASS_DEFINITION(double_click_test_0004) {
 
     //3. Double-click in the Details View on the direct strand between coordinates 6 and 7.
     GTUtilsSequenceView::clickAnnotationDet(os, "misc_feature", 2, 0, true);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //4. Press 'G' on the keyboard.
@@ -268,7 +268,7 @@ GUI_TEST_CLASS_DEFINITION(mixed_test_0001) {
     //5. Select a region using the mouse.
     const QPoint pos = GTMouseDriver::getMousePosition();
     GTMouseDriver::moveTo(QPoint(pos.x(), pos.y() - 20));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep();
 
     //    Expected state : nothing is selected in the Overview, Zoom View, Details View, Annotations Editor.

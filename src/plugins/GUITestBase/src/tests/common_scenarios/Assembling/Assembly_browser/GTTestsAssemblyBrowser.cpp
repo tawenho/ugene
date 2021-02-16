@@ -899,9 +899,9 @@ GUI_TEST_CLASS_DEFINITION(test_0030) {
     int initHorVal = GTUtilsAssemblyBrowser::getScrollBar(os, Qt::Horizontal)->value();
     int initVerVal = GTUtilsAssemblyBrowser::getScrollBar(os, Qt::Vertical)->value();
 
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() + QPoint(-200, -200));
-    GTMouseDriver::release();
+    GTMouseDriver::release(GTMouseDriver::getMousePosition() + QPoint(-200, -200));
 
     GTGlobals::sleep(500);
     //    Check scrollbars, rules values etc.

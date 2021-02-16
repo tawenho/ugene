@@ -363,7 +363,7 @@ void GTUtilsWorkflowDesigner::selectSample(HI::GUITestOpStatus &os, QTreeWidgetI
     GTThread::runInMainThread(os, new MainThreadAction(paletteTree, sample));
 
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, sample));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTTreeWidget::getItemCenter(os, sample));
     GTThread::waitForMainThread();
 }
 #undef GT_METHOD_NAME
@@ -382,10 +382,10 @@ void GTUtilsWorkflowDesigner::expandTabs(HI::GUITestOpStatus &os, QWidget const 
         p.setY(splitter->geometry().center().y());
         GTMouseDriver::moveTo(p);
         GTGlobals::sleep(300);
-        GTMouseDriver::press();
+        GTMouseDriver::press(p);
         p.setX(p.x() + 200);
         GTMouseDriver::moveTo(p);
-        GTMouseDriver::release();
+        GTMouseDriver::release(p);
         GTThread::waitForMainThread();
     }
 }
@@ -402,7 +402,7 @@ void GTUtilsWorkflowDesigner::findByNameFilter(HI::GUITestOpStatus &os, const QS
     const QPoint pos(mappedLineEditPos.x() + 75, mappedLineEditPos.y() + 10);
     GTMouseDriver::moveTo(pos);
     GTGlobals::sleep(500);
-    GTMouseDriver::click();
+    GTMouseDriver::click(pos);
     GTGlobals::sleep(100);
     GTKeyboardDriver::keyClick(Qt::Key_Home);
     GTGlobals::sleep(100);
@@ -429,7 +429,7 @@ void GTUtilsWorkflowDesigner::cleanNameFilter(HI::GUITestOpStatus &os) {
     const QPoint pos(mappedLineEditPos.x() + 75, mappedLineEditPos.y() + 10);
     GTMouseDriver::moveTo(pos);
     GTGlobals::sleep(500);
-    GTMouseDriver::click();
+    GTMouseDriver::click(pos);
     GTGlobals::sleep(100);
     GTKeyboardDriver::keyClick(Qt::Key_Home);
     GTGlobals::sleep(100);
@@ -443,7 +443,7 @@ void GTUtilsWorkflowDesigner::cleanNameFilter(HI::GUITestOpStatus &os) {
 #define GT_METHOD_NAME "clickOnPalette"
 void GTUtilsWorkflowDesigner::clickOnPalette(HI::GUITestOpStatus &os, const QString &itemName, Qt::MouseButton mouseButton) {
     selectAlgorithm(os, findTreeItem(os, itemName, algorithms, true));
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition(), mouseButton);
 }
 #undef GT_METHOD_NAME
 
@@ -565,9 +565,9 @@ void GTUtilsWorkflowDesigner::click(HI::GUITestOpStatus &os, QString itemName, Q
     GTThread::waitForMainThread();
 
     GTMouseDriver::moveTo(getItemCenter(os, itemName) + p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(getItemCenter(os, itemName) + p);
     if (Qt::RightButton == button) {
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::click(getItemCenter(os, itemName) + p, Qt::RightButton);
     }
 }
 #undef GT_METHOD_NAME
@@ -581,9 +581,9 @@ void GTUtilsWorkflowDesigner::click(HI::GUITestOpStatus &os, QGraphicsItem *item
     QRect rect = GTGraphicsItem::getGraphicsItemRect(os, item);
 
     GTMouseDriver::moveTo(rect.center() + p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(rect.center() + p);
     if (Qt::RightButton == button) {
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::click(rect.center() + p, Qt::RightButton);
     }
     GTGlobals::sleep(200);
 }
@@ -653,7 +653,7 @@ void GTUtilsWorkflowDesigner::clickLink(HI::GUITestOpStatus &os, QString itemNam
         for (int j = top; j < bottom; j += step) {
             GTMouseDriver::moveTo(QPoint(i, j));
             if (worker->cursor().shape() == Qt::PointingHandCursor) {
-                GTMouseDriver::click(button);
+                GTMouseDriver::click(QPoint(i, j), button);
                 return;
             }
         }
@@ -853,9 +853,9 @@ void GTUtilsWorkflowDesigner::connect(HI::GUITestOpStatus &os, WorkflowProcessIt
         foreach (WorkflowPortItem *toPort, toList) {
             if (fromPort->getPort()->canBind(toPort->getPort())) {
                 GTMouseDriver::moveTo(GTGraphicsItem::getItemCenter(os, fromPort));
-                GTMouseDriver::press();
+                GTMouseDriver::press(GTGraphicsItem::getItemCenter(os, fromPort));
                 GTMouseDriver::moveTo(GTGraphicsItem::getItemCenter(os, toPort));
-                GTMouseDriver::release();
+                GTMouseDriver::release(GTGraphicsItem::getItemCenter(os, toPort));
                 GTGlobals::sleep(1000);
                 return;
             }
@@ -1056,7 +1056,7 @@ void GTUtilsWorkflowDesigner::setParameter(HI::GUITestOpStatus &os, QString para
 
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, rowIndex));
     GTThread::waitForMainThread();
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTTableView::getCellPosition(os, table, 1, rowIndex));
 
     GTGlobals::sleep();
 
@@ -1105,7 +1105,7 @@ void GTUtilsWorkflowDesigner::setTableValue(HI::GUITestOpStatus &os, QString par
     }
 
     GTMouseDriver::moveTo(globalP);
-    GTMouseDriver::click();
+    GTMouseDriver::click(globalP);
     GTGlobals::sleep(500);
 
     //SET VALUE
@@ -1296,7 +1296,7 @@ QStringList GTUtilsWorkflowDesigner::getComboBoxParameterValues(HI::GUITestOpSta
     table->scrollTo(model->index(row, 1));
 
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, row));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTTableView::getCellPosition(os, table, 1, row));
     GTGlobals::sleep();
 
     QComboBox *box = qobject_cast<QComboBox *>(table->findChild<QComboBox *>());
@@ -1326,7 +1326,7 @@ QList<QPair<QString, bool>> GTUtilsWorkflowDesigner::getCheckableComboboxValuesF
     const int row = itemList.first()->row();
 
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, row));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTTableView::getCellPosition(os, table, 1, row));
     GTGlobals::sleep();
 
     QComboBox *box = qobject_cast<QComboBox *>(table->findChild<QComboBox *>());
@@ -1462,7 +1462,7 @@ void GTUtilsWorkflowDesigner::clickParameter(HI::GUITestOpStatus &os, const QStr
     QAbstractItemModel *model = table->model();
     table->scrollTo(model->index(row, 1));
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, row));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTTableView::getCellPosition(os, table, 1, row));
     GTGlobals::sleep(500);
 }
 #undef GT_METHOD_NAME
@@ -1516,7 +1516,7 @@ void GTUtilsWorkflowDesigner::setParameterScripting(HI::GUITestOpStatus &os, QSt
     GTThread::runInMainThread(os, new MainThreadAction(table, row));
 
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 2, row));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTTableView::getCellPosition(os, table, 2, row));
 
     //SET VALUE
     QComboBox *box = qobject_cast<QComboBox *>(table->findChild<QComboBox *>());

@@ -68,7 +68,7 @@ void GTDoubleSpinbox::setValue(GUITestOpStatus &os, QDoubleSpinBox *spinBox, dou
 
             GTMouseDriver::moveTo(spinBox->mapToGlobal(arrowPos));
             while (QString().setNum(spinBox->value()) != QString().setNum(v)) {
-                GTMouseDriver::click();
+                GTMouseDriver::click(spinBox->mapToGlobal(arrowPos));
                 GTGlobals::sleep(100);
             }
             break;

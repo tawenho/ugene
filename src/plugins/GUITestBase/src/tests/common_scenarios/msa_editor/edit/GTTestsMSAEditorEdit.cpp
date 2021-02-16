@@ -817,7 +817,7 @@ GUI_TEST_CLASS_DEFINITION(test_0014) {
     //    {Add to project:} set checked
     //4. Click OK
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "result.aln"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTUtilsProjectTreeView::getItemCenter(os, "result.aln"));
     //Expected result: subaligniment created and added to project
 
     //5. Open result.aln in aligniment viewer
@@ -867,7 +867,7 @@ GUI_TEST_CLASS_DEFINITION(test_0015) {
             //4. Check sequences Montana_montana, Zychia_baranovi
             const QPoint p = dialog->mapToGlobal(table->geometry().topRight() + QPoint(-2, 2));
             GTMouseDriver::moveTo(p);
-            GTMouseDriver::doubleClick();
+            GTMouseDriver::doubleClick(p);
 
             const QStringList list = QStringList() << "Zychia_baranovi"
                                                    << "Montana_montana";

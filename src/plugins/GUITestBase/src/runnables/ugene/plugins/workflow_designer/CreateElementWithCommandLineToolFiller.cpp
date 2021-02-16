@@ -128,7 +128,7 @@ void CreateElementWithCommandLineToolFiller::processStringType(QTableView *table
     CHECK(!value.isEmpty(), );
 
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, static_cast<int>(columnName), row));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(GTTableView::getCellPosition(os, table, static_cast<int>(columnName), row));
     GTKeyboardDriver::keySequence(value);
     GTKeyboardDriver::keyClick(Qt::Key_Enter);
 }
@@ -137,7 +137,7 @@ void CreateElementWithCommandLineToolFiller::processDataType(QTableView *table, 
     setType(table, row, type.first);
     {
         GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, static_cast<int>(ColumnName::Value), row));
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(GTTableView::getCellPosition(os, table, static_cast<int>(ColumnName::Value), row));
 
         QComboBox *box = qobject_cast<QComboBox *>(QApplication::focusWidget());
         QString fullValue = formatToArgumentValue(type.second);

@@ -237,7 +237,7 @@ void ImportAnnotationsToCsvFiller::commonScenario() {
         previewTable->scrollToItem(previewTable->item(0, r.column));
         GTGlobals::sleep(200);
         GTMouseDriver::moveTo(GTTableWidget::headerItemCenter(os, previewTable, r.column));
-        GTMouseDriver::click();
+        GTMouseDriver::click(GTTableWidget::headerItemCenter(os, previewTable, r.column));
     }
 
     GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);

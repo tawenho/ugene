@@ -270,7 +270,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_3) {
 
     QPoint p = GTUtilsProjectTreeView::getItemCenter(os, "revcompl");
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     GTMenu::clickMainMenuItem(os, QStringList() << "Actions"
@@ -302,7 +302,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_4) {
 
     QPoint p = GTUtilsProjectTreeView::getItemCenter(os, "revcompl");
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //GTUtilsMdi::click(os, GTGlobals::Maximize);
@@ -541,7 +541,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005_2) {
     GTGlobals::sleep();
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "ma2_gapped"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     GTUtilsProjectTreeView::toggleView(os);
@@ -585,13 +585,13 @@ GUI_TEST_CLASS_DEFINITION(test_0007) {
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Tettigonia_viridissima"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //Expected state: Tettigonia_viridissima renamed to Sequence_a
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Sequence_a"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //4. Rlick Undo button.
@@ -603,7 +603,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007) {
     //Expected state: Tettigonia_viridissima renamed back
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Tettigonia_viridissima", "Tettigonia_viridissima"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 }
 
@@ -624,14 +624,14 @@ GUI_TEST_CLASS_DEFINITION(test_0007_1) {
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Tettigonia_viridissima"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //Expected state: Tettigonia_viridissima renamed to Sequence_a
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Sequence_a"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //4. Rlick Undo button. CHANGES: clicking undo by mouse
@@ -641,7 +641,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_1) {
     //Expected state: Tettigonia_viridissima renamed back
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Tettigonia_viridissima", "Tettigonia_viridissima"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 3));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 }
 
@@ -662,13 +662,13 @@ GUI_TEST_CLASS_DEFINITION(test_0007_2) {
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Bicolorana_bicolor_EF540830"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 2));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //Expected state: Tettigonia_viridissima renamed to Sequence_a
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Sequence_a"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 2));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //4. Rlick Undo button.
@@ -678,7 +678,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_2) {
     //Expected state: Tettigonia_viridissima renamed back
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Bicolorana_bicolor_EF540830", "Bicolorana_bicolor_EF540830"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 2));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 }
 
@@ -699,13 +699,13 @@ GUI_TEST_CLASS_DEFINITION(test_0007_3) {
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Phaneroptera_falcata"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //Expected state: Tettigonia_viridissima renamed to Sequence_a
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Sequence_a"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //4. Rlick Undo button.
@@ -715,7 +715,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_3) {
     //Expected state: Tettigonia_viridissima renamed back
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Phaneroptera_falcata", "Phaneroptera_falcata"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 }
 
@@ -736,13 +736,13 @@ GUI_TEST_CLASS_DEFINITION(test_0007_4) {
 
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Conocephalus_sp."));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 5));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //Expected state: Tettigonia_viridissima renamed to Sequence_a
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Sequence_a", "Sequence_a"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 5));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //4. Rlick Undo button.
@@ -752,7 +752,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_4) {
     //Expected state: Tettigonia_viridissima renamed back
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "Conocephalus_sp.", "Conocephalus_sp."));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 5));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 }
 
@@ -1103,7 +1103,7 @@ GUI_TEST_CLASS_DEFINITION(test_0010) {
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected state: every sequense name is the same as its amino translation
@@ -1128,7 +1128,7 @@ GUI_TEST_CLASS_DEFINITION(test_0010_1) {
     // copy to clipboard
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected state: every sequense name the same as it amino translation
@@ -1154,7 +1154,7 @@ GUI_TEST_CLASS_DEFINITION(test_0010_2) {
     // copy to clipboard
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected state: every sequence name the same as it amino translation
@@ -1182,7 +1182,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected state: sequence changed from TTG -> CAA
@@ -1200,7 +1200,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
 
     // 3. Do step 2 again
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: sequence changed from CAA -> TTG
     GTGlobals::sleep();
@@ -1228,13 +1228,13 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> CAA
     // CHANGES: copy by context menu
     GTGlobals::sleep();
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTGlobals::sleep();
     QString clipboardText = GTClipboard::sequences(os);
@@ -1247,14 +1247,14 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
 
     // 3. Do step 2 again
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: sequence changed from CAA -> TTG
     GTGlobals::sleep();
     // CHANGES: copy by context menu
     GTGlobals::sleep();
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTGlobals::sleep();
     clipboardText = GTClipboard::sequences(os);
@@ -1287,7 +1287,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011_2) {
     GTGlobals::sleep();
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTGlobals::sleep();
     QString clipboardText = GTClipboard::sequences(os);
@@ -1332,7 +1332,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012) {
     // 2. Select all sequences and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -1392,7 +1392,7 @@ GUI_TEST_CLASS_DEFINITION(test_0013_1) {
     GTUtilsMdi::checkWindowIsActive(os, "Start Page");
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI_transl.aln"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsMsaEditor::checkMsaEditorWindowIsActive(os);
 
     // 3. Open converted alignment. Use context menu {Align->Align with Kalign}
@@ -1450,12 +1450,12 @@ GUI_TEST_CLASS_DEFINITION(test_0014) {
     GTGlobals::sleep(5000);
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTGlobals::sleep();
 
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     // Expected state: UGENE not crash
     GTGlobals::sleep(5000);
@@ -1480,12 +1480,12 @@ GUI_TEST_CLASS_DEFINITION(test_0014_1) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTGlobals::sleep();
 
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     // Expected state: UGENE not crash
     GTGlobals::sleep();
@@ -1502,7 +1502,7 @@ GUI_TEST_CLASS_DEFINITION(test_0014_2) {
     GTUtilsMdi::click(os, GTGlobals::Close);
     GTGlobals::sleep();
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
     GTUtilsProjectTreeView::toggleView(os);
     GTGlobals::sleep();
@@ -1518,12 +1518,12 @@ GUI_TEST_CLASS_DEFINITION(test_0014_2) {
     GTGlobals::sleep(5000);
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTGlobals::sleep();
 
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     // Expected state: UGENE not crash
     GTGlobals::sleep(5000);
@@ -1548,7 +1548,7 @@ GUI_TEST_CLASS_DEFINITION(test_0015) {
 
     // 4. select document in project and press del
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep();
 
@@ -1579,7 +1579,7 @@ GUI_TEST_CLASS_DEFINITION(test_0015_1) {
 
     // 4. select document in project and press del
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep();
 
@@ -1607,7 +1607,7 @@ GUI_TEST_CLASS_DEFINITION(test_0015_2) {
 
     // 4. select document in project and press del
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     // Expected state: UGENE not crash
@@ -1643,7 +1643,7 @@ GUI_TEST_CLASS_DEFINITION(test_0016) {
     // copy to clipboard
     //    GTKeyboardDriver::keyClick( 'c', Qt::ControlModifier);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep(4000);
 
     QString clipboardText = GTClipboard::sequences(os);
@@ -1714,7 +1714,7 @@ GUI_TEST_CLASS_DEFINITION(test_0016_2) {
 
     // CHANGES: select item in project tree view and press delete
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "ma2_gapped.aln"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 }
@@ -1904,7 +1904,7 @@ GUI_TEST_CLASS_DEFINITION(test_0020) {
     GTUtilsDialog::waitForDialog(os, new DeleteGapsDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_EDIT"
                                                                         << "remove_columns_of_gaps"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsDialog::waitAllFinished(os);
 
@@ -1942,7 +1942,7 @@ GUI_TEST_CLASS_DEFINITION(test_0020_1) {
     GTUtilsDialog::waitForDialog(os, new DeleteGapsDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_EDIT"
                                                                         << "remove_columns_of_gaps"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     // Expected state: UGENE not crashes, deletion is not performed
     GTWidget::click(os, GTWidget::findWidget(os, "msa_editor_sequence_area"));
@@ -2102,7 +2102,7 @@ GUI_TEST_CLASS_DEFINITION(test_0023) {
     //    3. Select data/samples/GENBANK/CVU55762_new.fa
     GTUtilsDialog::waitForDialog(os, new RenameSequenceFiller(os, "CVU55762", "CVU55762"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-10, 18));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     //    Expected state: CVU55762 presents in list
 }
 
@@ -2112,7 +2112,7 @@ GUI_TEST_CLASS_DEFINITION(test_0024) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
     //2. select first symbol of first sequence
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     //3. press toolbar button "zoom to selection"
     int initOffset = GTUtilsMSAEditorSequenceArea::getLastVisibleBase(os);
     //offsets are used to check zooming
@@ -2367,11 +2367,11 @@ GUI_TEST_CLASS_DEFINITION(test_0029_1) {    //DIFFERENCE:gaps are trimmed, FASTQ
     Runnable *r = new ExportSelectedSequenceFromAlignment(os, testDir + "_common_data/scenarios/sandbox/", ExportSelectedSequenceFromAlignment::FASTQ, false);
     GTUtilsDialog::waitForDialog(os, r);
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "Bicolorana_bicolor_EF540830.fastq"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "Bicolorana_bicolor_EF540830"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new SelectSequenceRegionDialogFiller(os));
@@ -2405,7 +2405,7 @@ GUI_TEST_CLASS_DEFINITION(test_0029_2) {
     Runnable *r = new ExportSelectedSequenceFromAlignment(os, testDir + "_common_data/scenarios/sandbox/", ExportSelectedSequenceFromAlignment::Genbank, true, false);
     GTUtilsDialog::waitForDialog(os, r);
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTFileDialog::openFile(os, testDir + "_common_data/scenarios/sandbox/", "Bicolorana_bicolor_EF540830.gb");
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -3039,16 +3039,16 @@ GUI_TEST_CLASS_DEFINITION(test_0041) {
 
     // 3. Drag the selection with mouse to 5 bases to the right.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(5, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     // Expected state: alignment moved to 5 bases to the right.
 
     // 4. Drag the selection with mouse to one base to the left.
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(4, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     // Expected state: alignment  moved to one bases to the left.
 
@@ -3444,7 +3444,7 @@ GUI_TEST_CLASS_DEFINITION(test_0053) {
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(2, 0));
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_formatted"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep(3000);
 
     QString clipboardText = GTClipboard::sequences(os);
@@ -3472,7 +3472,7 @@ GUI_TEST_CLASS_DEFINITION(test_0053_1) {
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(2, 0));
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_formatted"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     QString clipboardText = GTClipboard::sequences(os);
 
@@ -3523,7 +3523,7 @@ GUI_TEST_CLASS_DEFINITION(test_0053_3) {
     GTUtilsMSAEditorSequenceArea::selectSequence(os, names.first());
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_formatted"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep(3000);
 
     QString clipboardText = GTClipboard::sequences(os);
@@ -3781,7 +3781,7 @@ GUI_TEST_CLASS_DEFINITION(test_0059) {
             GTUtilsDialog::waitForDialog(os, new ColorDialogFiller(os, 255, 0, 0));
             QPoint cell2 = QPoint(1.5 * cellWidth, 10);
             GTMouseDriver::moveTo(alphabetColorsFrame->mapToGlobal(cell2));
-            GTMouseDriver::click();
+            GTMouseDriver::clickCurPos();
             GTGlobals::sleep(500);
             QColor cell2Color = GTWidget::getColor(os, dialog, alphabetColorsFrame->mapTo(dialog, cell2));
             CHECK_SET_ERR(cell2Color.name() == "#ff0000", "color was chanded wrong: " + cell2Color.name());
@@ -4400,9 +4400,9 @@ GUI_TEST_CLASS_DEFINITION(test_0076) {
     //    Drag visible range with mouse
     QColor initColor1 = GTWidget::getColor(os, simple, simple->geometry().topLeft() + QPoint(5, 5));
     QString initColorS1 = initColor1.name();
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(QPoint(10, GTMouseDriver::getMousePosition().y()));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     //    Expected state: visible range dragged
     QColor finalColor1 = GTWidget::getColor(os, simple, simple->geometry().topLeft() + QPoint(5, 5));
@@ -4471,7 +4471,7 @@ GUI_TEST_CLASS_DEFINITION(test_0079) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "paste"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
     GTUtilsTaskTreeView::waitTaskFinished(os);
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4496,7 +4496,7 @@ GUI_TEST_CLASS_DEFINITION(test_0080) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Extended DNA\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4521,7 +4521,7 @@ GUI_TEST_CLASS_DEFINITION(test_0081) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Extended DNA\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4546,7 +4546,7 @@ GUI_TEST_CLASS_DEFINITION(test_0082) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Extended DNA\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4572,7 +4572,7 @@ GUI_TEST_CLASS_DEFINITION(test_0083) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Raw\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4629,7 +4629,7 @@ GUI_TEST_CLASS_DEFINITION(test_0091) {
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected: TAVS\nXXVS
@@ -4655,7 +4655,7 @@ GUI_TEST_CLASS_DEFINITION(test_0092) {
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected: TAVS\n--VS
@@ -4681,7 +4681,7 @@ GUI_TEST_CLASS_DEFINITION(test_0093_1) {
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected: PPCP\nCP--
@@ -4707,7 +4707,7 @@ GUI_TEST_CLASS_DEFINITION(test_0093_2) {
     GTUtilsMSAEditorSequenceArea::selectArea(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "copy_selection"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected: GGHG\nHG--

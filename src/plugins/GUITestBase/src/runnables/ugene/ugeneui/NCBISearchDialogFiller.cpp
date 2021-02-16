@@ -188,7 +188,7 @@ void NcbiSearchDialogFiller::clickResultByNum(const QVariant &actionData) {
     GTTreeWidget::click(os, resultItems[actionData.toInt()]);
 
     GTGlobals::sleep();
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTMouseDriver::getMousePosition());
 }
 #undef GT_METHOD_NAME
 

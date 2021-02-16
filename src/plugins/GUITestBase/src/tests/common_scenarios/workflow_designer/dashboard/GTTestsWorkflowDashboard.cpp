@@ -3419,7 +3419,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0005_1) {
 
     //    6. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    7. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/200_sequences.aln");
@@ -3437,7 +3437,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0005_1) {
 
     //    11. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    12. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/200_sequences.aln");
@@ -3495,7 +3495,7 @@ static int setUpMuscleSchemeInNewWdWindow(GUITestOpStatus &os, const QString &fi
 
     // Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //  Add "file" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, file);
@@ -3820,7 +3820,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0006) {
 
     //    6. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    7. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/100_sequences.aln");
@@ -3838,7 +3838,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0006) {
 
     //    11. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    12. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/100_sequences.aln");
@@ -4161,7 +4161,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0007) {
 
     //    6. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    7. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/100_sequences.aln");
@@ -4179,7 +4179,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0007) {
 
     //    11. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    12. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/100_sequences.aln");
@@ -4503,7 +4503,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0008) {
 
     //    6. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    7. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/100_sequences.aln");
@@ -4521,7 +4521,7 @@ GUI_TEST_CLASS_DEFINITION(output_dir_scanning_test_0008) {
 
     //    11. Click to the "Read alignment" element.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     //    12. Add "_common_data/clustal/200_sequences.aln" file to "Dataset 1" dataset.
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/100_sequences.aln");

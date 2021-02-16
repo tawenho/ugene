@@ -124,7 +124,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
 
     // 7. Select "1CF7.PDB" in project tree and press Enter
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "1CF7.pdb"));
-    GTMouseDriver::click();
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "1CF7.pdb"));
     GTKeyboardDriver::keyClick(Qt::Key_Enter);
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTGlobals::sleep(1000);
@@ -225,7 +225,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012) {
     Runnable *filler = new ExportDocumentDialogFiller(os, testDir + "_common_data/scenarios/sandbox/", "1.gb", ExportDocumentDialogFiller::Genbank, true, true, GTGlobals::UseMouse);
     GTUtilsDialog::waitForDialog(os, filler);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "1.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "1.gb"), Qt::RightButton);
 
     GTUtilsDocument::checkDocument(os, "1.gb.gz");
     GTGlobals::sleep(100);
@@ -295,7 +295,7 @@ GUI_TEST_CLASS_DEFINITION(test_0016) {
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "murine.gb"));
     GTUtilsDialog::waitForDialog(os, new ExportDocumentDialogFiller(os, testDir + "_common_data/genbank/.dir/", "murine_copy1.gb", ExportDocumentDialogFiller::Genbank, false, true, GTGlobals::UseMouse));
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "murine.gb"), Qt::RightButton);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "murine_copy1.gb"));
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() + QPoint(5, 5));
@@ -423,7 +423,7 @@ GUI_TEST_CLASS_DEFINITION(test_0025) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_load_selected_documents", GTGlobals::UseMouse));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "1.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "1.gb"), Qt::RightButton);
     GTUtilsSequenceView::checkSequenceViewWindowIsActive(os);
 
     GTUtilsDialog::waitForDialog(os, new CreateAnnotationWidgetFiller(os, true, "<auto>", "misc_feature", "complement(1.. 20)"));
@@ -1116,7 +1116,7 @@ GUI_TEST_CLASS_DEFINITION(test_0066) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "paste"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
     GTUtilsTaskTreeView::waitTaskFinished(os);
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);

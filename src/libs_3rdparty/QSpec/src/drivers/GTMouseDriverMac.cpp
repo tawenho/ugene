@@ -102,6 +102,14 @@ bool GTMouseDriver::moveTo(const QPoint &p) {
 }
 #    undef GT_METHOD_NAME
 
+#    define GT_METHOD_NAME "clickCurPos"
+bool GTMouseDriver::clickCurPos(Qt::MouseButton button) {
+    GTGlobals::sleep(4000);
+    const QPoint p = getMousePosition();
+    return click(p, button);
+}
+#    undef GT_METHOD_NAME
+
 #    define GT_METHOD_NAME "moveAndClick"
 bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
     DRIVER_CHECK(!bp.testFlag(Qt::LeftButton), "Can't click, LeftButton is pressed already");
@@ -162,10 +170,18 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
 }
 #    undef GT_METHOD_NAME
 
+#    define GT_METHOD_NAME "pressCurPos"
+bool GTMouseDriver::pressCurPos(Qt::MouseButton button) {
+    GTGlobals::sleep(5000);
+    const QPoint p = getMousePosition();
+    return press(p, button);
+}
+#    undef GT_METHOD_NAME
+
 #    define GT_METHOD_NAME "press"
-bool GTMouseDriver::press(Qt::MouseButton button) {
+bool GTMouseDriver::press(const QPoint &p, Qt::MouseButton button) {
     bp |= button;
-    QPoint mousePos = QCursor::pos();
+    QPoint mousePos = p;
 
     CGEventType eventType;
     CGMouseButton btn;
@@ -198,9 +214,17 @@ bool GTMouseDriver::press(Qt::MouseButton button) {
 #    undef GT_METHOD_NAME
 
 #    define GT_METHOD_NAME "release"
-bool GTMouseDriver::release(Qt::MouseButton button) {
+bool GTMouseDriver::releaseCurPos(Qt::MouseButton button) {
+    GTGlobals::sleep(50);
+    const QPoint p = getMousePosition();
+    return release(p, button);
+}
+#    undef GT_METHOD_NAME
+
+#    define GT_METHOD_NAME "release"
+bool GTMouseDriver::release(const QPoint &p, Qt::MouseButton button) {
     bp &= (Qt::MouseButtonMask ^ button);
-    QPoint mousePos = QCursor::pos();
+    QPoint mousePos = p;
     CGEventType eventType;
     CGMouseButton btn;
     if (button == Qt::LeftButton) {
@@ -231,9 +255,17 @@ bool GTMouseDriver::release(Qt::MouseButton button) {
 }
 #    undef GT_METHOD_NAME
 
+#    define GT_METHOD_NAME "doubleClickCurPos"
+bool GTMouseDriver::doubleClickCurPos() {
+    GTGlobals::sleep(4000);
+    const QPoint p = getMousePosition();
+    return doubleClick(p);
+}
+#    undef GT_METHOD_NAME
+
 #    define GT_METHOD_NAME "doubleClick"
-bool GTMouseDriver::doubleClick() {
-    QPoint mousePos = QCursor::pos();
+bool GTMouseDriver::doubleClick(const QPoint &p) {
+    QPoint mousePos = p;
 
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");

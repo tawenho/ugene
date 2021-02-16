@@ -99,7 +99,7 @@ void InsertSequenceFiller::commonScenario() {
         case GTGlobals::UseMouse:
             checkPos = QPoint(checkButton->rect().left() + 12, checkButton->rect().top() + 12);
             GTMouseDriver::moveTo(checkButton->mapToGlobal(checkPos));
-            GTMouseDriver::click();
+            GTMouseDriver::click(checkButton->mapToGlobal(checkPos));
             break;
         case GTGlobals::UseKey:
             GTWidget::setFocus(os, checkButton);

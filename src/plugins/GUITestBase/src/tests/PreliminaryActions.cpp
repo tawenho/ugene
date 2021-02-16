@@ -58,8 +58,8 @@ PRELIMINARY_ACTION_DEFINITION(pre_action_0000) {
     GTUtilsDialog::cleanup(os, GTUtilsDialog::NoFailOnUnfinished);
 
 #ifndef Q_OS_WIN
-    GTMouseDriver::release(Qt::RightButton);
-    GTMouseDriver::release();
+    GTMouseDriver::release(GTMouseDriver::getMousePosition(), Qt::RightButton);
+    GTMouseDriver::release(GTMouseDriver::getMousePosition());
     GTKeyboardDriver::keyRelease(Qt::Key_Control);
     GTKeyboardDriver::keyRelease(Qt::Key_Shift);
     GTKeyboardDriver::keyRelease(Qt::Key_Alt);

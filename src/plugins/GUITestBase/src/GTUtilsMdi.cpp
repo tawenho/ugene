@@ -89,7 +89,7 @@ void GTUtilsMdi::click(HI::GUITestOpStatus &os, GTGlobals::WindowAction action) 
         int top = mdiWindow->rect().top();
         QPoint p(left + 15, top - 10);
         GTMouseDriver::moveTo(mdiWindow->mapToGlobal(p));
-        GTMouseDriver::click();
+        GTMouseDriver::click(mdiWindow->mapToGlobal(p));
         break;
     }
     default:
@@ -199,7 +199,7 @@ void GTUtilsMdi::closeAllWindows(HI::GUITestOpStatus &os) {
         if (!tabbedView) {
             QPoint closeButtonPos = GTWidget::getWidgetGlobalTopLeftPoint(os, mdiWindow) + QPoint(10, 5);
             GTMouseDriver::moveTo(closeButtonPos);
-            GTMouseDriver::click();
+            GTMouseDriver::click(closeButtonPos);
         } else {
             GTMenu::clickMainMenuItem(os, QStringList() << "Actions"
                                                         << "Close active view");
@@ -351,9 +351,9 @@ void GTUtilsMdi::selectRandomRegion(HI::GUITestOpStatus &os, const QString &wind
     const QRect r = w->rect();
     QPoint p = QPoint((r.topLeft().x() + r.bottomLeft().x()) / 2 + 5, r.center().y() / 2);
     GTMouseDriver::moveTo(w->mapToGlobal(p));
-    GTMouseDriver::press();
+    GTMouseDriver::press(w->mapToGlobal(p));
     GTMouseDriver::moveTo(w->mapToGlobal(r.center()));
-    GTMouseDriver::release();
+    GTMouseDriver::release(w->mapToGlobal(r.center()));
     GTThread::waitForMainThread();
 }
 #undef GT_METHOD_NAME
@@ -420,7 +420,7 @@ void GTUtilsMdi::clickTab(HI::GUITestOpStatus &os, int tabIndex) {
     coreLog.info(QString("Try to click tab %1(%2)").arg(tabIndex).arg(tabBar->tabText(tabIndex)));
     QPoint tabCenter = tabBar->mapToGlobal(tabBar->tabRect(tabIndex).center());
     GTMouseDriver::moveTo(tabCenter);
-    GTMouseDriver::click();
+    GTMouseDriver::click(tabCenter);
 }
 #undef GT_METHOD_NAME
 

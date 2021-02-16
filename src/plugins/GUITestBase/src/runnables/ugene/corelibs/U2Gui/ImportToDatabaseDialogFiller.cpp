@@ -186,7 +186,7 @@ void ImportToDatabaseDialogFiller::selectItems(const Action &action) {
     foreach (const QString &itemText, itemList) {
         const QPoint itemCenter = getItemCenter(itemText);
         GTMouseDriver::moveTo(itemCenter);
-        GTMouseDriver::click();
+        GTMouseDriver::click(itemCenter);
     }
 
     GTKeyboardDriver::keyRelease(Qt::Key_Control);
@@ -201,7 +201,7 @@ void ImportToDatabaseDialogFiller::editDestinationFolder(const Action &action) {
 
     const QPoint itemCenter = getFolderColumnCenter(action.data.value(Action::ACTION_DATA__ITEM).toString());
     GTMouseDriver::moveTo(itemCenter);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClick(itemCenter);
 
     const QString dstFolder = action.data.value(Action::ACTION_DATA__DESTINATION_FOLDER).toString();
     GTKeyboardDriver::keySequence(dstFolder);
@@ -231,7 +231,7 @@ void ImportToDatabaseDialogFiller::editPrivateOptions(const Action &action) {
 
     const QPoint itemCenter = getItemCenter(action.data.value(Action::ACTION_DATA__ITEM).toString());
     GTMouseDriver::moveTo(itemCenter);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(itemCenter, Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -243,7 +243,7 @@ void ImportToDatabaseDialogFiller::resetPrivateOptions(const Action &action) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Reset to general options"));
     const QPoint itemCenter = getItemCenter(action.data.value(Action::ACTION_DATA__ITEM).toString());
     GTMouseDriver::moveTo(itemCenter);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(itemCenter, Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 

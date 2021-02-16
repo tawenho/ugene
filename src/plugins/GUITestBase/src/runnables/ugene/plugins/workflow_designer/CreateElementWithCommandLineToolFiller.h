@@ -150,7 +150,7 @@ private:
     template<typename DataType>
     void setType(QTableView *table, int row, const DataType &type) {
         GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, static_cast<int>(ColumnName::Type), row));
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(GTTableView::getCellPosition(os, table, static_cast<int>(ColumnName::Type), row));
         GTThread::waitForMainThread();
 
         QComboBox *box = qobject_cast<QComboBox *>(QApplication::focusWidget());

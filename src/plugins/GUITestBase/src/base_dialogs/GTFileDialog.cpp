@@ -250,7 +250,7 @@ void GTFileDialogUtils::selectFile() {
         indexCenter.setY(indexCenter.y() + w->header()->rect().height());
         indexCenter.setX(indexCenter.x() + 1);
         GTMouseDriver::moveTo(w->mapToGlobal(indexCenter));
-        GTMouseDriver::click();
+        GTMouseDriver::clickCurPos();
         break;
     default:
         break;

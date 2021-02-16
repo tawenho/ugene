@@ -239,7 +239,7 @@ void SelectSubalignmentFiller::commonScenario() {
     p = dialog->mapToGlobal(p);
 
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(p);
     for (int i = 0; i < table->rowCount(); i++) {
         foreach (QString s, msaRegion.sequences) {
             QCheckBox *box = qobject_cast<QCheckBox *>(table->cellWidget(i, 0));

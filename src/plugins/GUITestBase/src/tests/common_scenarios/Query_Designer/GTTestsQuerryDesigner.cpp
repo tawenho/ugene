@@ -68,7 +68,7 @@ void test1(HI::GUITestOpStatus &os, QString s = "") {
         }
         GTMouseDriver::moveTo(p);
 
-        GTMouseDriver::press();
+        GTMouseDriver::press(p);
         if (s == "arr") {
             p.setX(GTUtilsQueryDesigner::getItemLeft(os, array[i]) + 100);
         } else {
@@ -76,7 +76,7 @@ void test1(HI::GUITestOpStatus &os, QString s = "") {
         }
         GTMouseDriver::moveTo(p);
 
-        GTMouseDriver::release();
+        GTMouseDriver::release(p);
         GTGlobals::sleep(500);
 
         //4. Select the resized element and press <Del>
@@ -85,7 +85,7 @@ void test1(HI::GUITestOpStatus &os, QString s = "") {
         } else {
             GTMouseDriver::moveTo(GTUtilsQueryDesigner::getItemCenter(os, s));
         }
-        GTMouseDriver::click();
+        GTMouseDriver::clickCurPos();
         GTKeyboardDriver::keyClick(Qt::Key_Delete);
         GTGlobals::sleep(500);
         //check no elements on scene

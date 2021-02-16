@@ -349,7 +349,7 @@ void GTWidget::clickLabelLink(GUITestOpStatus &os, QWidget *label, int step, int
             GTMouseDriver::moveTo(label->mapToGlobal(QPoint(i, j)));
             if (label->cursor().shape() == Qt::PointingHandCursor) {
                 GTGlobals::sleep(500);
-                GTMouseDriver::click();
+                GTMouseDriver::click(label->mapToGlobal(QPoint(i, j)));
                 return;
             }
         }
@@ -366,7 +366,7 @@ void GTWidget::clickWindowTitle(GUITestOpStatus &os, QWidget *window) {
     opt.initFrom(window);
     const QRect titleLabelRect = window->style()->subControlRect(QStyle::CC_TitleBar, &opt, QStyle::SC_TitleBarLabel);
     GTMouseDriver::moveTo(getWidgetGlobalTopLeftPoint(os, window) + titleLabelRect.center());
-    GTMouseDriver::click();
+    GTMouseDriver::click(getWidgetGlobalTopLeftPoint(os, window) + titleLabelRect.center());
 }
 #undef GT_METHOD_NAME
 

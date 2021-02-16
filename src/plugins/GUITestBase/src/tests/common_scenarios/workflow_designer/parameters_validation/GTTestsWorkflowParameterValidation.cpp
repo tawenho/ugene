@@ -56,16 +56,16 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
     QTableView *table = qobject_cast<QTableView *>(GTWidget::findWidget(os, "table"));
     CHECK_SET_ERR(table, "tableView not found");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, 1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QString s = QFileInfo(testDir + "_common_data/scenarios/sandbox/").absoluteFilePath();
     GTKeyboardDriver::keySequence(s + "/wd_pv_0001.sto");
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 
     // 3. Add the file "test/_common_data/clustal/align.aln" as input
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/align.aln");
 
     // 4. Move this file somewhere from its folder
@@ -115,10 +115,10 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     CHECK_SET_ERR(table, "tableView not found");
     QPoint writeAlignmentCenter = GTUtilsWorkflowDesigner::getItemCenter(os, "Write alignment");
     GTMouseDriver::moveTo(writeAlignmentCenter);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QPoint cellPoint = GTTableView::getCellPosition(os, table, 1, 1);
     GTMouseDriver::moveTo(cellPoint);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QString dirPath = QFileInfo(testDir + "_common_data/scenarios/sandbox/").absoluteFilePath();
     GTKeyboardDriver::keySequence(dirPath + "/wd_pv_0002.sto");
     QWidget *activeWindow = GTUtilsMdi::activeWindow(os);
@@ -133,7 +133,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
     //    4. Add that folder as input in WD
     QPoint readAlignmentCenter = GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment");
     GTMouseDriver::moveTo(readAlignmentCenter);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFolder(os, outputDir.absolutePath());
     GTGlobals::sleep(2000);
     GTWidget::click(os, activeWindow);
@@ -173,26 +173,26 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
     //2. Set some name for an output file
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QTableView *table = qobject_cast<QTableView *>(GTWidget::findWidget(os, "table"));
     CHECK_SET_ERR(table, "tableView not found");
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, 3));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keySequence("sequence.gb");
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 
     //3. Add some valid sequence file as input
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/fasta/fa1.fa");
 
     //4. Set some nonexistent path to a file as the "Pattern file" parameter of the "Find Substrings" worker
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Find Pattern"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, 2));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keySequence("pattern_file.txt");
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 
@@ -220,7 +220,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
     QTableView *table = qobject_cast<QTableView *>(GTWidget::findWidget(os, "table"));
     CHECK_SET_ERR(table, "tableView not found");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     //GTGlobals::sleep(60000);
     QString s = QFileInfo(testDir + "_common_data/scenarios/sandbox/permDir").absoluteFilePath();
     GTUtilsWorkflowDesigner::setParameter(os, "Output file", QVariant(s + "/wd_pv_0001.sto"), GTUtilsWorkflowDesigner::textValue);
@@ -228,7 +228,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
 
     // 3. Add the file "test/_common_data/clustal/align.aln" as input
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/clustal/align.aln");
     GTGlobals::sleep(2000);
 
@@ -278,18 +278,18 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
     //2. Set some name for an output file
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QTableView *table = qobject_cast<QTableView *>(GTWidget::findWidget(os, "table"));
     CHECK_SET_ERR(table, "tableView not found");
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, 3));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keySequence("sequence.gb");
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 
     //3. Add some valid sequence file as input
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/fasta/fa1.fa");
 
     //4. Create an empty folder somewhere (e.g. in the "test/_tmp" folder)
@@ -298,9 +298,9 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
 
     //5. Set the path to this folder as the "Database folder" parameter of the "CD Search" worker
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "CD Search"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, 2));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keySequence(testDir + "_empty_tmp");
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 

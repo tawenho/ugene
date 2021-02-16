@@ -270,7 +270,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_EXPORT"
                                                                         << "action_export_selected_sequence_region"));
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "exp.fasta"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0004_1) {    //CHANGES: keyboard used instead mouse
@@ -283,7 +283,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_1) {    //CHANGES: keyboard used instead mou
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_EXPORT"
                                                                         << "action_export_selected_sequence_region"));
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "exp.fasta"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0005) {
@@ -595,7 +595,7 @@ GUI_TEST_CLASS_DEFINITION(test_0023) {
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "Primers_DNA"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Mark as circular"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTWidget::click(os, GTWidget::findWidget(os, "render_area_Primers_DNA"));
 
@@ -606,8 +606,8 @@ GUI_TEST_CLASS_DEFINITION(test_0023) {
     settings.primersName = "linear";
     GTUtilsDialog::waitForDialog(os, new Primer3DialogFiller(os, settings));
 
-    GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos();
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     pair1 = GTUtilsAnnotationsTreeView::getAnnotatedRegionsOfGroup(os, "pair 1  (0, 2)", "linear  (5, 0)");
@@ -1171,7 +1171,7 @@ GUI_TEST_CLASS_DEFINITION(test_0034) {
     GTUtilsSequenceView::openPopupMenuOnSequenceViewArea(os);
     //    Set focus on tree
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "human_T1.fa"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     second = GTWidget::getImage(os, panView);
     CHECK_SET_ERR(init == second, "ruler not hidden");
     //    Remove ruler
@@ -1198,7 +1198,7 @@ GUI_TEST_CLASS_DEFINITION(test_0035) {
     QWidget *panView = GTWidget::findWidget(os, "pan_view_human_T1 (UCSC April 2002 chr7:115977709-117855134)");
     GTWidget::click(os, panView, Qt::LeftButton, QPoint(panView->rect().right() - 50, panView->rect().center().y()));
     GTGlobals::sleep(500);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     //    Expected: Sequence scrolled to clicked position
     QWidget *det = GTWidget::findWidget(os, "det_view_human_T1 (UCSC April 2002 chr7:115977709-117855134)");
     QScrollBar *scrollBar = det->findChild<QScrollBar *>();
@@ -1219,7 +1219,7 @@ GUI_TEST_CLASS_DEFINITION(test_0036) {
     //    Check "Sequence between selected annotations"  and
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Select"
                                                                         << "Sequence between selected annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     QVector<U2Region> select = GTUtilsSequenceView::getSelection(os);
     CHECK_SET_ERR(select.size() == 1, QString("Wrong number of selections: %1").arg(select.size()));
     U2Region s = select.first();
@@ -1228,7 +1228,7 @@ GUI_TEST_CLASS_DEFINITION(test_0036) {
     //    "Sequence around selected annotations" actions
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Select"
                                                                         << "Sequence around selected annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     select = GTUtilsSequenceView::getSelection(os);
     CHECK_SET_ERR(select.size() == 1, QString("Wrong number of selections: %1").arg(select.size()));
     s = select.first();
@@ -1381,9 +1381,9 @@ GUI_TEST_CLASS_DEFINITION(test_0042) {
     CHECK_SET_ERR(selected == "misc_feature", "Unexpected selected anntoation: " + selected);
     //    Click on annotation on seq view with right button
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << ADV_MENU_EDIT << "edit_annotation_tree_item", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << ADV_MENU_REMOVE << "Selected annotations and qualifiers", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     //    Check context menu action
 }
 
@@ -1430,9 +1430,9 @@ GUI_TEST_CLASS_DEFINITION(test_0044_1) {
     GTWidget::click(os, over);
 
     GTKeyboardDriver::keyPress(Qt::Key_Shift);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() + QPoint(100, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTKeyboardDriver::keyRelease(Qt::Key_Shift);
     GTThread::waitForMainThread();
 
@@ -1448,12 +1448,12 @@ GUI_TEST_CLASS_DEFINITION(test_0044_2) {
 
     Overview *over = GTUtilsSequenceView::getOverviewByNumber(os);
     GTWidget::click(os, over);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() + QPoint(0, over->geometry().height() / 3));
     GTGlobals::sleep();
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() + QPoint(over->geometry().width() / 3, 0));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTGlobals::sleep();
 
     int start = GTUtilsSequenceView::getVisiableStart(os);
@@ -1662,7 +1662,7 @@ GUI_TEST_CLASS_DEFINITION(test_0051) {
     GTUtilsDialog::waitForDialog(os, new ColorDialogFiller(os, 255, 0, 0));
     GTUtilsAnnotHighlightingTreeView::click(os, "CDS");
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() + QPoint(90, 0));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(1000);
 
     QColor final = GTUtilsAnnotHighlightingTreeView::getItemColor(os, "CDS");
@@ -1932,7 +1932,7 @@ GUI_TEST_CLASS_DEFINITION(test_0060) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
     QWidget *nameLabel = GTWidget::findWidget(os, "nameLabel");
     GTMouseDriver::moveTo(GTWidget::getWidgetCenter(nameLabel) + QPoint(2 * nameLabel->geometry().width() / 3, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(2000);
 
     QWidget *overViewSe2 = GTWidget::findWidget(os, "overview_NC_001363", NULL, false);
@@ -2184,15 +2184,15 @@ GUI_TEST_CLASS_DEFINITION(test_0066) {
     GTWidget::click(os, bottomSplitterHandle);
     QPoint p1 = GTMouseDriver::getMousePosition();
     QPoint p2 = QPoint(p1.x(), p1.y() + 100);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p2);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTGlobals::sleep();
     CHECK_SET_ERR(visibleRange.startPos == GTUtilsSequenceView::getVisiableStart(os), "Start position of visible range was changed on enlarge at the bottom");
 
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p1);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     CHECK_SET_ERR(visibleRange.startPos == GTUtilsSequenceView::getVisiableStart(os), "Start position of visible range was changed on reduce at the bottom");
 
@@ -2201,15 +2201,15 @@ GUI_TEST_CLASS_DEFINITION(test_0066) {
     GTWidget::click(os, topSplitterHandle);
     p1 = GTMouseDriver::getMousePosition();
     p2 = QPoint(p1.x(), p1.y() - 100);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p2);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTGlobals::sleep();
     CHECK_SET_ERR(visibleRange.startPos == GTUtilsSequenceView::getVisiableStart(os), "Start position of visible range was changed on enlarge at the top");
 
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p1);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     CHECK_SET_ERR(visibleRange.startPos == GTUtilsSequenceView::getVisiableStart(os), "Start position of visible range was changed on reduce at the top");
 }
@@ -2241,10 +2241,10 @@ GUI_TEST_CLASS_DEFINITION(test_0067) {
     CHECK_SET_ERR(scrollBar->isHidden(), "Horizontal scroll bar is visible");
 
     GTWidget::click(os, seqWgt);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTWidget::click(os, wrapButton);
     GTWidget::click(os, seqWgt);
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     ExportSequenceImage::Settings s(ExportSequenceImage::DetailsView, U2Region(1, 3));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceImage(os, sandBoxDir + "seq_image_0067", s));
@@ -2302,9 +2302,9 @@ GUI_TEST_CLASS_DEFINITION(test_0069) {
     QPoint p1 = GTMouseDriver::getMousePosition();
     QPoint p2(p1.x() + 300, p1.y() + 200);
 
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p2);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
 
     CHECK_SET_ERR(!GTUtilsSequenceView::getSelection(os).isEmpty(), "Nothing is selected");
@@ -2413,7 +2413,7 @@ GUI_TEST_CLASS_DEFINITION(test_0076) {
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "SYNPBR322"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Mark as circular"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_ANALYSE"

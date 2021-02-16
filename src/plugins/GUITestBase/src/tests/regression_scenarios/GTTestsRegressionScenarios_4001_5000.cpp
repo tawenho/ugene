@@ -714,9 +714,9 @@ GUI_TEST_CLASS_DEFINITION(test_4072) {
     } else {
         p.setX(p.x() - 2 * nameList->width() / 3);
     }
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
 
     GTThread::waitForMainThread();
 
@@ -906,7 +906,7 @@ GUI_TEST_CLASS_DEFINITION(test_4096) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE_AS_ALIGNMENT));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, new ExportSeqsAsMsaScenario));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "human_T1.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::checkItem(os, "test_4096.aln");
@@ -926,7 +926,7 @@ GUI_TEST_CLASS_DEFINITION(test_4097) {
     GTUtilsDialog::waitForDialog(os, new ExportDocumentDialogFiller(os, sandBoxDir, "test_4097.gb", ExportDocumentDialogFiller::VectorNTI, false, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Export document"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "unrefined.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
     const QString resultFileContent = getFileContent(sandBoxDir + "test_4097.gb");
     CHECK_SET_ERR(false == resultFileContent.contains("Vector_NTI_Display_Data_(Do_Not_Edit!)", Qt::CaseInsensitive), "Unexpected file content");
@@ -1103,7 +1103,7 @@ GUI_TEST_CLASS_DEFINITION(test_4110) {
     QModelIndex sequenceIndex = GTUtilsProjectTreeView::findIndex(os, "NC_001363", folderIndex);
     QModelIndex annotationIndex = GTUtilsProjectTreeView::findIndex(os, "NC_001363 features", folderIndex);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, sequenceIndex));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsSequenceView::checkSequenceViewWindowIsActive(os);
     GTThread::waitForMainThread();
 
@@ -1327,12 +1327,12 @@ GUI_TEST_CLASS_DEFINITION(test_4122) {
     QTreeWidgetItem *annotationTable = GTUtilsAnnotationsTreeView::findItem(os, "NC_001363 features [murine.gb] *");
     CHECK_SET_ERR(NULL != annotationTable, "AnnotationTable (NC_001363 features [murine.gb]) is NULL or not changed");
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "NC_001363 features [murine.gb] *"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     QTreeWidgetItem *newItem = GTUtilsAnnotationsTreeView::findItem(os, "Misc. Feature", annotationTable);
     CHECK_SET_ERR(NULL != newItem, "New annotation is NULL or not created");
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "Misc. Feature"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 }
 
 GUI_TEST_CLASS_DEFINITION(test_4124) {
@@ -1575,7 +1575,7 @@ GUI_TEST_CLASS_DEFINITION(test_4150) {
             QTreeView *treeView = GTWidget::findWidgetByType<QTreeView *>(os, dialog, "Failed to find tree widget");
             QModelIndex documentIndex = GTUtilsProjectTreeView::findIndex(os, treeView, fileName);
             GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, treeView, documentIndex));
-            GTMouseDriver::click();
+            GTMouseDriver::clickCurPos();
             GTUtilsDialog::clickButtonBox(os, dialog, QDialogButtonBox::Ok);
         }
         QString fileName;
@@ -1604,7 +1604,7 @@ GUI_TEST_CLASS_DEFINITION(test_4150) {
     // Double click on the sequence object from the "murine.gb" file
     QModelIndex seqFile = GTUtilsProjectTreeView::findIndex(os, "NC_001363", from);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, seqFile));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsSequenceView::checkSequenceViewWindowIsActive(os);
 
     // Expected state: sequence view has opened, it contains a single set of annotations
@@ -1618,7 +1618,7 @@ GUI_TEST_CLASS_DEFINITION(test_4150) {
     QModelIndex murineFol = GTUtilsProjectTreeView::findIndex(os, fileName, to);
     QModelIndex seqFol = GTUtilsProjectTreeView::findIndex(os, "NC_001363", murineFol);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, seqFol));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsSequenceView::checkSequenceViewWindowIsActive(os);
 
     // Expected state: sequence view has opened, it contains a single set of annotations
@@ -1750,7 +1750,7 @@ GUI_TEST_CLASS_DEFINITION(test_4160) {
     GTGlobals::sleep(1000);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "human_T1.fa"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 }
 
@@ -2276,13 +2276,13 @@ GUI_TEST_CLASS_DEFINITION(test_4244) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "test_4244", ExportAnnotationsFiller::gff, os));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "name"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "test_4244.gb", ExportAnnotationsFiller::genbank, os));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "name"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep(1000);
 
     GTFileDialog::openFile(os, sandBoxDir + "test_4244.gb");
@@ -2482,7 +2482,7 @@ GUI_TEST_CLASS_DEFINITION(test_4302_2) {
     //2. Select any annotation
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "CDS"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     //3. Open main menu "Actions"
     //Expected state: menu item {Remove->Selected annotation and qualifiers} are enabled
     GTMenu::clickMainMenuItem(os, QStringList() << "Actions"
@@ -2619,7 +2619,7 @@ GUI_TEST_CLASS_DEFINITION(test_4309_1) {
     table->scrollTo(model->index(row, 1));
 
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, row));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(500);
 
     QComboBox *box = qobject_cast<QComboBox *>(table->findChild<QComboBox *>());
@@ -2945,9 +2945,9 @@ GUI_TEST_CLASS_DEFINITION(test_4373) {
     point.setY(cv->mapToGlobal(cv->geometry().topLeft()).y() + 100);
     GTGlobals::sleep();
 
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(point);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTGlobals::sleep();
 #ifdef Q_OS_LINUX
@@ -2992,9 +2992,9 @@ GUI_TEST_CLASS_DEFINITION(test_4383) {
     CHECK_SET_ERR(msaOffsetRight != NULL, "MsaOffset Left not found");
 
     GTMouseDriver::moveTo(msaOffsetRight->mapToGlobal(QPoint(msaOffsetRight->rect().left() - 2, 7)));
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(msaOffsetRight->mapToGlobal(QPoint(msaOffsetRight->rect().left() - 52, 50)));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTKeyboardDriver::keyClick(Qt::Key_Space);
     GTThread::waitForMainThread();
@@ -3003,10 +3003,10 @@ GUI_TEST_CLASS_DEFINITION(test_4383) {
     activeWindow = GTUtilsMdi::activeWindow(os);
     msaOffsetRight = GTWidget::findWidget(os, "msa_editor_offsets_view_widget_right", activeWindow);
     GTMouseDriver::moveTo(msaOffsetRight->mapToGlobal(QPoint(msaOffsetRight->rect().left() - 2, 77)));
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTGlobals::sleep();
     GTMouseDriver::moveTo(msaOffsetRight->mapToGlobal(QPoint(msaOffsetRight->rect().left() - 52, 120)));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTGlobals::sleep();
     GTKeyboardDriver::keyClick(Qt::Key_Space);
 }
@@ -3208,7 +3208,7 @@ GUI_TEST_CLASS_DEFINITION(test_4463) {
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Edit"
                                                                               << "Remove subsequence..."));
     GTWidget::click(os, GTUtilsAnnotationsTreeView::getTreeWidget(os));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTUtilsMdi::closeWindow(os, "test_4463.gb.gz");
     GTUtilsDocument::unloadDocument(os, "test_4463.gb.gz", true);
@@ -3305,9 +3305,9 @@ GUI_TEST_CLASS_DEFINITION(test_4489) {
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(5, 5), QPoint(10, 10));
     //3. Move it to the right with a mouse.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(7, 7));
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(12, 7));
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTGlobals::sleep();
 
     //Bug state : Overview is not recalculated.There is the "Waiting..." state.
@@ -3488,7 +3488,7 @@ GUI_TEST_CLASS_DEFINITION(test_4524) {
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Export"
                                                                               << "Export as image"));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(10, 10));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     GTGlobals::sleep(5000);
 
@@ -3625,7 +3625,7 @@ GUI_TEST_CLASS_DEFINITION(test_4563) {
 
     // 4. Set "_common_data/scenarios/_regression/4563/test_ma.fa" as the input file.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read alignment"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/scenarios/_regression/4563/test_ma.fa");
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/scenarios/_regression/4563/test_ma_1.fa");
     GTLogTracer l;
@@ -3684,7 +3684,7 @@ GUI_TEST_CLASS_DEFINITION(test_4588) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/4588/BLAST/4588.00.nhr", testDir + "_common_data/scenarios/sandbox/4588_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::getItemCenter(os, "shortread24489");
@@ -3727,7 +3727,7 @@ GUI_TEST_CLASS_DEFINITION(test_4588_1) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/4588/BLAST_plus/4588.00.nhr", testDir + "_common_data/scenarios/sandbox/4588_1_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::getItemCenter(os, "shortread24481");
@@ -3773,7 +3773,7 @@ GUI_TEST_CLASS_DEFINITION(test_4588_2) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/4588/4588_1.gb", testDir + "_common_data/scenarios/sandbox/4588_1_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_4589) {
@@ -4399,7 +4399,7 @@ GUI_TEST_CLASS_DEFINITION(test_4702_1) {
     CHECK_SET_ERR(1 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(1).arg(selectedItemsCount));
     // 3. Use context menu on AnnotationsTreeView {Invert annotations selection}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "invert_selection_action"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     // Expected state: all annotations other besides the originally selected annotation are selected
     selectedItemsCount = GTUtilsAnnotationsTreeView::getAllSelectedItems(os).size();
     CHECK_SET_ERR(359 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(359).arg(selectedItemsCount));
@@ -4418,7 +4418,7 @@ GUI_TEST_CLASS_DEFINITION(test_4702_2) {
     CHECK_SET_ERR(2 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(2).arg(selectedItemsCount));
     // 3. Use context menu on AnnotationsTreeView {Invert annotations selection}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "invert_selection_action"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     // Expected state: All annotations, except comment and source, are selected.
     selectedItemsCount = GTUtilsAnnotationsTreeView::getAllSelectedItems(os).size();
     CHECK_SET_ERR(358 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(358).arg(selectedItemsCount));
@@ -4436,7 +4436,7 @@ GUI_TEST_CLASS_DEFINITION(test_4702_3) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "invert_selection_action"));
     QPoint p = GTUtilsAnnotationsTreeView::getItemCenter(os, "comment");
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     // Expected state: All annotations are selected.
     selectedItemsCount = GTUtilsAnnotationsTreeView::getAllSelectedItems(os).size();
     CHECK_SET_ERR(359 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(359).arg(selectedItemsCount));
@@ -4456,7 +4456,7 @@ GUI_TEST_CLASS_DEFINITION(test_4702_4) {
     CHECK_SET_ERR(1 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(1).arg(selectedItemsCount));
     // 3. Use context menu on AnnotationsTreeView {Invert annotations selection}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "invert_selection_action"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     // Expected state: All annotations are selected.
     selectedItemsCount = GTUtilsAnnotationsTreeView::getAllSelectedItems(os).size();
     CHECK_SET_ERR(361 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(361).arg(selectedItemsCount));
@@ -4476,7 +4476,7 @@ GUI_TEST_CLASS_DEFINITION(test_4702_5) {
     CHECK_SET_ERR(1 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(1).arg(selectedItemsCount));
     // 3. Use context menu on AnnotationsTreeView {Invert annotations selection}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "invert_selection_action"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     // Expected state: All annotations are selected.
     selectedItemsCount = GTUtilsAnnotationsTreeView::getAllSelectedItems(os).size();
     CHECK_SET_ERR(361 == selectedItemsCount, QString("Incorrect selected annotations count: expected - %1, obtained - %2 ").arg(361).arg(selectedItemsCount));
@@ -4798,9 +4798,9 @@ GUI_TEST_CLASS_DEFINITION(test_4728) {
     endPos = seqWidget->mapToGlobal(QPoint(seqWidget->rect().width() - indent, widgetCenterHeight));
 
     GTMouseDriver::moveTo(startPos);
-    GTMouseDriver::press();
+    GTMouseDriver::pressCurPos();
     GTMouseDriver::moveTo(endPos);
-    GTMouseDriver::release();
+    GTMouseDriver::releaseCurPos();
     GTThread::waitForMainThread();
     GTGlobals::sleep(200);
 
@@ -5532,7 +5532,7 @@ GUI_TEST_CLASS_DEFINITION(test_4839_1) {
 
     //3. Call context menu on the name list area, select the {Edit -> Remove sequence} menu item.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "Remove sequence"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     //Expected state: the sequences are removed.
     QStringList modifiedNames = GTUtilsMSAEditorSequenceArea::getNameList(os);
 
@@ -5654,7 +5654,7 @@ GUI_TEST_CLASS_DEFINITION(test_4885_1) {
     //    3. Doubleclick the first symbol of the first sequence.
     //    Expected state: overview doesn't start recalculation.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     QWidget *graphOverview = GTUtilsMsaEditor::getGraphOverview(os);
     CHECK_SET_ERR(NULL != graphOverview, "Graph overview is NULL");
@@ -5675,7 +5675,7 @@ GUI_TEST_CLASS_DEFINITION(test_4885_2) {
     GTUtilsDialog::waitForDialogWhichMustNotBeRun(os, new MessageBoxDialogFiller(os, QMessageBox::Cancel, "The alignment has been modified"));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     GTGlobals::sleep(500);
 }
@@ -5720,7 +5720,7 @@ GUI_TEST_CLASS_DEFINITION(test_4886) {
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "90-JRI-07.scf"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_CHROMATOGRAM));
     GTUtilsDialog::waitForDialog(os, new ExportChromatogramFiller(os, testDir + "_common_data/scenarios/sandbox/", "90-JRI-07.scf", ExportChromatogramFiller::SCF, false, false, true));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep(5000);
     QWidget *parent = GTWidget::findWidget(os, "90-JRI-07 sequence [90-JRI-07.scf] 2");
     GTWidget::findWidget(os, "ADV_single_sequence_widget_0", parent);

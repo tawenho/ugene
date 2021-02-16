@@ -153,7 +153,7 @@ GUI_TEST_CLASS_DEFINITION(test_0057_1) {
     GTUtilsDialog::waitForDialog(os, new FindQualifierFiller(os, settings));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Find qualifier..."));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "NC_004718 features [sars.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //Expected state : Found first qualifier with name db_xref and value GI:30124074
     QList<QTreeWidgetItem *> selectedItems = GTUtilsAnnotationsTreeView::getAllSelectedItems(os);
@@ -179,7 +179,7 @@ GUI_TEST_CLASS_DEFINITION(test_0057_2) {
     GTUtilsDialog::waitForDialog(os, new FindQualifierFiller(os, settings));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Find qualifier..."));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "NC_004718 features [sars.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //Expected state : Selected 58 qualifiers with name db_xref
     QList<QTreeWidgetItem *> selectedItems = GTUtilsAnnotationsTreeView::getAllSelectedItems(os);
@@ -211,7 +211,7 @@ GUI_TEST_CLASS_DEFINITION(test_0057_3) {
     GTUtilsDialog::waitForDialog(os, new FindQualifierFiller(os, settings));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Find qualifier..."));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "NC_001363 features [murine.gb]"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     //Expected state : Founded first qualifier with name 'product' and value 'pol polyprotein fragment'
     QList<QTreeWidgetItem *> selectedItems = GTUtilsAnnotationsTreeView::getAllSelectedItems(os);
@@ -1149,7 +1149,7 @@ GUI_TEST_CLASS_DEFINITION(test_0702) {
     GTUtilsDialog::waitForDialog(os, new ExportSequenceOfSelectedAnnotationsFiller(os, sandBoxDir + "1.fa", ExportSequenceOfSelectedAnnotationsFiller::Fastq, ExportSequenceOfSelectedAnnotationsFiller::SaveAsSeparate));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Export"
                                                                               << "Export sequence of selected annotations..."));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0703) {
@@ -1270,7 +1270,7 @@ GUI_TEST_CLASS_DEFINITION(test_0750) {
     GTUtilsDialog::waitForDialog(os, new DefaultDialogFiller(os, "", QDialogButtonBox::Ok, new Custom()));
     QTableView *table = GTWidget::findExactWidget<QTableView *>(os, "table");
     GTMouseDriver::moveTo(GTTableView::getCellPoint(os, table, 2, 1));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(500);
     GTWidget::click(os, GTWidget::findButtonByText(os, "...", table));
     //    5. Close the appeared dialog.
@@ -1347,7 +1347,7 @@ GUI_TEST_CLASS_DEFINITION(test_0768) {
     //    Expected state: messagebox "Syntax is OK!" appears.
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "test_0768"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     GTUtilsDialog::waitForDialog(os, new ScriptEditorDialogSyntaxChecker(os, "xyz", "Syntax is OK!"));
     GTMenu::clickMainMenuItem(os, QStringList() << "Actions"
@@ -1654,8 +1654,8 @@ GUI_TEST_CLASS_DEFINITION(test_0807) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "editConfiguration"));
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "somename"));
-    GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos();
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 
     class ResetAndApplyScenario : public CustomScenario {
     public:
@@ -1687,8 +1687,8 @@ GUI_TEST_CLASS_DEFINITION(test_0807) {
     GTUtilsDialog::waitForDialog(os, new CreateElementWithCommandLineToolFiller(os, new ResetAndApplyScenario()));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "editConfiguration"));
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "somename"));
-    GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos();
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     class ApplyScenario : public CustomScenario {
@@ -2062,7 +2062,7 @@ GUI_TEST_CLASS_DEFINITION(test_0840) {
     //4. Select this annotation.
     CHECK_SET_ERR(1 == GTUtilsAnnotationsTreeView::findItems(os, "EcoRV").size(), "Unexpected annotation count");
     GTUtilsAnnotationsTreeView::selectItems(os, QStringList() << "EcoRV");
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     //5. Select "New annotation" in context menu.
     //6. Fill fields with: "Group name" - "enzyme", "Annotation name" - "EcoRV".
@@ -2097,14 +2097,14 @@ GUI_TEST_CLASS_DEFINITION(test_0842) {
         GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Ok, "", "Remove element"));
         GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Remove"));
         GTTreeWidget::click(os, treeItem);
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::clickCurPos(Qt::RightButton);
     }
     QTreeWidgetItem *treeItem1 = GTUtilsWorkflowDesigner::findTreeItem(os, "test1", GTUtilsWorkflowDesigner::algorithms, true, false);
     if (treeItem1 != NULL) {
         GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Ok, "", "Remove element"));
         GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Remove"));
         GTTreeWidget::click(os, treeItem1);
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::clickCurPos(Qt::RightButton);
     }
 
     const QStringList groupNames = GTUtilsWorkflowDesigner::getPaletteGroupNames(os);
@@ -2217,16 +2217,16 @@ GUI_TEST_CLASS_DEFINITION(test_0854) {
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "PBR322.gb"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE_AS_ALIGNMENT));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, sandBoxDir, "test_0854.aln", ExportSequenceAsAlignmentFiller::Clustalw, true));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsDialog::waitForDialog(os, new MuscleDialogFiller(os, MuscleDialogFiller::Default));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with muscle", GTGlobals::UseMouse));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 }
 
@@ -2305,7 +2305,7 @@ GUI_TEST_CLASS_DEFINITION(test_0861_3) {
 
     //3. Remove 3'UTR annotation group.
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "3'UTR  (0, 1)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
     GTGlobals::sleep(100);
 
@@ -2377,7 +2377,7 @@ GUI_TEST_CLASS_DEFINITION(test_0868) {
     GTGlobals::sleep();
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "bookmark"));
     GTGlobals::sleep();
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep(1000);
 
     QWidget *assembly_reads_area = GTWidget::findWidget(os, "assembly_reads_area");
@@ -2390,7 +2390,7 @@ GUI_TEST_CLASS_DEFINITION(test_0868) {
 
     //    5. Double click on the bookmark
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "bookmark"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTGlobals::sleep();
 
     //    Expected state: it shows the location that you saved before
@@ -2616,8 +2616,8 @@ GUI_TEST_CLASS_DEFINITION(test_0896) {
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "SAMtools"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "editConfiguration"));
-    GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos();
+    GTMouseDriver::clickCurPos(Qt::RightButton);
     GTGlobals::sleep();
 
     WorkflowProcessItem *samtools = GTUtilsWorkflowDesigner::getWorker(os, "SAMtools", true);
@@ -3109,14 +3109,14 @@ GUI_TEST_CLASS_DEFINITION(test_0965) {
     //2. Create a few sub bookmarks for each view.
     GTUtilsBookmarksTreeView::addBookmark(os, GTUtilsMdi::activeWindow(os)->objectName(), "murine");
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "NC_004718 [sars.gb]"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
     GTUtilsBookmarksTreeView::addBookmark(os, GTUtilsMdi::activeWindow(os)->objectName(), "sars");
 
     //3. Press right mouse button on any bookmark connected with currently invisible view.
     //Expected state: "Add bookmark" action is disabled in appeared context menu.
     GTMouseDriver::moveTo(GTUtilsBookmarksTreeView::getItemCenter(os, "murine"));
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList(ACTION_ADD_BOOKMARK), PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickCurPos(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0967_1) {
@@ -3312,7 +3312,7 @@ GUI_TEST_CLASS_DEFINITION(test_0986_3) {
     GTGlobals::sleep(5000);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "human_T1.fa"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
 
     GTGlobals::sleep(5000);

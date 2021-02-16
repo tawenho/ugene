@@ -97,11 +97,11 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
     }
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write weight matrix"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     GTGlobals::sleep();
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write weight matrix"));
-    GTMouseDriver::doubleClick();
+    GTMouseDriver::doubleClickCurPos();
 
     //  Expected state: all arrows in schema still unbroken
     items = sceneView->items();
@@ -121,9 +121,9 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
     QTableView *table = qobject_cast<QTableView *>(GTWidget::findWidget(os, "table"));
     CHECK_SET_ERR(table, "tableView not found");
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Genbank"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTMouseDriver::moveTo(GTTableView::getCellPosition(os, table, 1, 3));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     QString s = QDir().absoluteFilePath(testDir + "_common_data/scenarios/sandbox/");
     GTKeyboardDriver::keySequence(s + "T1.gb");
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
@@ -304,7 +304,7 @@ GUI_TEST_CLASS_DEFINITION(test_0013) {
             QPoint viewP = sceneView->mapFromScene(scenePButton);
             QPoint globalBottomRightPos = sceneView->viewport()->mapToGlobal(viewP);
             GTMouseDriver::moveTo(globalBottomRightPos);
-            GTMouseDriver::click();
+            GTMouseDriver::clickCurPos();
             GTGlobals::sleep(2000);
         }
     }
@@ -319,7 +319,7 @@ GUI_TEST_CLASS_DEFINITION(test_0013) {
     QPoint viewP = sceneView->mapFromScene(scenePButton);
     QPoint globalBottomRightPos = sceneView->viewport()->mapToGlobal(viewP);
     GTMouseDriver::moveTo(globalBottomRightPos);
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
 
     doc = qobject_cast<QTextEdit *>(GTWidget::findWidget(os, "doc"));
     CHECK_SET_ERR(doc->document()->toPlainText().contains("Input port \"Input assembly"), "expected text not found");
@@ -333,7 +333,7 @@ GUI_TEST_CLASS_DEFINITION(test_0015) {
     GTUtilsWorkflowDesigner::addSample(os, "call variants");
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Call Variants"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(500);
     CHECK_SET_ERR(GTWidget::findWidget(os, "table"), "parameters table not found");
     CHECK_SET_ERR(GTWidget::findWidget(os, "doc"), "element documentation widget not found");
@@ -351,7 +351,7 @@ GUI_TEST_CLASS_DEFINITION(test_0015_1) {    //DIFFERENCE:file is loaded
     GTGlobals::sleep(1000);
     //    2. Select any worker on palette.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Write Weight Matrix"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTGlobals::sleep(500);
     CHECK_SET_ERR(GTWidget::findWidget(os, "table"), "parameters table not found");
     CHECK_SET_ERR(GTWidget::findWidget(os, "doc"), "element documentation widget not found");

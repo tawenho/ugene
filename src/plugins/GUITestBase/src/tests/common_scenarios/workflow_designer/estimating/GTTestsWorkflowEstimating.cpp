@@ -58,11 +58,11 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
 
     //    3. Set valid input data.
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Assembly (BAM/SAM)"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/bam/accepted_hits_with_gaps.bam");
 
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click();
+    GTMouseDriver::clickCurPos();
     GTUtilsWorkflowDesigner::setDatasetInputFile(os, testDir + "_common_data/fasta/reference_ACGT_rand_1000.fa");
     //    4. Click an "Estimate scheme" button on the toolbar.
     //    Expected state: an info message box appears: there is a time estimation for the set input data and two buttons: close and run.

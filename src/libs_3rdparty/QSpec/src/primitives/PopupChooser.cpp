@@ -41,7 +41,7 @@ PopupChooser::PopupChooser(GUITestOpStatus &os, const QStringList &namePath, GTG
 #define GT_METHOD_NAME "getMenuPopup"
 QMenu *PopupChooser::getMenuPopup(GUITestOpStatus &os) {
     GTGlobals::sleep(100);    // TODO: do we need this sleep?
-    GTMouseDriver::release();    //TODO: do we need this release?
+    GTMouseDriver::release(GTMouseDriver::getMousePosition());    //TODO: do we need this release?
     return GTWidget::getActivePopupMenu(os);
 }
 #undef GT_METHOD_NAME

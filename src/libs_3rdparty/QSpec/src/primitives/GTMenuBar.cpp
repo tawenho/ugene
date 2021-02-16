@@ -44,7 +44,7 @@ void GTMenuBar::clickCornerMenu(GUITestOpStatus &os, QMenuBar *mBar, GTGlobals::
 
     GTMouseDriver::moveTo(p);
     GTGlobals::sleep(200);
-    GTMouseDriver::click();
+    GTMouseDriver::click(p);
     GTGlobals::sleep(500);
 }
 #undef GT_METHOD_NAME
