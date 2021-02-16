@@ -139,19 +139,19 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
     //CFRelease(event);
 
     bp |= button;
-    //CGEventSetIntegerValueField(event2, kCGMouseEventClickState, 1);
     CGEventSetType(event, eventType2);
     CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, btn);
+    CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(200);
     //CFRelease(event2);
 
     bp &= (Qt::MouseButtonMask ^ button);
-    //CGEventSetIntegerValueField(event3, kCGMouseEventClickState, 1);
     CGEventSetType(event, eventType3);
     CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, btn);
+    CGEventSetIntegerValueField(event, kCGMouseEventClickState, 0);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(200);
     //CFRelease(event3);
@@ -182,12 +182,12 @@ bool GTMouseDriver::press(Qt::MouseButton button) {
         DRIVER_CHECK(false, "Unknown mouse button");
     }
     CGPoint pt = CGPointMake(mousePos.x(), mousePos.y());
-    //CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
     CGEventSetType(event, eventType);
     CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, btn);
+    CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
 
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
@@ -216,12 +216,12 @@ bool GTMouseDriver::release(Qt::MouseButton button) {
         DRIVER_CHECK(false, "Unknown mouse button");
     }
     CGPoint pt = CGPointMake(mousePos.x(), mousePos.y());
-    //CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
     CGEventSetType(event, eventType);
     CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, btn);
+    CGEventSetIntegerValueField(event, kCGMouseEventClickState, 0);
 
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
