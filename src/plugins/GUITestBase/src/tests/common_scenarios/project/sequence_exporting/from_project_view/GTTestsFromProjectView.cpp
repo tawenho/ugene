@@ -108,7 +108,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
     QModelIndex parent = GTUtilsProjectTreeView::findIndex(os, "1.gb");
     QModelIndex child = GTUtilsProjectTreeView::findIndex(os, "NC_001363 sequence", parent);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, child));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTGlobals::sleep(3000);
     // Expected state: sequence view NC_001363 sequence has been opened, with sequence same as in 1.gb document
@@ -160,7 +160,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
                                                            ExportSequenceAsAlignmentFiller::Clustalw,
                                                            false);
     GTUtilsDialog::waitForDialog(os, filler);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     // 5. Open file _common_data/scenarios/sandbox/exp2.aln
@@ -191,7 +191,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
                                                            ExportSequenceAsAlignmentFiller::Clustalw,
                                                            GTGlobals::UseMouse);
     GTUtilsDialog::waitForDialog(os, filler);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsProject::openFile(os, testDir + "_common_data/scenarios/sandbox/exp2.aln");
@@ -379,7 +379,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
     QModelIndex parent = GTUtilsProjectTreeView::findIndex(os, "1.gb");
     QModelIndex child = GTUtilsProjectTreeView::findIndex(os, "NC_001363 sequence", parent);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, child));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Open file _common_data/scenarios/sandbox/exp2.msf
     GTGlobals::sleep();
@@ -447,7 +447,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007) {
     QModelIndex parent = GTUtilsProjectTreeView::findIndex(os, "1.gb");
     QModelIndex child = GTUtilsProjectTreeView::findIndex(os, "NC_001363 sequence", parent);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, child));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Open file _common_data/scenarios/sandbox/exp2.msf
     GTGlobals::sleep();
@@ -515,7 +515,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_1) {
     QModelIndex parent = GTUtilsProjectTreeView::findIndex(os, "1.gb");
     QModelIndex child = GTUtilsProjectTreeView::findIndex(os, "NC_001363 sequence", parent);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, child));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Open file _common_data/scenarios/sandbox/exp2.msf
     GTGlobals::sleep();
@@ -583,7 +583,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_2) {
     QModelIndex parent = GTUtilsProjectTreeView::findIndex(os, "1.gb");
     QModelIndex child = GTUtilsProjectTreeView::findIndex(os, "NC_001363 sequence", parent);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, child));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Open file _common_data/scenarios/sandbox/exp2.msf
     GTGlobals::sleep();

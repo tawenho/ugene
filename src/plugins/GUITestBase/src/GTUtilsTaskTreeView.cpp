@@ -144,7 +144,7 @@ void GTUtilsTaskTreeView::cancelTask(HI::GUITestOpStatus &os, const QString &ite
 
 void GTUtilsTaskTreeView::click(HI::GUITestOpStatus &os, const QString &itemName, Qt::MouseButton b) {
     moveTo(os, itemName);
-    GTMouseDriver::click(b);
+    GTMouseDriver::clickX(b);
 }
 
 void GTUtilsTaskTreeView::moveTo(HI::GUITestOpStatus &os, const QString &itemName) {

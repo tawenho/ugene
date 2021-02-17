@@ -344,7 +344,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_1) {
     }
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTGlobals::sleep();
 }

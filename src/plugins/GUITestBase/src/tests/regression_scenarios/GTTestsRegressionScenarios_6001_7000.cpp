@@ -1381,7 +1381,7 @@ GUI_TEST_CLASS_DEFINITION(test_6233) {
                     GTMouseDriver::moveTo(globalPos);
                     Qt::CursorShape shape = selectToolPackLabel->cursor().shape();
                     if (shape != Qt::ArrowCursor) {
-                        GTMouseDriver::click(Qt::RightButton);
+                        GTMouseDriver::clickX(Qt::RightButton);
                         GTGlobals::sleep(200);
                         GTKeyboardDriver::keyClick(Qt::Key_Down);
                         GTGlobals::sleep(200);
@@ -5538,7 +5538,7 @@ GUI_TEST_CLASS_DEFINITION(test_6742) {
                                                                               << "Custom schemes"
                                                                               << "Create new color scheme",
                                                             PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 }
 GUI_TEST_CLASS_DEFINITION(test_6746) {
@@ -5718,7 +5718,7 @@ GUI_TEST_CLASS_DEFINITION(test_6752) {
 
     // 3. Right-click on the last "Hetrodes_pupus_EF540832" sequence.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 18));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected result: the first sequence is selected only, the context menu is shown.
     GTUtilsMSAEditorSequenceArea::checkSelectedRect(os, QRect(0, 0, 604, 1));
@@ -6017,7 +6017,7 @@ GUI_TEST_CLASS_DEFINITION(test_6847) {
                                                                               << "Paste sequence"));
     MWMDIWindow *mdiWindow = AppContext::getMainWindow()->getMDIManager()->getActiveWindow();
     GTMouseDriver::moveTo(mdiWindow->mapToGlobal(mdiWindow->rect().center()));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsLog::checkContainsError(os, lt, "No sequences detected in the pasted content.");
     GTWidget::click(os, GTAction::button(os, editMode));
 }

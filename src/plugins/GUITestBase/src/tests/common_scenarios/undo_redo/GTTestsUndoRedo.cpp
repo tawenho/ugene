@@ -73,7 +73,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {    //DIFFERENCE: lock document is checked
     //4. lock document
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_DOCUMENT__LOCK));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //Expected state: Undo and redo buttons are disabled
     CHECK_SET_ERR(!undo->isEnabled(), "Undo button is enebled after locking document");
@@ -82,7 +82,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {    //DIFFERENCE: lock document is checked
     //5. Unlock document
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_DOCUMENT__UNLOCK));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //Expected state: undo and redo buttons are enebled and work properly
     CHECK_SET_ERR(undo->isEnabled(), "Undo button is disabled after unlocking document");
@@ -261,7 +261,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {    //undo replace_selected_rows_with_reve
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 2));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> CAA
     GTGlobals::sleep(500);
@@ -327,7 +327,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_1) {    //undo replace_selected_rows_with_re
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 2));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> GTT
     GTGlobals::sleep(500);
@@ -394,7 +394,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_2) {
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 2));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> AAC
     GTGlobals::sleep(500);
@@ -619,7 +619,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
     //rename msa
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Rename"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "ma2_gap_col"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTKeyboardDriver::keySequence("some_name");
     GTKeyboardDriver::keyClick(Qt::Key_Enter);
 

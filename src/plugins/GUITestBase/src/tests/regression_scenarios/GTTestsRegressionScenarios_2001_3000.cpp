@@ -891,14 +891,14 @@ GUI_TEST_CLASS_DEFINITION(test_2124) {
                                                                         << "Custom schemes"
                                                                         << "Create new color scheme"));
     GTUtilsDialog::waitForDialog(os, new NewColorSchemeCreator(os, colorSchemeName, NewColorSchemeCreator::amino));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     // 3. Create a new color scheme for the amino alphabet.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(1, 1));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_APPEARANCE << "Colors"
                                                                         << "Custom schemes" << colorSchemeName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 }
 
@@ -918,7 +918,7 @@ GUI_TEST_CLASS_DEFINITION(test_2091) {
 
     //3. Call context menu on the name list area, select the {Edit -> Remove sequence} menu item.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "Remove sequence"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //Expected state: the sequence is removed.
     QStringList modifiedNames = GTUtilsMSAEditorSequenceArea::getNameList(os);
 
@@ -1541,7 +1541,7 @@ GUI_TEST_CLASS_DEFINITION(test_2267_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_ADD << "add_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //     4. Press Enter
     //     Expected state: Edit qualifier window closes
@@ -1568,7 +1568,7 @@ GUI_TEST_CLASS_DEFINITION(test_2267_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_ADD << "add_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2268) {
@@ -2273,7 +2273,7 @@ GUI_TEST_CLASS_DEFINITION(test_2360) {
     // 5. Click "Export".
     GTUtilsDialog::waitForDialog(os, new ExportMSA2MSADialogFiller(os, 6));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_PROJECT__EXPORT_TO_AMINO_ACTION));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2364) {
@@ -2771,7 +2771,7 @@ GUI_TEST_CLASS_DEFINITION(test_2407) {
 
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Yes));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__UNLOAD_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsDialog::waitAllFinished(os);
 
@@ -2832,7 +2832,7 @@ GUI_TEST_CLASS_DEFINITION(test_2415) {
 
     // 3. Click the menu {Edit -> Rename}.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Rename"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 4. Enter the new name: "name".
     GTKeyboardDriver::keySequence("name");
@@ -3049,7 +3049,7 @@ GUI_TEST_CLASS_DEFINITION(test_2460) {
     //3. Align the result one-line-msa by kalign with default values.
     GTUtilsDialog::waitForDialog(os, new KalignDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "align_with_kalign"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -3097,7 +3097,7 @@ GUI_TEST_CLASS_DEFINITION(test_2470) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/2470/nice_base.nhr", testDir + "_common_data/scenarios/sandbox/2470_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::getItemCenter(os, "Conocephalus_sp.");
@@ -3141,7 +3141,7 @@ GUI_TEST_CLASS_DEFINITION(test_2470_1) {
     GTUtilsDialog::waitForDialog(os, new OkClicker(os, testDir + "_common_data/scenarios/_regression/2470/nice_base.nhr", testDir + "_common_data/scenarios/sandbox/2470_1_fetched.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "fetchMenu"
                                                                         << "fetchSequenceById"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsProjectTreeView::getItemCenter(os, "Conocephalus_sp.");
@@ -3199,11 +3199,11 @@ GUI_TEST_CLASS_DEFINITION(test_2482) {
     // 4. Call context menu on the Tree Viewer.
     // Expected state: menu items "Swap Sublings" and "Reroot tree" are disabled.
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Reroot tree", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Swap Siblings", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -3224,11 +3224,11 @@ GUI_TEST_CLASS_DEFINITION(test_2487) {
     GTMouseDriver::click();
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Reroot tree", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PopupCheckerByText(os, QStringList() << "Collapse", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -3253,7 +3253,7 @@ GUI_TEST_CLASS_DEFINITION(test_2498) {
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
 
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << MSAE_MENU_EXPORT << "amino_translation_of_alignment_rows", PopupChecker::IsDisabled, GTGlobals::UseMouse));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //TODO: Expected state: this menu item is disabled for the empty msa.
 }
@@ -3299,16 +3299,16 @@ GUI_TEST_CLASS_DEFINITION(test_2513) {
     GTUtilsPhyTree::clickNode(os, nodes[25]);
     CHECK_SET_ERR(!GTUtilsPhyTree::getSelectedNodes(os).isEmpty(), "A clicked node wasn't selected");
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Swap Siblings", PopupChecker::IsDisabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Reroot tree", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsPhyTree::clickNode(os, nodes[22]);
     CHECK_SET_ERR(!GTUtilsPhyTree::getSelectedNodes(os).isEmpty(), "A clicked node wasn't selected");
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Swap Siblings", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Reroot tree", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2519) {
@@ -3390,7 +3390,7 @@ GUI_TEST_CLASS_DEFINITION(test_2542) {
     // 2. Lock the document
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_document_lock"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "COI.aln"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 3. Do pairwise alignment with any sequences.
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(1, 1));
@@ -3800,7 +3800,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with muscle"));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3822,7 +3822,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581_1) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with ClustalW", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3881,7 +3881,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581_4) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with T-Coffee", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3903,7 +3903,7 @@ GUI_TEST_CLASS_DEFINITION(test_2581_5) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "align_with_kalign", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
     GTUtilsLog::check(os, l);
@@ -3932,7 +3932,7 @@ GUI_TEST_CLASS_DEFINITION(test_2583) {
     GTUtilsDialog::waitForDialog(os, new ExportBlastResultDialogFiller(os, sandBoxDir + "test_2583/test_2583.aln", true));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_EXPORT"
                                                                         << "export_BLAST_result_to_alignment"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    "Export BLAST result to alignment" dialog appeared. Set some output file.
     //    check "add reference to alignment" checkBox
     //    Click "Export"
@@ -4206,7 +4206,7 @@ GUI_TEST_CLASS_DEFINITION(test_2651) {
 
     // 7. delete this objects through context menu
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_project__remove_selected_action"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state : the objects are deleted, the popup is shown
     GTGlobals::FindOptions safeOptions(false);
@@ -4674,7 +4674,7 @@ GUI_TEST_CLASS_DEFINITION(test_2754) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "find_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "CDS"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_2761_1) {
@@ -4702,7 +4702,7 @@ GUI_TEST_CLASS_DEFINITION(test_2761_1) {
     };
 
     GTUtilsDialog::waitForDialog(os, new customFiller(os));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    4. Set the destination path to the dir without write permissions.
     //    5. Click "Extract".
     //    Expected: the message about write permissions to the dir appears. The extraction task is not run.
@@ -4731,7 +4731,7 @@ GUI_TEST_CLASS_DEFINITION(test_2761_2) {
     };
 
     GTUtilsDialog::waitForDialog(os, new customFiller(os));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    4. Set the destination path to the dir that does not exists
     //    5. Click "Extract".
     //    Expected: the message about write permissions to the dir appears. The extraction task is not run.
@@ -4910,7 +4910,7 @@ GUI_TEST_CLASS_DEFINITION(test_2784) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_ALIGN << "Align with muscle", GTGlobals::UseMouse));
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(10, 5));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //Expected state : Alignment task has started.After some time it finishes without errors
     //and alignment gets changed somehow.The "Undo" button becomes active
@@ -6066,7 +6066,7 @@ GUI_TEST_CLASS_DEFINITION(test_2987) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "ep_exportAnnotations2CSV"));
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "test_2987/test_2987", ExportAnnotationsFiller::csv, os));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "test_2987.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     const QFile csvFile(sandBoxDir + "test_2987/test_2987");

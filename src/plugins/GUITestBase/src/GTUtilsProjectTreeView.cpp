@@ -141,7 +141,7 @@ void editItemName(HI::GUITestOpStatus &os, const QString &newItemName, GTGlobals
         break;
     case GTGlobals::UseMouse:
         GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Rename", GTGlobals::UseMouse));
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::clickX(Qt::RightButton);
         GTGlobals::sleep(300);
         break;
     default:
@@ -234,7 +234,7 @@ void GTUtilsProjectTreeView::click(HI::GUITestOpStatus &os, const QString &itemN
     p.setX(p.x() + 1);
     p.setY(p.y() + 5);
     GTMouseDriver::moveTo(p);
-    GTMouseDriver::click(button);
+    GTMouseDriver::click(p, button);
 }
 #undef GT_METHOD_NAME
 
@@ -245,7 +245,7 @@ void GTUtilsProjectTreeView::click(HI::GUITestOpStatus &os, const QString &itemN
     scrollToIndexAndMakeExpanded(os, getTreeView(os), itemIndex);
 
     GTMouseDriver::moveTo(getItemCenter(os, itemIndex));
-    GTMouseDriver::click(button);
+    GTMouseDriver::click(getItemCenter(os, itemIndex), button);
 }
 #undef GT_METHOD_NAME
 
@@ -268,7 +268,7 @@ void GTUtilsProjectTreeView::callContextMenu(GUITestOpStatus &os, const QModelIn
     GT_CHECK(treeView != nullptr, "Tree widget is NULL");
     scrollToIndexAndMakeExpanded(os, treeView, itemIndex);
     GTMouseDriver::moveTo(getItemCenter(os, itemIndex));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, itemIndex), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 

@@ -290,7 +290,7 @@ void GTUtilsMcaEditor::clickReadName(GUITestOpStatus &os, const QString &readNam
 #define GT_METHOD_NAME "clickReadName"
 void GTUtilsMcaEditor::clickReadName(GUITestOpStatus &os, int readNumber, Qt::MouseButton mouseButton) {
     moveToReadName(os, readNumber);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::clickX(mouseButton);
 }
 #undef GT_METHOD_NAME
 

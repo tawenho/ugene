@@ -50,6 +50,8 @@
 namespace U2 {
 namespace GUITest_posterior_actions {
 
+#define SLEEP_FOR_MAC_WORKAROUND 4000
+
 POSTERIOR_ACTION_DEFINITION(post_action_0000) {
     // Release all hold keyboard modifier keys
 
@@ -80,9 +82,9 @@ POSTERIOR_ACTION_DEFINITION(post_action_0001) {
     while (popupWidget != NULL) {
 
 #ifdef Q_OS_MAC
-    GTUtilsMac fakeClock;
-    fakeClock.startWorkaroundForMacCGEvents(1, true);
-    fakeClock.startWorkaroundForMacCGEvents(16000, false);
+        GTUtilsMac fakeClock;
+        fakeClock.startWorkaroundForMacCGEvents(1, true);
+        fakeClock.startWorkaroundForMacCGEvents(SLEEP_FOR_MAC_WORKAROUND, false);
 #endif
         GTWidget::close(os, popupWidget);
         popupWidget = QApplication::activePopupWidget();
@@ -94,7 +96,7 @@ POSTERIOR_ACTION_DEFINITION(post_action_0001) {
 #ifdef Q_OS_MAC
         GTUtilsMac fakeClock;
         fakeClock.startWorkaroundForMacCGEvents(1, true);
-        fakeClock.startWorkaroundForMacCGEvents(16000, false);
+        fakeClock.startWorkaroundForMacCGEvents(SLEEP_FOR_MAC_WORKAROUND, false);
 #endif
         GTWidget::close(os, modalWidget);
         modalWidget = QApplication::activeModalWidget();
@@ -112,7 +114,7 @@ POSTERIOR_ACTION_DEFINITION(post_action_0002) {
 #ifdef Q_OS_MAC
     GTUtilsMac fakeClock;
     fakeClock.startWorkaroundForMacCGEvents(1, true);
-    fakeClock.startWorkaroundForMacCGEvents(16000, false);
+    fakeClock.startWorkaroundForMacCGEvents(SLEEP_FOR_MAC_WORKAROUND, false);
 #endif
 
     if (AppContext::getProject() != nullptr) {
@@ -161,7 +163,7 @@ POSTERIOR_ACTION_DEFINITION(post_action_0002) {
 #ifdef Q_OS_MAC
     GTUtilsMac fakeClock2;
     fakeClock.startWorkaroundForMacCGEvents(1, true);
-    fakeClock2.startWorkaroundForMacCGEvents(16000, false);
+    fakeClock2.startWorkaroundForMacCGEvents(SLEEP_FOR_MAC_WORKAROUND, false);
 #endif
 
     GTUtilsMdi::closeAllWindows(os);
@@ -201,6 +203,11 @@ POSTERIOR_ACTION_DEFINITION(post_action_0004) {
             GTFile::removeDir(sandBox.absolutePath() + "/" + path);
         }
     }
+
+#ifdef Q_OS_MAC
+    // Wait for this: fakeClock.startWorkaroundForMacCGEvents(SLEEP_FOR_MAC_WORKAROUND, false);
+    GTGlobals::sleep(SLEEP_FOR_MAC_WORKAROUND);
+#endif
 }
 
 }    // namespace GUITest_posterior_actions

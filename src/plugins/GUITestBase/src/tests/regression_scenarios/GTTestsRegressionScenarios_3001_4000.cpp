@@ -228,7 +228,7 @@ GUI_TEST_CLASS_DEFINITION(test_3034) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__ADD_MENU << ACTION_PROJECT__ADD_OBJECT));
     QPoint docCenter = GTUtilsProjectTreeView::getItemCenter(os, "human_T1.fa");
     GTMouseDriver::moveTo(docCenter);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsLog::check(os, l);
 }
@@ -257,12 +257,12 @@ GUI_TEST_CLASS_DEFINITION(test_3035) {
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, index));
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "action_project__edit_menu", PopupChecker::NotExists));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "action_project__remove_selected_action", PopupChecker::NotExists));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Open View"
                                                                         << "action_open_view"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
     QString name = GTUtilsMdi::activeWindowTitle(os);
     CHECK_SET_ERR(name == "et0001_sequence", QString("unexpected window title: %1 ").arg(name));
@@ -271,14 +271,14 @@ GUI_TEST_CLASS_DEFINITION(test_3035) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_project__export_import_menu_action"
                                                                         << "export sequences"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, index));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(500);
 
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, sandBoxDir, "test_3035_1.aln", ExportSequenceAsAlignmentFiller::Clustalw));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_project__export_import_menu_action"
                                                                         << "export sequences as alignment"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, index));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -814,7 +814,7 @@ GUI_TEST_CLASS_DEFINITION(test_3137) {
     // 4. Delete folder;
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, folderName));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Wait for several seconds;
     GTGlobals::sleep(10000);
@@ -981,7 +981,7 @@ GUI_TEST_CLASS_DEFINITION(test_3144) {
     // 4. Remove the folder "regression_test_3144_2".
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, folder2Name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state : the folder "regression_test_3144_2" is moved to the "Recycle bin".
     QModelIndex rbIndex = GTUtilsProjectTreeView::findIndex(os, "Recycle bin");
@@ -992,7 +992,7 @@ GUI_TEST_CLASS_DEFINITION(test_3144) {
     GTGlobals::sleep();
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, folder1Name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state : folders "regression_test_3144_1" is shown in the "Recycle bin", folder "regression_test_3144_2" disappears.
     rbIndex = GTUtilsProjectTreeView::findIndex(os, "Recycle bin");
@@ -1310,13 +1310,13 @@ GUI_TEST_CLASS_DEFINITION(test_3220) {
     GTUtilsDialog::waitForDialog(os, new EditQualifierFiller(os, "newqualifier", "val\"", GTGlobals::UseMouse, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_ADD << "add_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //3. Add another qualifier to the same annotation
     GTUtilsDialog::waitForDialog(os, new EditQualifierFiller(os, "newqualifier2", "val\"2", GTGlobals::UseMouse, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_ADD << "add_qualifier_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     //4. Save the file and reload it
@@ -1327,7 +1327,7 @@ GUI_TEST_CLASS_DEFINITION(test_3220) {
     GTUtilsSequenceView::checkSequenceViewWindowIsActive(os);
 
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "D"));
-    GTMouseDriver::click(Qt::LeftButton);
+    GTMouseDriver::clickX(Qt::LeftButton);
 
     QTreeWidgetItem *generalItem = GTUtilsAnnotationsTreeView::findItem(os, "D");
     AVAnnotationItem *annotation = dynamic_cast<AVAnnotationItem *>(generalItem);
@@ -1509,7 +1509,7 @@ GUI_TEST_CLASS_DEFINITION(test_3250) {
     QPoint p = GTUtilsProjectTreeView::getItemCenter(os, "ugene_gui_test");
     GTMouseDriver::moveTo(p);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << "Export/Import", PopupChecker::NotExists));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -1664,7 +1664,7 @@ GUI_TEST_CLASS_DEFINITION(test_3266) {
     //4. Remove the folder "2".
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, folder2));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //Expected state: the folder "2" is in the Recycle bin.
     GTUtilsSharedDatabaseDocument::checkItemExists(os, doc, "/Recycle bin/" + folder2);
@@ -1675,7 +1675,7 @@ GUI_TEST_CLASS_DEFINITION(test_3266) {
     //6. Remove the folder "1".
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, folder1));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //Expected state: folders "1" and "2" both are in the Recycle bin.
     GTUtilsSharedDatabaseDocument::checkItemExists(os, doc, "/Recycle bin/" + folder1);
@@ -1914,7 +1914,7 @@ GUI_TEST_CLASS_DEFINITION(test_3305) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "ep_exportAnnotations2CSV"));
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "test_3305/test_3305.bed", ExportAnnotationsFiller::bed, os));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "test_3305.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     //    Expected state: the annotation is successfully exported, result file exists, there are no errors in the log.
@@ -2065,7 +2065,7 @@ GUI_TEST_CLASS_DEFINITION(test_3318) {
     // 4. Make the sequence reference
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(-5, 18));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "set_seq_as_reference"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Change the highlighting mode to "Disagreements"
     GTUtilsOptionPanelMsa::openTab(os, GTUtilsOptionPanelMsa::Highlighting);
@@ -2532,7 +2532,7 @@ GUI_TEST_CLASS_DEFINITION(test_3398_1) {
     //    Expected state: UGENE doesn't crash, a context menu is shown.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_load_selected_documents"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "data_in_the_name_line.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_3398_2) {
@@ -2552,7 +2552,7 @@ GUI_TEST_CLASS_DEFINITION(test_3398_2) {
     //    Expected state: UGENE doesn't crash, a context menu is shown.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_load_selected_documents"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "data_in_the_name_line.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_3398_3) {
@@ -2572,7 +2572,7 @@ GUI_TEST_CLASS_DEFINITION(test_3398_3) {
     //    Expected state: UGENE doesn't crash, a context menu is shown.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_load_selected_documents"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "data_in_the_name_line.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_3398_4) {
@@ -2592,7 +2592,7 @@ GUI_TEST_CLASS_DEFINITION(test_3398_4) {
     //    Expected state: UGENE doesn't crash, a context menu is shown.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "action_load_selected_documents"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "data_in_the_name_line.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_3437) {
@@ -2615,7 +2615,7 @@ GUI_TEST_CLASS_DEFINITION(test_3402) {
                                                                         << "action_project__export_as_sequence_action"));
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "3000_sequences.aln"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //GTUtilsTaskTreeView::waitTaskFinished(os);
     //    Select {Export/Import -> Export alignmnet to sequence format...}
 
@@ -3507,7 +3507,7 @@ GUI_TEST_CLASS_DEFINITION(test_3556) {
     GTMouseDriver::moveTo(QPoint(pos.x(), pos.y() - 10));
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "set_seq_as_reference"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTWidget::click(os, GTWidget::findWidget(os, "OP_MSA_GENERAL"));
 
@@ -3869,7 +3869,7 @@ GUI_TEST_CLASS_DEFINITION(test_3610) {
     GTUtilsDialog::waitForDialog(os, new SelectSequenceRegionDialogFiller(os, 1, 199950));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Select"
                                                                         << "Sequence region"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(1000);
 
     class Scenario : public CustomScenario {
@@ -4229,7 +4229,7 @@ GUI_TEST_CLASS_DEFINITION(test_3649) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE_AS_ALIGNMENT));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, testDir + "_common_data/scenarios/sandbox", "test_3649.aln", ExportSequenceAsAlignmentFiller::Clustalw, true));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "S"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     //3. Add a sequence from the file "_common_data/smith-waterman2/simple/05/query.txt" in the alignment.
@@ -4277,7 +4277,7 @@ GUI_TEST_CLASS_DEFINITION(test_3656) {
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, idx));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE));
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "test_3656.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     CHECK_SET_ERR(GTUtilsTaskTreeView::checkTask(os, "Export sequence to document"), "Task is not running!");
 
@@ -4630,7 +4630,7 @@ GUI_TEST_CLASS_DEFINITION(test_3731) {
     GTMouseDriver::moveTo(itemCenter);
     GTMouseDriver::click();
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_REMOVE << "Selected objects with annotations from view"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     GTUtilsDialog::waitForDialog(os, new PredictSecondaryStructureDialogFiller(os, 20, 46));
@@ -4736,7 +4736,7 @@ GUI_TEST_CLASS_DEFINITION(test_3749) {
 
     // 2. Select any base.
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(10, 10));
-    GTMouseDriver::click(Qt::LeftButton);
+    GTMouseDriver::clickX(Qt::LeftButton);
 
     class Scenario : public CustomScenario {
         void run(HI::GUITestOpStatus &os) override {
@@ -4752,12 +4752,12 @@ GUI_TEST_CLASS_DEFINITION(test_3749) {
     // Expected state: a context menu appears, a single base from the previous step is selected.
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, new Scenario));
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(10, 9));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 4. Move the mouse to the any third base and click the left button.
     // Expected state: the context menu closes, the first selected base is the only selected base.
     // Current state: the context menu closes, there is a selection from the base from the second step to the base from the last step.
-    GTMouseDriver::click(Qt::LeftButton);
+    GTMouseDriver::clickX(Qt::LeftButton);
 
     GTUtilsMSAEditorSequenceArea::checkSelectedRect(os, QRect(QPoint(1, 10), QPoint(1, 10)));
 }
@@ -4777,7 +4777,7 @@ GUI_TEST_CLASS_DEFINITION(test_3753) {
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "et0001_sequence"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE));
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "et0001_export.fasta", false, "sequence_test_3753"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(3000);
 
     GTUtilsProjectTreeView::rename(os, "sequence_test_3753", "test3753_renamed");
@@ -5237,7 +5237,7 @@ GUI_TEST_CLASS_DEFINITION(test_3815) {
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "test_3815.fa", true));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "cant_translate.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     //Expected state: task has finished with error, no output file has been produced.
@@ -5534,7 +5534,7 @@ GUI_TEST_CLASS_DEFINITION(test_3895) {
     GTUtilsDialog::waitForDialog(os, new ExportDocumentDialogFiller(os, sandBoxDir, "test_3895.gb", ExportDocumentDialogFiller::Genbank, false, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Export document"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "pBR322.gb"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTGlobals::sleep();

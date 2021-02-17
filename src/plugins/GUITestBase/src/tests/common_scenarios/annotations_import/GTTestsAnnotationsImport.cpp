@@ -63,7 +63,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -89,7 +89,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -115,7 +115,7 @@ GUI_TEST_CLASS_DEFINITION(test_0001_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -142,7 +142,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -169,7 +169,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -196,7 +196,7 @@ GUI_TEST_CLASS_DEFINITION(test_0002_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -223,7 +223,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -250,7 +250,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -277,7 +277,7 @@ GUI_TEST_CLASS_DEFINITION(test_0003_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -303,7 +303,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -330,7 +330,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -357,7 +357,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -384,7 +384,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -411,7 +411,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -438,7 +438,7 @@ GUI_TEST_CLASS_DEFINITION(test_0005_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -465,7 +465,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -492,7 +492,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -519,7 +519,7 @@ GUI_TEST_CLASS_DEFINITION(test_0006_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -546,7 +546,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -573,7 +573,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -600,7 +600,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -627,7 +627,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -654,7 +654,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -681,7 +681,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -708,7 +708,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -735,7 +735,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009_1) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);
@@ -762,7 +762,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009_2) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << "import_annotations_from_CSV_file"));
     //GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "se1.fa"));
-    //GTMouseDriver::click(Qt::RightButton);
+    //GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsProjectTreeView::click(os, "se1.fa", Qt::RightButton);
 
     GTGlobals::sleep(1000);

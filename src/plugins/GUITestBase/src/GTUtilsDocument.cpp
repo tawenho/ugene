@@ -92,8 +92,9 @@ void GTUtilsDocument::removeDocument(HI::GUITestOpStatus &os, const QString &doc
         case GTGlobals::UseMouse: {
             Runnable *popupChooser = new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED, method);
             GTUtilsDialog::waitForDialog(os, popupChooser);
-            GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, documentName) + QPoint(1, 0));    //dirty hack
-            GTMouseDriver::click(Qt::RightButton);
+            QPoint p = GTUtilsProjectTreeView::getItemCenter(os, documentName) + QPoint(1, 0);
+            GTMouseDriver::moveTo(p);    //dirty hack
+            GTMouseDriver::click(p, Qt::RightButton);
             break;
         }
         case GTGlobals::UseKey:
@@ -135,7 +136,7 @@ void GTUtilsDocument::saveDocument(HI::GUITestOpStatus &os, const QString &docum
 
     GTUtilsDialog::waitForDialog(os, popupChooser);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, documentName) + QPoint(1, 0));    //dirty hack
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, documentName) + QPoint(1, 0), Qt::RightButton);
 
     GTGlobals::sleep(500);
 }
@@ -154,7 +155,7 @@ void GTUtilsDocument::unloadDocument(HI::GUITestOpStatus &os, const QString &doc
 
     GTUtilsDialog::waitForDialog(os, popupChooser);
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, documentName) + QPoint(1, 0));    //dirty hack
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, documentName) + QPoint(1, 0), Qt::RightButton);
 
     GTGlobals::sleep(500);
 }

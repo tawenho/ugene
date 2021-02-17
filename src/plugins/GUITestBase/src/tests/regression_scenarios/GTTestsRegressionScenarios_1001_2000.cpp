@@ -296,7 +296,7 @@ GUI_TEST_CLASS_DEFINITION(test_1013) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 0), GTGlobals::UseMouse);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_1015) {
@@ -1149,7 +1149,7 @@ GUI_TEST_CLASS_DEFINITION(test_1063) {
     //4) Right - click on Read sequence element, click "Toggle breakpoint"
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Break at element..."));
     GTMouseDriver::moveTo(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsWorkflowDesigner::getItemCenter(os, "Read Sequence"), Qt::RightButton);
 
     //5) Run workflow
     GTUtilsWorkflowDesigner::runWorkflow(os);
@@ -2588,7 +2588,7 @@ GUI_TEST_CLASS_DEFINITION(test_1229) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE_AS_ALIGNMENT));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, sandBoxDir, "test_1229.aln", ExportSequenceAsAlignmentFiller::Clustalw, true));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -2810,7 +2810,7 @@ GUI_TEST_CLASS_DEFINITION(test_1252) {
     }
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(500);
     //check delition of annotation document
     GTUtilsProjectTreeView::findIndex(os, "Annotations", GTGlobals::FindOptions(false));
@@ -2826,7 +2826,7 @@ GUI_TEST_CLASS_DEFINITION(test_1252) {
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::No));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    Expected: pattern is found and annotation is stored in a new document
 }
 
@@ -2873,7 +2873,7 @@ GUI_TEST_CLASS_DEFINITION(test_1252_1) {
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::No));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__REMOVE_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    Expected: pattern is found and annotation is stored in a new document
 }
 
@@ -3019,7 +3019,7 @@ GUI_TEST_CLASS_DEFINITION(test_1262) {
         }
     }
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //4. Click search again
 
     GTWidget::click(os, GTWidget::findWidget(os, "getAnnotationsPushButton"));
@@ -3034,7 +3034,7 @@ GUI_TEST_CLASS_DEFINITION(test_1262) {
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::No));
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, name));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, name), Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_1263) {
@@ -3064,7 +3064,7 @@ GUI_TEST_CLASS_DEFINITION(test_1263) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Cloning"
                                                                         << "Create PCR product"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     // Press 'Ok'
     GTKeyboardDriver::keyClick(Qt::Key_Enter);
 
@@ -3847,7 +3847,7 @@ GUI_TEST_CLASS_DEFINITION(test_1348) {
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Ok, "", "Remove element"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Remove"));
     GTTreeWidget::click(os, treeItem);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTGlobals::sleep(4000);
 
@@ -4139,7 +4139,7 @@ GUI_TEST_CLASS_DEFINITION(test_1393) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE_AS_ALIGNMENT));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, new ExportSeqsAsMsaScenario));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "trim_fa.fa"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "trim_fa.fa"), Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected state : New *.aln file appears in project view.Names of sequences in consensus area
@@ -4403,7 +4403,7 @@ GUI_TEST_CLASS_DEFINITION(test_1428) {
     //3. Use context menu {Export/Import->Export Sequences} and export sequence to any file.
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, sandBoxDir, "test_1428.fa"));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     //Expected state: there is only one sequence in the file (it's the same as in human_t1.fa).
@@ -4870,7 +4870,7 @@ GUI_TEST_CLASS_DEFINITION(test_1445) {
     //    3. Choose { Edit -> Remove sequence } in context menu
     //    Expected state: UGENE doesn't crash
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "Remove sequence", GTGlobals::UseMouse));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_1461_1) {
@@ -5379,7 +5379,7 @@ GUI_TEST_CLASS_DEFINITION(test_1529) {
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(10, 10));
     GTUtilsDialog::waitForDialog(os, new ExportMSA2MSADialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EXPORT << "amino_translation_of_alignment_rows"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTGlobals::sleep();
 
@@ -5493,7 +5493,7 @@ GUI_TEST_CLASS_DEFINITION(test_1551) {
 
     GTUtilsDialog::waitForDialogWhichMayRunOrNot(os, new PopupChecker(os, new Scenario));
     GTUtilsDialog::waitForDialogWhichMustNotBeRun(os, new RenameSequenceFiller(os, "test_1551"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 }
 
@@ -5520,7 +5520,7 @@ GUI_TEST_CLASS_DEFINITION(test_1554) {
     //    5. Click somewhere on the tree view to close menu.
     //    Expected state: The context menu closes, there are not any another menus.
     GTMouseDriver::moveTo(GTMouseDriver::getMousePosition() - QPoint(5, 0));
-    GTMouseDriver::click(Qt::LeftButton);
+    GTMouseDriver::click(GTMouseDriver::getMousePosition() - QPoint(5, 0), Qt::LeftButton);
     contextMenu = QApplication::activePopupWidget();
     CHECK_SET_ERR(NULL == contextMenu, "There is an unexpected context menu");
 }
@@ -6077,7 +6077,7 @@ GUI_TEST_CLASS_DEFINITION(test_1600_5) {
     //    4. Use the context menu in the name list area { Edit -> Remove sequence }
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_EDIT"
                                                                         << "Remove sequence"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    Expected state: The chosen sequence has been removed from alignment, collapsing mode has been switched on
     QStringList names = GTUtilsMSAEditorSequenceArea::getNameList(os);
     int num = names.size();
@@ -6522,7 +6522,7 @@ GUI_TEST_CLASS_DEFINITION(test_1645) {
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "base_ext_nucl_all_symb.fa"));
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, QMessageBox::Yes));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__UNLOAD_SELECTED));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     CHECK_SET_ERR(!GTUtilsDocument::isDocumentLoaded(os, "base_ext_nucl_all_symb.fa"), "Document should't be loaded");
 }
 
@@ -7959,7 +7959,7 @@ GUI_TEST_CLASS_DEFINITION(test_1784) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__EXPORT_IMPORT_MENU_ACTION << ACTION_EXPORT_SEQUENCE_AS_ALIGNMENT));
     GTUtilsDialog::waitForDialog(os, new ExportSequenceAsAlignmentFiller(os, testDir + "_common_data/scenarios/sandbox", "test_1784.aln", ExportSequenceAsAlignmentFiller::Clustalw, true));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, "NC_001363"), Qt::RightButton);
     GTGlobals::sleep();
     //3. Drag and drop one more murine sequence object to the alignment
     GTUtilsDialog::waitForDialog(os, new ProjectTreeItemSelectorDialogFiller(os, "murine.gb", "NC_001363"));
@@ -7971,11 +7971,11 @@ GUI_TEST_CLASS_DEFINITION(test_1784) {
     //4. Select the first sequence as reference
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 0));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "set_seq_as_reference"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsMSAEditorSequenceArea::moveTo(os, QPoint(0, 1));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "set_seq_as_reference"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //Expected state: The only selected sequence is the reference.
 }
 
@@ -8260,7 +8260,7 @@ GUI_TEST_CLASS_DEFINITION(test_1883) {
     GTUtilsMSAEditorSequenceArea::checkSelectedRect(os, QRect(0, startRowNumber, alignmentLength, 1));
     // 3. Use context menu: "Edit -> Replace selected rows with complement" or "reverse" or "reverse-complement"
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     // Expected state: the bases in the selected area were replaced accordingly to the chosen variant
     GTKeyboardDriver::keyClick('c', Qt::ControlModifier);
     GTGlobals::sleep(200);
@@ -8325,7 +8325,7 @@ GUI_TEST_CLASS_DEFINITION(test_1886_1) {
 
     // 4. Call context menu
     GTUtilsDialog::waitForDialog(os, new GTUtilsEscClicker(os, "msa sequence area context menu"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(200);
     GTUtilsMSAEditorSequenceArea::checkSelectedRect(os, QRect(QPoint(8, 4), QPoint(13, 12)));
 }
@@ -8350,7 +8350,7 @@ GUI_TEST_CLASS_DEFINITION(test_1886_2) {
 
     // 4. Replace selected rows with reverse
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // 5. Obtain selection
     GTKeyboardDriver::keyClick('c', Qt::ControlModifier);
@@ -8373,13 +8373,13 @@ GUI_TEST_CLASS_DEFINITION(test_1897) {
     //4) Choose Highlighting/Gaps action from context-menu
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_APPEARANCE << "Highlighting"
                                                                         << "Gaps"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //5) Look at Hightlighting/Gaps action again
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << MSAE_MENU_APPEARANCE << "Highlighting"
                                                                         << "Gaps",
                                                       PopupChecker::IsChecked));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTKeyboardDriver::keyClick(Qt::Key_Escape);
 }
 

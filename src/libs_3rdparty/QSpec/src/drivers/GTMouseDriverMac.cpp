@@ -82,16 +82,16 @@ bool selectAreaMac(const int x, const int y) {
 bool GTMouseDriver::moveTo(const QPoint &p) {
     int x = p.x();
     int y = p.y();
+    DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
+    CGPoint pt = CGPointMake(x, y);
     if (bp.testFlag(Qt::LeftButton)) {
         return selectAreaMac(x, y);
     }
 
-    DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
-
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
     CGEventSetType(event, kCGEventMouseMoved);
-    CGEventSetLocation(event, CGPointMake(x, y));
+    CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, kCGMouseButtonLeft);
 
     CGEventPost(kCGSessionEventTap, event);
@@ -100,6 +100,13 @@ bool GTMouseDriver::moveTo(const QPoint &p) {
 
     return true;
 }
+#    undef GT_METHOD_NAME
+
+#    define GT_METHOD_NAME "moveAndClick"
+bool GTMouseDriver::clickX(Qt::MouseButton button) {
+    return click(getMousePosition(), button);
+}
+
 #    undef GT_METHOD_NAME
 
 #    define GT_METHOD_NAME "moveAndClick"
@@ -124,8 +131,14 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
         DRIVER_CHECK(false, "Unknown mouse button");
     }
 
-    int x = p.x();
-    int y = p.y();
+    QPoint pos = p;
+    if (p == nullPos) {
+        GTGlobals::sleep(2000);
+        pos = getMousePosition();
+    }
+
+    int x = pos.x();
+    int y = pos.y();
     DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
     CGPoint pt = CGPointMake(x, y);
 
@@ -136,7 +149,6 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, btn);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(200);
-    //CFRelease(event);
 
     bp |= button;
     CGEventSetType(event, eventType2);
@@ -145,7 +157,6 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
     CGEventSetIntegerValueField(event, kCGMouseEventClickState, 1);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(200);
-    //CFRelease(event2);
 
     bp &= (Qt::MouseButtonMask ^ button);
     CGEventSetType(event, eventType3);
@@ -154,7 +165,6 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
     CGEventSetIntegerValueField(event, kCGMouseEventClickState, 0);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(200);
-    //CFRelease(event3);
 
     GTGlobals::sleep(100);
 
@@ -165,7 +175,11 @@ bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
 #    define GT_METHOD_NAME "press"
 bool GTMouseDriver::press(Qt::MouseButton button) {
     bp |= button;
-    QPoint mousePos = QCursor::pos();
+    QPoint p = getMousePosition();
+    int x = p.x();
+    int y = p.y();
+    DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
+    CGPoint pt = CGPointMake(x, y);
 
     CGEventType eventType;
     CGMouseButton btn;
@@ -181,7 +195,6 @@ bool GTMouseDriver::press(Qt::MouseButton button) {
     } else {
         DRIVER_CHECK(false, "Unknown mouse button");
     }
-    CGPoint pt = CGPointMake(mousePos.x(), mousePos.y());
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
     CGEventSetType(event, eventType);
@@ -191,7 +204,6 @@ bool GTMouseDriver::press(Qt::MouseButton button) {
 
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
-    //CFRelease(event);
 
     return true;
 }
@@ -200,7 +212,11 @@ bool GTMouseDriver::press(Qt::MouseButton button) {
 #    define GT_METHOD_NAME "release"
 bool GTMouseDriver::release(Qt::MouseButton button) {
     bp &= (Qt::MouseButtonMask ^ button);
-    QPoint mousePos = QCursor::pos();
+    QPoint p = getMousePosition();
+    int x = p.x();
+    int y = p.y();
+    DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
+    CGPoint pt = CGPointMake(x, y);
     CGEventType eventType;
     CGMouseButton btn;
     if (button == Qt::LeftButton) {
@@ -215,7 +231,6 @@ bool GTMouseDriver::release(Qt::MouseButton button) {
     } else {
         DRIVER_CHECK(false, "Unknown mouse button");
     }
-    CGPoint pt = CGPointMake(mousePos.x(), mousePos.y());
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
     CGEventSetType(event, eventType);
@@ -225,44 +240,59 @@ bool GTMouseDriver::release(Qt::MouseButton button) {
 
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
-    //CFRelease(event);
 
     return true;
 }
 #    undef GT_METHOD_NAME
 
 #    define GT_METHOD_NAME "doubleClick"
-bool GTMouseDriver::doubleClick() {
-    QPoint mousePos = QCursor::pos();
+bool GTMouseDriver::doubleClick(const QPoint &p) {
+    QPoint pos = p;
+    if (p == nullPos) {
+        GTGlobals::sleep(2000);
+        pos = getMousePosition();
+    }
+    int x = pos.x();
+    int y = pos.y();
+    DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
+    CGPoint pt = CGPointMake(x, y);
 
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
 
-    CGEventSetType(event, kCGEventLeftMouseDown);
-    CGEventSetLocation(event, CGPointMake(mousePos.x(), mousePos.y()));
+    CGEventSetType(event, kCGEventMouseMoved);
+    CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, kCGMouseButtonLeft);
+    CGEventPost(kCGSessionEventTap, event);
+    GTGlobals::sleep(200);
+
+    CGEventSetType(event, kCGEventLeftMouseDown);
+    CGEventSetLocation(event, pt);
+    CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, kCGMouseButtonLeft);
+    CGEventSetDoubleValueField(event, kCGMouseEventClickState, 2);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
 
     CGEventSetType(event, kCGEventLeftMouseUp);
-    CGEventSetLocation(event, CGPointMake(mousePos.x(), mousePos.y()));
+    CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, kCGMouseButtonLeft);
+    CGEventSetDoubleValueField(event, kCGMouseEventClickState, 1);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
 
     GTGlobals::sleep(100);
 
-    CGEventSetDoubleValueField(event, kCGMouseEventClickState, 2);
     CGEventSetType(event, kCGEventLeftMouseDown);
-    CGEventSetLocation(event, CGPointMake(mousePos.x(), mousePos.y()));
+    CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, kCGMouseButtonLeft);
+    CGEventSetDoubleValueField(event, kCGMouseEventClickState, 1);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
 
-    CGEventSetDoubleValueField(event, kCGMouseEventClickState, 2);
     CGEventSetType(event, kCGEventLeftMouseUp);
-    CGEventSetLocation(event, CGPointMake(mousePos.x(), mousePos.y()));
+    CGEventSetLocation(event, pt);
     CGEventSetIntegerValueField(event, kCGMouseEventButtonNumber, kCGMouseButtonLeft);
+    CGEventSetDoubleValueField(event, kCGMouseEventClickState, 0);
     CGEventPost(kCGSessionEventTap, event);
     GTGlobals::sleep(0);    // don't touch, it's Mac's magic
 
@@ -287,6 +317,13 @@ bool GTMouseDriver::scroll(int value) {
     return true;
 }
 #    undef GT_METHOD_NAME
+
+#    define GT_METHOD_NAME "getMousePosition"
+QPoint GTMouseDriver::getMousePosition() {
+    return QCursor::pos();
+}
+#    undef GT_METHOD_NAME
+
 #    undef GT_CLASS_NAME
 
 #endif    // Q_OS_MAC

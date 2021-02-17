@@ -220,7 +220,7 @@ void GTUtilsSharedDatabaseDocument::createFolder(HI::GUITestOpStatus &os, Docume
     GTUtilsDialog::waitForDialog(os, new AddFolderDialogFiller(os, newFolderName, GTGlobals::UseMouse));
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, parentFolderIndex));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTUtilsProjectTreeView::getItemCenter(os, parentFolderIndex), Qt::RightButton);
     GTGlobals::sleep(1000);
 }
 #undef GT_METHOD_NAME
@@ -387,7 +387,7 @@ void GTUtilsSharedDatabaseDocument::callImportDialog(HI::GUITestOpStatus &os, Do
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, itemIndex));
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_PROJECT__ADD_MENU << ACTION_PROJECT__IMPORT_TO_DATABASE, GTGlobals::UseMouse));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 

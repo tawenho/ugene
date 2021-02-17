@@ -270,7 +270,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_EXPORT"
                                                                         << "action_export_selected_sequence_region"));
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "exp.fasta"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0004_1) {    //CHANGES: keyboard used instead mouse
@@ -283,7 +283,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_1) {    //CHANGES: keyboard used instead mou
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_EXPORT"
                                                                         << "action_export_selected_sequence_region"));
     GTUtilsDialog::waitForDialog(os, new ExportSelectedRegionFiller(os, testDir + "_common_data/scenarios/sandbox/", "exp.fasta"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 
 GUI_TEST_CLASS_DEFINITION(test_0005) {
@@ -595,7 +595,7 @@ GUI_TEST_CLASS_DEFINITION(test_0023) {
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "Primers_DNA"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Mark as circular"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTWidget::click(os, GTWidget::findWidget(os, "render_area_Primers_DNA"));
 
@@ -607,7 +607,7 @@ GUI_TEST_CLASS_DEFINITION(test_0023) {
     GTUtilsDialog::waitForDialog(os, new Primer3DialogFiller(os, settings));
 
     GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     pair1 = GTUtilsAnnotationsTreeView::getAnnotatedRegionsOfGroup(os, "pair 1  (0, 2)", "linear  (5, 0)");
@@ -1219,7 +1219,7 @@ GUI_TEST_CLASS_DEFINITION(test_0036) {
     //    Check "Sequence between selected annotations"  and
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Select"
                                                                         << "Sequence between selected annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     QVector<U2Region> select = GTUtilsSequenceView::getSelection(os);
     CHECK_SET_ERR(select.size() == 1, QString("Wrong number of selections: %1").arg(select.size()));
     U2Region s = select.first();
@@ -1228,7 +1228,7 @@ GUI_TEST_CLASS_DEFINITION(test_0036) {
     //    "Sequence around selected annotations" actions
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Select"
                                                                         << "Sequence around selected annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     select = GTUtilsSequenceView::getSelection(os);
     CHECK_SET_ERR(select.size() == 1, QString("Wrong number of selections: %1").arg(select.size()));
     s = select.first();
@@ -1381,9 +1381,9 @@ GUI_TEST_CLASS_DEFINITION(test_0042) {
     CHECK_SET_ERR(selected == "misc_feature", "Unexpected selected anntoation: " + selected);
     //    Click on annotation on seq view with right button
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << ADV_MENU_EDIT << "edit_annotation_tree_item", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitForDialog(os, new PopupChecker(os, QStringList() << ADV_MENU_REMOVE << "Selected annotations and qualifiers", PopupChecker::IsEnabled));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     //    Check context menu action
 }
 
@@ -2413,7 +2413,7 @@ GUI_TEST_CLASS_DEFINITION(test_0076) {
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "SYNPBR322"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Mark as circular"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "ADV_MENU_ANALYSE"

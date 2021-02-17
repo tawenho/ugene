@@ -261,7 +261,7 @@ void GTUtilsSequenceView::openSequenceView(HI::GUITestOpStatus &os, const QStrin
 
     QPoint itemPos = GTUtilsProjectTreeView::getItemCenter(os, sequenceName);
     GTMouseDriver::moveTo(itemPos);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(itemPos, Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -273,7 +273,7 @@ void GTUtilsSequenceView::addSequenceView(HI::GUITestOpStatus &os, const QString
 
     QPoint itemPos = GTUtilsProjectTreeView::getItemCenter(os, sequenceName);
     GTMouseDriver::moveTo(itemPos);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(itemPos, Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -481,9 +481,9 @@ void GTUtilsSequenceView::clickAnnotationDet(HI::GUITestOpStatus &os, const QStr
     const QRect clickRect(x1, yRegion.startPos, x2 - x1, yRegion.length);
     GTMouseDriver::moveTo(renderArea->mapToGlobal(clickRect.center()));
     if (isDoubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(renderArea->mapToGlobal(clickRect.center()));
     } else {
-        GTMouseDriver::click(button);
+        GTMouseDriver::click(renderArea->mapToGlobal(clickRect.center()), button);
     }
 }
 #undef GT_METHOD_NAME
@@ -542,9 +542,9 @@ void GTUtilsSequenceView::clickAnnotationPan(HI::GUITestOpStatus &os, QString na
     const QRect annotationRect(x1, y.startPos, rw, y.length);
     GTMouseDriver::moveTo(pan->mapToGlobal(annotationRect.center()));
     if (isDoubleClick) {
-        GTMouseDriver::doubleClick();
+        GTMouseDriver::doubleClick(pan->mapToGlobal(annotationRect.center()));
     } else {
-        GTMouseDriver::click(button);
+        GTMouseDriver::click(pan->mapToGlobal(annotationRect.center()), button);
     }
 }
 #undef GT_METHOD_NAME

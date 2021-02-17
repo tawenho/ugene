@@ -1175,7 +1175,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
     // Expected state: sequence changed from TTG -> CAA
@@ -1193,7 +1193,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
 
     // 3. Do step 2 again
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: sequence changed from CAA -> TTG
     GTGlobals::sleep();
@@ -1221,7 +1221,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
     // 2. Select first sequence and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(-1, 0));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: sequence changed from TTG -> CAA
     // CHANGES: copy by context menu
@@ -1237,7 +1237,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
 
     // 3. Do step 2 again
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: sequence changed from CAA -> TTG
     // CHANGES: copy by context menu
@@ -1310,7 +1310,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012) {
     // 2. Select all sequences and do context menu {Edit->Replace selected rows with reverce complement}
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_EDIT << "replace_selected_rows_with_reverse-complement"));
     GTUtilsMSAEditorSequenceArea::selectArea(os);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTWidget::click(os, GTUtilsMdi::activeWindow(os));
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -1871,7 +1871,7 @@ GUI_TEST_CLASS_DEFINITION(test_0020) {
     GTUtilsDialog::waitForDialog(os, new DeleteGapsDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_EDIT"
                                                                         << "remove_columns_of_gaps"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsDialog::waitAllFinished(os);
 
@@ -1909,7 +1909,7 @@ GUI_TEST_CLASS_DEFINITION(test_0020_1) {
     GTUtilsDialog::waitForDialog(os, new DeleteGapsDialogFiller(os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_EDIT"
                                                                         << "remove_columns_of_gaps"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: UGENE not crashes, deletion is not performed
     GTWidget::click(os, GTWidget::findWidget(os, "msa_editor_sequence_area"));
@@ -2334,7 +2334,7 @@ GUI_TEST_CLASS_DEFINITION(test_0029_1) {    //DIFFERENCE:gaps are trimmed, FASTQ
     Runnable *r = new ExportSelectedSequenceFromAlignment(os, testDir + "_common_data/scenarios/sandbox/", ExportSelectedSequenceFromAlignment::FASTQ, false);
     GTUtilsDialog::waitForDialog(os, r);
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "Bicolorana_bicolor_EF540830.fastq"));
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "Bicolorana_bicolor_EF540830"));
@@ -2372,7 +2372,7 @@ GUI_TEST_CLASS_DEFINITION(test_0029_2) {
     Runnable *r = new ExportSelectedSequenceFromAlignment(os, testDir + "_common_data/scenarios/sandbox/", ExportSelectedSequenceFromAlignment::Genbank, true, false);
     GTUtilsDialog::waitForDialog(os, r);
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTFileDialog::openFile(os, testDir + "_common_data/scenarios/sandbox/", "Bicolorana_bicolor_EF540830.gb");
     GTUtilsTaskTreeView::waitTaskFinished(os);
@@ -3411,7 +3411,7 @@ GUI_TEST_CLASS_DEFINITION(test_0053) {
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(2, 0));
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_formatted"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(3000);
 
     QString clipboardText = GTClipboard::text(os);
@@ -3439,7 +3439,7 @@ GUI_TEST_CLASS_DEFINITION(test_0053_1) {
     GTUtilsMSAEditorSequenceArea::selectArea(os, QPoint(0, 0), QPoint(2, 0));
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_formatted"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     QString clipboardText = GTClipboard::text(os);
 
@@ -3490,7 +3490,7 @@ GUI_TEST_CLASS_DEFINITION(test_0053_3) {
     GTUtilsMSAEditorSequenceArea::selectSequence(os, names.first());
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << MSAE_MENU_COPY << "copy_formatted"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep(3000);
 
     QString clipboardText = GTClipboard::text(os);
@@ -4438,7 +4438,7 @@ GUI_TEST_CLASS_DEFINITION(test_0079) {
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "MSAE_MENU_COPY"
                                                                         << "paste"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
     GTUtilsTaskTreeView::waitTaskFinished(os);
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4463,7 +4463,7 @@ GUI_TEST_CLASS_DEFINITION(test_0080) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Extended DNA\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4488,7 +4488,7 @@ GUI_TEST_CLASS_DEFINITION(test_0081) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Extended DNA\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4513,7 +4513,7 @@ GUI_TEST_CLASS_DEFINITION(test_0082) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Extended DNA\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTGlobals::sleep();
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);
@@ -4539,7 +4539,7 @@ GUI_TEST_CLASS_DEFINITION(test_0083) {
     // A warning notification appears:
     GTUtilsNotifications::waitForNotification(os, true, "from \"Standard DNA\" to \"Raw\"");
 
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     const QStringList sequencesNameList = GTUtilsMSAEditorSequenceArea::getNameList(os);

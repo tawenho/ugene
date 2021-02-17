@@ -27,16 +27,13 @@
 
 namespace HI {
 
-bool GTMouseDriver::click(Qt::MouseButton button) {
-    DRIVER_CHECK(press(button), "Button could not be pressed");
-    DRIVER_CHECK(release(button), "Button could not be released");
-    GTThread::waitForMainThread();
-    GTGlobals::sleep(100);    // Adding extra sleep to avoid occasional doubleclicks
-    return true;
-}
+const QPoint GTMouseDriver::nullPos = QPoint();
 
 #ifndef Q_OS_MAC
 bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
+    if (p == nullptr) {
+        p = getMousePosition();
+    }
     DRIVER_CHECK(moveTo(p), "Mouse move was failed");
     DRIVER_CHECK(press(button), "Button could not be pressed");
     DRIVER_CHECK(release(button), "Button could not be released");
@@ -92,7 +89,10 @@ bool GTMouseDriver::selectArea(const QPoint &start, const QPoint &end) {
 }
 
 #ifndef Q_OS_MAC
-bool GTMouseDriver::doubleClick() {
+bool GTMouseDriver::doubleClick(const QPoint &p) {
+    if (p == nullptr) {
+        p = getMousePosition();
+    }
     DRIVER_CHECK(press(Qt::LeftButton), "Left button could not be pressed on first click");
     DRIVER_CHECK(release(Qt::LeftButton), "Left button could not be released on first click");
     GTGlobals::sleep(100);
@@ -104,8 +104,10 @@ bool GTMouseDriver::doubleClick() {
 }
 #endif
 
+#ifndef Q_OS_MAC
 QPoint GTMouseDriver::getMousePosition() {
     return QCursor::pos();
 }
+#endif
 
 }    // namespace HI

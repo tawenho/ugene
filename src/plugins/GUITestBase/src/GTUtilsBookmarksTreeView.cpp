@@ -110,7 +110,7 @@ void GTUtilsBookmarksTreeView::addBookmark(GUITestOpStatus &os, const QString &v
     Q_UNUSED(os);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK));
     GTMouseDriver::moveTo(getItemCenter(os, viewName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, viewName), Qt::RightButton);
     GTGlobals::sleep(500);
 
     if (!bookmarkName.isEmpty()) {

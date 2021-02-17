@@ -255,14 +255,14 @@ void GTUtilsMsaEditor::moveToSequenceName(GUITestOpStatus &os, const QString &se
 #define GT_METHOD_NAME "clickSequence"
 void GTUtilsMsaEditor::clickSequence(GUITestOpStatus &os, int rowNumber, Qt::MouseButton mouseButton) {
     moveToSequence(os, rowNumber);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::clickX(mouseButton);
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "clickSequenceName"
 void GTUtilsMsaEditor::clickSequenceName(GUITestOpStatus &os, const QString &sequenceName, Qt::MouseButton mouseButton) {
     moveToSequenceName(os, sequenceName);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::clickX(mouseButton);
 }
 #undef GT_METHOD_NAME
 
@@ -277,7 +277,7 @@ void GTUtilsMsaEditor::moveToColumn(GUITestOpStatus &os, int column) {
 #define GT_METHOD_NAME "clickColumn"
 void GTUtilsMsaEditor::clickColumn(GUITestOpStatus &os, int column, Qt::MouseButton mouseButton) {
     moveToColumn(os, column);
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::clickX(mouseButton);
 }
 #undef GT_METHOD_NAME
 

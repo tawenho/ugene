@@ -351,7 +351,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004) {
     // 4. Toggle highlight for a1.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "toggle_HL_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "a1"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: both annotations (a1) and groups (a1, a2) looks muted (grayed out)
 }
@@ -388,7 +388,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_1) {
     // 4. Toggle highlight for a1.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "toggle_HL_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "a1"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: both annotations (a1) and groups (a1, a2) looks muted (grayed out)
 }
@@ -425,7 +425,7 @@ GUI_TEST_CLASS_DEFINITION(test_0004_2) {
     // 4. Toggle highlight for a1.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "toggle_HL_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "a1"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: both annotations (a1) and groups (a1, a2) looks muted (grayed out)
 }
@@ -539,7 +539,7 @@ GUI_TEST_CLASS_DEFINITION(test_0007) {
     // 4. Toggle highlight for a1.
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "toggle_HL_action"));
     GTMouseDriver::moveTo(GTUtilsAnnotationsTreeView::getItemCenter(os, "a1"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     // Expected state: both annotations (a1) and groups (a1, a2) looks muted (grayed out)
 }
@@ -655,7 +655,7 @@ GUI_TEST_CLASS_DEFINITION(test_0010_1) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "ann_export_test_0010_1.bed", ExportAnnotationsFiller::bed, os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 
     GTUtilsDocument::removeDocument(os, "DNA.fa");
@@ -708,7 +708,8 @@ GUI_TEST_CLASS_DEFINITION(test_0010_2) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "ann_export_test_0010_2.gff", ExportAnnotationsFiller::gff, os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
+    GTGlobals::sleep();
 
     GTUtilsDocument::removeDocument(os, "DNA.fa");
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, "No"));
@@ -763,7 +764,8 @@ GUI_TEST_CLASS_DEFINITION(test_0010_3) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(os, sandBoxDir + "ann_export_test_0010_3.gtf", ExportAnnotationsFiller::gtf, false, false, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
+    GTGlobals::sleep();
 
     GTUtilsDocument::removeDocument(os, "DNA.fa");
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, "No"));
@@ -809,7 +811,8 @@ GUI_TEST_CLASS_DEFINITION(test_0011_1) {
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "ann_export_test_0011_1.gtf", ExportAnnotationsFiller::gtf, os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
     GTUtilsDialog::waitForDialogWhichMayRunOrNot(os, new DocumentFormatSelectorDialogFiller(os, "GTF"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
+    GTGlobals::sleep();
 
     CHECK_SET_ERR(l.isExpectedMessageFound, "No expected message in the log");
 }
@@ -844,7 +847,8 @@ GUI_TEST_CLASS_DEFINITION(test_0011_2) {
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "ann_export_test_0011_1.gtf", ExportAnnotationsFiller::gtf, os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
     GTUtilsDialog::waitForDialogWhichMayRunOrNot(os, new DocumentFormatSelectorDialogFiller(os, "GTF"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
+    GTGlobals::sleep();
 
     CHECK_SET_ERR(l.isExpectedMessageFound, "No expected message in the log");
 }
@@ -880,7 +884,8 @@ GUI_TEST_CLASS_DEFINITION(test_0011_3) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(os, sandBoxDir + "ann_export_test_0011_1.gtf", ExportAnnotationsFiller::gtf, false, false, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
+    GTGlobals::sleep();
     GTUtilsLog::check(os, l);
 }
 
@@ -923,7 +928,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012_1) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "ann_export_test_0012_1.bed", ExportAnnotationsFiller::bed, os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsDocument::removeDocument(os, "sars.gb");
     GTUtilsDocument::removeDocument(os, "scaffold_90.gff");
@@ -973,7 +978,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012_2) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(sandBoxDir + "ann_export_test_0012_2.gff", ExportAnnotationsFiller::gff, os));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsDocument::removeDocument(os, "sars.gb");
     GTUtilsDocument::removeDocument(os, "scaffold_90.gff");
@@ -1029,7 +1034,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012_3) {
 
     GTUtilsDialog::waitForDialog(os, new ExportAnnotationsFiller(os, sandBoxDir + "ann_export_test_0012_3.gtf", ExportAnnotationsFiller::gtf, false, false, false));
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ADV_MENU_EXPORT << "action_export_annotations"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsDialog::waitForDialog(os, new MessageBoxDialogFiller(os, "No"));
     GTUtilsDocument::removeDocument(os, "sars.gb");

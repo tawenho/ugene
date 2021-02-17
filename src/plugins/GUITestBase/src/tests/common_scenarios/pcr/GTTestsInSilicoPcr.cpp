@@ -363,7 +363,7 @@ GUI_TEST_CLASS_DEFINITION(test_0008) {
     //5. Right click on the sequence object in the project view -> Mark as circular.
     GTMouseDriver::moveTo(GTUtilsProjectTreeView::getItemCenter(os, "pIB2-SEC13"));
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Mark as circular"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     //6. Click the find button.
     GTWidget::click(os, GTWidget::findWidget(os, "findProductButton"));

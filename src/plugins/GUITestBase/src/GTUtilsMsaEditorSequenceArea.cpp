@@ -68,7 +68,7 @@ void GTUtilsMSAEditorSequenceArea::callContextMenu(GUITestOpStatus &os, const QP
         GTWidget::click(os, getSequenceArea(os), Qt::RightButton);
     } else {
         moveTo(os, innerCoords);
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::clickX(Qt::RightButton);
     }
 }
 #undef GT_METHOD_NAME
@@ -701,7 +701,7 @@ void GTUtilsMSAEditorSequenceArea::createColorScheme(GUITestOpStatus &os, const 
                                                                         << "Custom schemes"
                                                                         << "Create new color scheme"));
     GTUtilsDialog::waitForDialog(os, new NewColorSchemeCreator(os, colorSchemeName, al));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
     GTUtilsDialog::waitAllFinished(os);
 }
 #undef GT_METHOD_NAME
@@ -713,7 +713,7 @@ void GTUtilsMSAEditorSequenceArea::deleteColorScheme(GUITestOpStatus &os, const 
                                                                         << "Custom schemes"
                                                                         << "Create new color scheme"));
     GTUtilsDialog::waitForDialog(os, new NewColorSchemeCreator(os, colorSchemeName, NewColorSchemeCreator::nucl, NewColorSchemeCreator::Delete));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 

@@ -443,7 +443,7 @@ void GTUtilsWorkflowDesigner::cleanNameFilter(HI::GUITestOpStatus &os) {
 #define GT_METHOD_NAME "clickOnPalette"
 void GTUtilsWorkflowDesigner::clickOnPalette(HI::GUITestOpStatus &os, const QString &itemName, Qt::MouseButton mouseButton) {
     selectAlgorithm(os, findTreeItem(os, itemName, algorithms, true));
-    GTMouseDriver::click(mouseButton);
+    GTMouseDriver::clickX(mouseButton);
 }
 #undef GT_METHOD_NAME
 
@@ -565,9 +565,9 @@ void GTUtilsWorkflowDesigner::click(HI::GUITestOpStatus &os, QString itemName, Q
     GTThread::waitForMainThread();
 
     GTMouseDriver::moveTo(getItemCenter(os, itemName) + p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(getItemCenter(os, itemName) + p);
     if (Qt::RightButton == button) {
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::click(getItemCenter(os, itemName) + p, Qt::RightButton);
     }
 }
 #undef GT_METHOD_NAME
@@ -581,9 +581,9 @@ void GTUtilsWorkflowDesigner::click(HI::GUITestOpStatus &os, QGraphicsItem *item
     QRect rect = GTGraphicsItem::getGraphicsItemRect(os, item);
 
     GTMouseDriver::moveTo(rect.center() + p);
-    GTMouseDriver::click();
+    GTMouseDriver::click(rect.center() + p);
     if (Qt::RightButton == button) {
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::click(rect.center() + p, Qt::RightButton);
     }
     GTGlobals::sleep(200);
 }
@@ -653,7 +653,7 @@ void GTUtilsWorkflowDesigner::clickLink(HI::GUITestOpStatus &os, QString itemNam
         for (int j = top; j < bottom; j += step) {
             GTMouseDriver::moveTo(QPoint(i, j));
             if (worker->cursor().shape() == Qt::PointingHandCursor) {
-                GTMouseDriver::click(button);
+                GTMouseDriver::click(QPoint(i, j), button);
                 return;
             }
         }

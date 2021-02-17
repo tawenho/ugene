@@ -428,7 +428,7 @@ void GTUtilsAnnotationsTreeView::createQualifier(HI::GUITestOpStatus &os, const 
                                                                         << "add_qualifier_action"));
     GTUtilsDialog::waitForDialog(os, new EditQualifierFiller(os, qualName, qualValue));
     GTMouseDriver::moveTo(getItemCenter(os, parentName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, parentName), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
@@ -528,14 +528,14 @@ void GTUtilsAnnotationsTreeView::deleteItem(HI::GUITestOpStatus &os, QTreeWidget
 #define GT_METHOD_NAME "callContextMenuOnItem"
 void GTUtilsAnnotationsTreeView::callContextMenuOnItem(HI::GUITestOpStatus &os, QTreeWidgetItem *item) {
     GTMouseDriver::moveTo(GTTreeWidget::getItemCenter(os, item));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(GTTreeWidget::getItemCenter(os, item), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 
 #define GT_METHOD_NAME "callContextMenuOnItem"
 void GTUtilsAnnotationsTreeView::callContextMenuOnItem(HI::GUITestOpStatus &os, const QString &itemName) {
     GTMouseDriver::moveTo(getItemCenter(os, itemName));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::click(getItemCenter(os, itemName), Qt::RightButton);
 }
 #undef GT_METHOD_NAME
 

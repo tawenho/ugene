@@ -38,9 +38,9 @@ public:
 
     // fails if press or release fails
     // Linux: fails if there is an opening X display error
-    static bool click(Qt::MouseButton = Qt::LeftButton);    //all click methods work with the current position of the cursor
-    static bool click(const QPoint &p, Qt::MouseButton = Qt::LeftButton); // move and click
-    static bool doubleClick();
+    static bool click(const QPoint &p = nullPos, Qt::MouseButton = Qt::LeftButton); // move and click
+    static bool doubleClick(const QPoint &p = nullPos);
+    static bool clickX(Qt::MouseButton = Qt::LeftButton); // move and click
 
     // fails if the given button is not Qt::LeftButton, Qt::RightButton or Qt::MiddleButton
     // Linux: fails if there is an opening X display error
@@ -56,6 +56,7 @@ public:
     static QPoint getMousePosition();
 
 private:
+    static const QPoint nullPos;
     static QPoint mousePos;
     static Qt::MouseButtons bp;
 };

@@ -196,7 +196,7 @@ void GTUtilsMcaEditorSequenceArea::callContextMenu(GUITestOpStatus &os, const QP
         GTWidget::click(os, getSequenceArea(os), Qt::RightButton);
     } else {
         moveTo(os, innerCoords);
-        GTMouseDriver::click(Qt::RightButton);
+        GTMouseDriver::clickX(Qt::RightButton);
     }
 }
 #undef GT_METHOD_NAME

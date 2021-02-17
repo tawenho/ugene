@@ -682,7 +682,7 @@ GUI_TEST_CLASS_DEFINITION(test_0009) {
     QPoint p = GTUtilsBookmarksTreeView::getItemCenter(os, "Tree [COI.nwk]");
     GTMouseDriver::moveTo(p);
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << ACTION_ADD_BOOKMARK, GTGlobals::UseMouse));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTKeyboardDriver::keyClick('a', Qt::ControlModifier);
     GTKeyboardDriver::keyClick(Qt::Key_Delete);
@@ -730,7 +730,7 @@ GUI_TEST_CLASS_DEFINITION(test_0010) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Branch Settings"));
     GTMouseDriver::moveTo(globalCoord);
     GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     globalCoord.setX(globalCoord.x() - 15);    // pick a branch coordinate
 
@@ -757,7 +757,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Collapse"));
     GTMouseDriver::moveTo(globalCoord);
     GTMouseDriver::click();
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTGlobals::sleep(500);
 
@@ -779,7 +779,7 @@ GUI_TEST_CLASS_DEFINITION(test_0011) {
     //    3. Do context menu {Expand} for same
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Collapse"));
     GTMouseDriver::moveTo(globalCoord);
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     foreach (QGraphicsSimpleTextItem *item, branchList) {
         CHECK_SET_ERR(item->isVisible(), item->text() + " is not visible");
@@ -927,7 +927,7 @@ GUI_TEST_CLASS_DEFINITION(test_0012) {
     // TODO: Wait until is hovered.
 
     GTUtilsDialog::waitForDialog(os, new PopupChooser(os, QStringList() << "Swap Siblings"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     qreal finalW = 0;
     foreach (QGraphicsItem *item, lineList) {
@@ -1134,7 +1134,7 @@ GUI_TEST_CLASS_DEFINITION(test_0026) {
 
     //    3. Do the context menu command "Reroot tree".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Reroot tree"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -1166,7 +1166,7 @@ GUI_TEST_CLASS_DEFINITION(test_0027) {
 
     //    3. Do the context menu command "Swap siblings".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Swap Siblings"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -1201,7 +1201,7 @@ GUI_TEST_CLASS_DEFINITION(test_0028) {
 
     //    3. Do the context menu command "Swap siblings".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Swap Siblings"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
@@ -1233,7 +1233,7 @@ GUI_TEST_CLASS_DEFINITION(test_0029) {
 
     //    3. Do the context menu command "Reroot tree".
     GTUtilsDialog::waitForDialog(os, new PopupChooserByText(os, QStringList() << "Reroot tree"));
-    GTMouseDriver::click(Qt::RightButton);
+    GTMouseDriver::clickX(Qt::RightButton);
 
     GTUtilsTaskTreeView::waitTaskFinished(os);
 
