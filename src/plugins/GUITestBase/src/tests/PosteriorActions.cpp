@@ -203,11 +203,6 @@ POSTERIOR_ACTION_DEFINITION(post_action_0004) {
             GTFile::removeDir(sandBox.absolutePath() + "/" + path);
         }
     }
-
-#ifdef Q_OS_MAC
-    // Wait for this: fakeClock.startWorkaroundForMacCGEvents(SLEEP_FOR_MAC_WORKAROUND, false);
-    GTGlobals::sleep(SLEEP_FOR_MAC_WORKAROUND);
-#endif
 }
 
 }    // namespace GUITest_posterior_actions

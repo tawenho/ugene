@@ -36,6 +36,7 @@ GTUtilsMac::~GTUtilsMac() {
 #ifdef Q_OS_MAC
     if (process != nullptr) {
         process->kill();
+        process->waitForFinished(8000);
         delete process;
     }
 #endif
@@ -48,6 +49,7 @@ void GTUtilsMac::startWorkaroundForMacCGEvents(int delay, bool waitFinished) {
     if (!prog.isNull()) {
         if (process != nullptr) {
             process->kill();
+            process->waitForFinished(8000);
             delete process;
         }
         process = new QProcess();
@@ -61,6 +63,7 @@ void GTUtilsMac::startWorkaroundForMacCGEvents(int delay, bool waitFinished) {
             bool finished = process->waitForFinished();
             if (!finished) {
                 process->kill();
+                process->waitForFinished(8000);
             }
             delete process;
             process = nullptr;
