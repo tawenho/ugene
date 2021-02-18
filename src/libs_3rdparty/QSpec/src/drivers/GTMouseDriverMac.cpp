@@ -83,10 +83,11 @@ bool GTMouseDriver::moveTo(const QPoint &p) {
     int x = p.x();
     int y = p.y();
     DRIVER_CHECK(isPointInsideScreen(x, y), "Invalid coordinates");
-    CGPoint pt = CGPointMake(x, y);
     if (bp.testFlag(Qt::LeftButton)) {
         return selectAreaMac(x, y);
     }
+
+    CGPoint pt = CGPointMake(x, y);
 
     CGEventRef event = getCGMouseEvent();
     DRIVER_CHECK(event != NULL, "Can't create event");
@@ -102,11 +103,10 @@ bool GTMouseDriver::moveTo(const QPoint &p) {
 }
 #    undef GT_METHOD_NAME
 
-#    define GT_METHOD_NAME "moveAndClick"
+#    define GT_METHOD_NAME "moveAndClickX"
 bool GTMouseDriver::clickX(Qt::MouseButton button) {
     return click(getMousePosition(), button);
 }
-
 #    undef GT_METHOD_NAME
 
 #    define GT_METHOD_NAME "moveAndClick"

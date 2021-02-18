@@ -31,7 +31,7 @@ const QPoint GTMouseDriver::nullPos = QPoint();
 
 #ifndef Q_OS_MAC
 bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
-    if (p == nullptr) {
+    if (p == nullPos) {
         p = getMousePosition();
     }
     DRIVER_CHECK(moveTo(p), "Mouse move was failed");
@@ -90,7 +90,7 @@ bool GTMouseDriver::selectArea(const QPoint &start, const QPoint &end) {
 
 #ifndef Q_OS_MAC
 bool GTMouseDriver::doubleClick(const QPoint &p) {
-    if (p == nullptr) {
+    if (p == nullPos) {
         p = getMousePosition();
     }
     DRIVER_CHECK(press(Qt::LeftButton), "Left button could not be pressed on first click");
