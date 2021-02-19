@@ -28,6 +28,9 @@
 namespace U2 {
 void AnyDialogFiller::commonScenario() {
     QWidget *dialog = QApplication::activeModalWidget();
+    if (!dialog) {
+        qDebug("%s", "================ ZZZZZZZZZZZZZ ================");
+    }
     CHECK_SET_ERR(dialog, "active modal widjet not found");
 
     GTUtilsDialog::clickButtonBox(os, dialog, b);

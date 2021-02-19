@@ -28,21 +28,28 @@
 namespace HI {
 
 bool GTMouseDriver::click(Qt::MouseButton button) {
-    DRIVER_CHECK(press(button), "Button could not be pressed");
-    DRIVER_CHECK(release(button), "Button could not be released");
+    return click(getMousePosition(), button);
+}
+
+#    define GT_METHOD_NAME "doubleClick"
+bool GTMouseDriver::doubleClick() {
+    return doubleClick(getMousePosition());
+}
+#    undef GT_METHOD_NAME
+
+#ifndef Q_OS_MAC
+bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
+    DRIVER_CHECK(moveTo(p), "Mouse move was failed");
+    DRIVER_CHECK(press(p, button), "Button could not be pressed");
+    DRIVER_CHECK(release(p, button), "Button could not be released");
     GTThread::waitForMainThread();
     GTGlobals::sleep(100);    // Adding extra sleep to avoid occasional doubleclicks
     return true;
 }
 
-#ifndef Q_OS_MAC
-bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
-    DRIVER_CHECK(moveTo(p), "Mouse move was failed");
-    DRIVER_CHECK(press(button), "Button could not be pressed");
-    DRIVER_CHECK(release(button), "Button could not be released");
-    GTThread::waitForMainThread();
-    GTGlobals::sleep(100);    // Adding extra sleep to avoid occasional doubleclicks
-    return true;
+bool GTMouseDriver::doubleClick(const QPoint &p) {
+    DRIVER_CHECK(false, "Not yet implemented");
+    return false;
 }
 #endif
 
@@ -104,8 +111,10 @@ bool GTMouseDriver::doubleClick() {
 }
 #endif
 
+#ifndef Q_OS_MAC
 QPoint GTMouseDriver::getMousePosition() {
     return QCursor::pos();
 }
+#endif
 
 }    // namespace HI
