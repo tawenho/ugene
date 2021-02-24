@@ -66,6 +66,7 @@
 #include "SettingsDialog.h"
 #include "StructuralAlignmentDialog.h"
 #include "gl2ps/gl2ps.h"
+#include "window.h"
 
 // disable "unsafe functions" deprecation warnings on MS VS
 #ifdef Q_OS_WIN
@@ -673,9 +674,10 @@ void BioStruct3DGLWidget::checkRenderingAndCreateLblError() {
     if (!canRender) {
         coreLog.info(tr("The \"3D Structure Viewer\" was disabled, because OpenGL has error ") +
                      QString("(%1): %2").arg(error).arg(reinterpret_cast<const char *>(gluErrorString(error))));
-        lblGlError = new QLabel("Failed to initialize OpenGL", this);
+        /*lblGlError = new QLabel("Failed to initialize OpenGL", this);
         lblGlError->setAlignment(Qt::AlignCenter | Qt::AlignHCenter);
-        lblGlError->setStyleSheet("QLabel { background-color : black; color : white; }");
+        lblGlError->setStyleSheet("QLabel { background-color : black; color : white; }");*/
+        lblGlError = new Window(this);
     }
 }
 

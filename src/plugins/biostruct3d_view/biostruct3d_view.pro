@@ -19,8 +19,7 @@ HEADERS += src/deprecated/AnaglyphRenderer.h \
            src/deprecated/StructuralAlignmentDialog.h \
            src/deprecated/TubeGLRenderer.h \
            src/deprecated/VanDerWaalsGLRenderer.h \
-           src/deprecated/WormsGLRenderer.h \
-           src/gl2ps/gl2ps.h
+           src/deprecated/WormsGLRenderer.h
 
 SOURCES += src/deprecated/BioStruct3DColorScheme.cpp \
            src/deprecated/BioStruct3DGLRender.cpp \
@@ -62,7 +61,10 @@ HEADERS += src/AnaglyphRenderer.h \
            src/TubeGLRenderer.h \
            src/VanDerWaalsGLRenderer.h \
            src/WormsGLRenderer.h \
-           src/gl2ps/gl2ps.h
+           src/gl2ps/gl2ps.h \
+           src/glwidget.h \
+           src/logo.h \
+           src/window.h
 
 SOURCES += src/AnaglyphRenderer.cpp \
            src/BallAndStickGLRenderer.cpp \
@@ -82,7 +84,10 @@ SOURCES += src/AnaglyphRenderer.cpp \
            src/TubeGLRenderer.cpp \
            src/VanDerWaalsGLRenderer.cpp \
            src/WormsGLRenderer.cpp \
-           src/gl2ps/gl2ps.cpp
+           src/gl2ps/gl2ps.cpp \
+           src/glwidget.cpp \
+           src/logo.cpp \
+           src/window.cpp
 }
 
 FORMS += src/BioStruct3DSubsetEditor.ui \

@@ -340,7 +340,7 @@ private:
 
     // if OpenGL has error, label is not null and overlaps GlWidget with text "Failed to initialize OpenGL",
     // otherwise label is null
-    QLabel *lblGlError;
+    QWidget *lblGlError;
 
 
 private slots:

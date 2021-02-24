@@ -54,6 +54,7 @@
 
 #include "BioStruct3DGLWidget.h"
 #include "GLFrameManager.h"
+#include "window.h"
 
 namespace U2 {
 
@@ -105,14 +106,15 @@ BioStruct3DGLWidget *BioStruct3DSplitter::addBioStruct3DGLWidget(BioStruct3DObje
         adaptSize(1);
     }
 
-    BioStruct3DGLWidget *glWidget = new BioStruct3DGLWidget(bioStructObj, dnaView, getGLFrameManager(), this);
+    //BioStruct3DGLWidget *glWidget = new BioStruct3DGLWidget(bioStructObj, dnaView, getGLFrameManager(), this);
+    QWidget *glWidget = new Window(this);
     glWidget->installEventFilter(this);
     // Add widget to splitter
-    biostrucViewMap.insert(bioStructObj, glWidget);
+    //biostrucViewMap.insert(bioStructObj, glWidget);
     splitter->addWidget(glWidget);
-    emit si_bioStruct3DGLWidgetAdded(glWidget);
+    //emit si_bioStruct3DGLWidgetAdded(glWidget);
 
-    return glWidget;
+    return nullptr;
 }
 
 void BioStruct3DSplitter::removeBioStruct3DGLWidget(BioStruct3DGLWidget *glw) {
