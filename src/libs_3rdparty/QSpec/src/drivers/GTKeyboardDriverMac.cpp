@@ -367,6 +367,7 @@ bool keyPressMac(int key, QList<Qt::Key> modKeys) {
     }
 
     CGEventSetType(event, kCGEventKeyDown);
+    CGEventSetFlags(event, 0);
     printf("---- keyDOWN = %d\n", key);
     CGEventSetIntegerValueField(event, kCGKeyboardEventKeycode, key);
 
@@ -391,6 +392,7 @@ bool keyReleaseMac(int key, QList<Qt::Key> modKeys) {
     }
 
     CGEventSetType(event, kCGEventKeyUp);
+    CGEventSetFlags(event, 0);
     printf("---- keyUP = %d\n", key);
     CGEventSetIntegerValueField(event, kCGKeyboardEventKeycode, key);
 
