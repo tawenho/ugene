@@ -29,6 +29,7 @@
 #include <utils/GTKeyboardUtils.h>
 #include <utils/GTThread.h>
 
+#include <QProxyStyle>
 #include <QStyle>
 #include <QStyleOptionSlider>
 
@@ -180,11 +181,14 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
     vScrollBarOptions.initFrom(vBar);
 
     while (!msaSeqArea->isRowVisible(position.y(), false)) {
-        const QRect sliderSpaceRect = vBar->style()->subControlRect(QStyle::CC_ScrollBar, &vScrollBarOptions, QStyle::SC_ScrollBarGroove, vBar);
+        const QRect sliderSpaceRect = vBar->style()->subControlRect(QStyle::CC_ScrollBar,
+                                                                    &vScrollBarOptions,
+                                                                    QStyle::SC_ScrollBarGroove,
+                                                                    vBar);
         const QPoint bottomEdge(sliderSpaceRect.width() / 2, sliderSpaceRect.y() + sliderSpaceRect.height());
-
-        GTMouseDriver::moveTo(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));
-        GTMouseDriver::click();
+        QPoint p = vBar->mapToGlobal(bottomEdge) - QPoint(0, 1);
+        GTMouseDriver::moveTo(p);
+        GTMouseDriver::click(p);
     }
 
     // scroll right
@@ -195,7 +199,11 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
     hScrollBarOptions.initFrom(hBar);
 
     while (!msaSeqArea->isPositionVisible(position.x(), false)) {
-        const QRect sliderSpaceRect = hBar->style()->subControlRect(QStyle::CC_ScrollBar, &hScrollBarOptions, QStyle::SC_ScrollBarGroove, hBar);
+        const QProxyStyle *style = (QProxyStyle *)hBar->style();
+        const QRect sliderSpaceRect = style->subControlRect(QStyle::CC_ScrollBar,
+                                                            &hScrollBarOptions,
+                                                            QStyle::SC_ScrollBarGroove,
+                                                            hBar);
         const QPoint rightEdge(sliderSpaceRect.x() + sliderSpaceRect.width(), sliderSpaceRect.height() / 2);
 
         int lastBase = msaSeqArea->getLastVisibleBase(true);
@@ -206,7 +214,7 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
             p = hBar->mapToGlobal(rightEdge) - QPoint(1, 0);
         }
         GTMouseDriver::moveTo(p);
-        GTMouseDriver::click();
+        GTMouseDriver::click(p);
     }
 
     SAFE_POINT(msaSeqArea->isVisible(position, false), "The position is still invisible after scrolling", );

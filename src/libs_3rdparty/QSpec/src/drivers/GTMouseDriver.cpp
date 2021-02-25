@@ -104,8 +104,10 @@ bool GTMouseDriver::doubleClick() {
 }
 #endif
 
+#ifndef Q_OS_MAC
 QPoint GTMouseDriver::getMousePosition() {
     return QCursor::pos();
 }
+#endif
 
 }    // namespace HI
