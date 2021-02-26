@@ -107,7 +107,7 @@ bool GTMouseDriver::moveTo(const QPoint &p) {
 #    define GT_METHOD_NAME "moveAndClick"
 bool GTMouseDriver::click(const QPoint &p, Qt::MouseButton button) {
     if (bp.testFlag(Qt::LeftButton)) {
-        printf("------ ZZZZZZZZZZZZZZZ \n");
+        qDebug("================ ZZZZZ: %s:%d ================", __FILE__, __LINE__);
     }
     DRIVER_CHECK(!bp.testFlag(Qt::LeftButton), "Can't click, LeftButton is pressed already");
 
