@@ -62,14 +62,15 @@ bool GTKeyboardDriver::keyRelease(char key, Qt::KeyboardModifiers modifiers) {
     DRIVER_CHECK(key != 0, "key = 0");
 
     const bool isChanged = extractShiftModifier(key);
+    key = asciiToVirtual(key);
+
+    QList<Qt::Key> modKeys = modifiersToKeys(modifiers);
+    keyReleaseMac((int)key, modKeys);
+    GTGlobals::sleep(1);
+
     if (isChanged) {
         keyReleaseMac(GTKeyboardDriver::key[Qt::Key_Shift]);
     }
-    key = asciiToVirtual(key);
-
-    GTGlobals::sleep(1);
-    QList<Qt::Key> modKeys = modifiersToKeys(modifiers);
-    keyReleaseMac((int)key, modKeys);
     GTGlobals::sleep(1);
     foreach (Qt::Key mod, modKeys) {
         keyReleaseMac(GTKeyboardDriver::key[mod]);
