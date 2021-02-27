@@ -42,6 +42,12 @@ public:
     SliderAction getRepeatAction() const {
         return repeatAction();
     }
+
+#ifdef Q_OS_MAC
+    void initStyleOptionMac(QStyleOptionSlider * option) {
+        initStyleOption(option);
+    }
+#endif
 };
 
 }    // namespace U2

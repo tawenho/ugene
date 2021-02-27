@@ -177,13 +177,22 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
     GT_CHECK(vBar != nullptr, "Vertical scroll bar is not found");
 
     QStyleOptionSlider vScrollBarOptions;
+#ifdef Q_OS_MAC
+    vBar->initStyleOptionMac(&vScrollBarOptions);
+#else
     vScrollBarOptions.initFrom(vBar);
+#endif
 
     while (!msaSeqArea->isRowVisible(position.y(), false)) {
-        const QRect sliderSpaceRect = vBar->style()->subControlRect(QStyle::CC_ScrollBar, &vScrollBarOptions, QStyle::SC_ScrollBarGroove, vBar);
+        const QRect sliderSpaceRect = vBar->style()->subControlRect(QStyle::CC_ScrollBar,
+                                                                    &vScrollBarOptions,
+                                                                    QStyle::SC_ScrollBarGroove,
+                                                                    vBar);
+        GT_CHECK(sliderSpaceRect.height() > 1, "Vertical scroll bar is too small");
         const QPoint bottomEdge(sliderSpaceRect.width() / 2, sliderSpaceRect.y() + sliderSpaceRect.height());
 
-        GTMouseDriver::moveTo(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));
+        QPoint p = vBar->mapToGlobal(bottomEdge) - QPoint(0, 1);
+        GTMouseDriver::moveTo(p);
         GTMouseDriver::click();
     }
 
@@ -192,10 +201,18 @@ void GTUtilsMSAEditorSequenceArea::scrollToPosition(GUITestOpStatus &os, const Q
     GT_CHECK(hBar != nullptr, "Horizontal scroll bar is not found");
 
     QStyleOptionSlider hScrollBarOptions;
+#ifdef Q_OS_MAC
+    hBar->initStyleOptionMac(&hScrollBarOptions);
+#else
     hScrollBarOptions.initFrom(hBar);
+#endif
 
     while (!msaSeqArea->isPositionVisible(position.x(), false)) {
-        const QRect sliderSpaceRect = hBar->style()->subControlRect(QStyle::CC_ScrollBar, &hScrollBarOptions, QStyle::SC_ScrollBarGroove, hBar);
+        const QRect sliderSpaceRect = hBar->style()->subControlRect(QStyle::CC_ScrollBar,
+                                                                    &hScrollBarOptions,
+                                                                    QStyle::SC_ScrollBarGroove,
+                                                                    hBar);
+        GT_CHECK(sliderSpaceRect.width() > 1, "Horizontal scroll bar is too small");
         const QPoint rightEdge(sliderSpaceRect.x() + sliderSpaceRect.width(), sliderSpaceRect.height() / 2);
 
         int lastBase = msaSeqArea->getLastVisibleBase(true);

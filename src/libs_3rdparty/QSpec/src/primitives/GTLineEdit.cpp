@@ -46,6 +46,9 @@ void GTLineEdit::setText(GUITestOpStatus &os, QLineEdit *lineEdit, const QString
         clear(os, lineEdit);
     }
 
+#ifdef Q_OS_MAC
+    GTWidget::setFocus(os, lineEdit);
+#endif
     if (useCopyPaste) {
         GTClipboard::setText(os, str);
         GTKeyboardDriver::keyClick('v', Qt::ControlModifier);
@@ -62,6 +65,10 @@ void GTLineEdit::setText(GUITestOpStatus &os, QLineEdit *lineEdit, const QString
     for (int i = 0; i <= 10 && (s != str); i++) {
         GTGlobals::sleep(500);
         s = lineEdit->text();
+        qDebug("---- ZZZZZ: %s:%d, s=%s", __FILE__, __LINE__, s.toLocal8Bit().constData());
+    }
+    if (s != str) {
+        qDebug("---- ZZZZZ: %s:%d", __FILE__, __LINE__);
     }
     GT_CHECK(s == str, QString("Can't set text, set text differs from a given string in lineEdit '%1'. "
                                "Expected '%2', got '%3'")
