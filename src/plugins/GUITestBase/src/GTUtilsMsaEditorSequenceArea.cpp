@@ -241,10 +241,17 @@ void GTUtilsMSAEditorSequenceArea::scrollToBottom(GUITestOpStatus &os) {
 #endif
 
     QStyleOptionSlider vScrollBarOptions;
+#ifdef Q_OS_MAC
+    vBar->initStyleOptionMac(&vScrollBarOptions);
+#else
     vScrollBarOptions.initFrom(vBar);
+#endif
 
     while (vBar->value() != vBar->maximum()) {
-        const QRect sliderSpaceRect = vBar->style()->subControlRect(QStyle::CC_ScrollBar, &vScrollBarOptions, QStyle::SC_ScrollBarGroove, vBar);
+        const QRect sliderSpaceRect = vBar->style()->subControlRect(QStyle::CC_ScrollBar,
+                                                                    &vScrollBarOptions,
+                                                                    QStyle::SC_ScrollBarGroove,
+                                                                    vBar);
         const QPoint bottomEdge(sliderSpaceRect.width() / 2 + 10, sliderSpaceRect.y() + sliderSpaceRect.height());
 
         GTMouseDriver::moveTo(vBar->mapToGlobal(bottomEdge) - QPoint(0, 1));

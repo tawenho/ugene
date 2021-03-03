@@ -63,6 +63,7 @@ void GTWidget::click(GUITestOpStatus &os, QWidget *widget, Qt::MouseButton mouse
     }
     QPoint globalPoint = widget->mapToGlobal(p);
     GTMouseDriver::click(globalPoint, mouseButton);
+    fakeClock.kill();
     GTThread::waitForMainThread();
 }
 #undef GT_METHOD_NAME
