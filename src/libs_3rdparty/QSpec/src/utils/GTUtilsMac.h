@@ -35,6 +35,7 @@ public:
     ~GTUtilsMac();
 
     void startWorkaroundForMacCGEvents(int delay, bool waitFinished);
+    void kill();
 
 private:
     QProcess *process = nullptr;

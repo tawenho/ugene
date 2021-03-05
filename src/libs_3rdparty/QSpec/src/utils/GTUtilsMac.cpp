@@ -34,9 +34,17 @@ GTUtilsMac::GTUtilsMac() {
 
 GTUtilsMac::~GTUtilsMac() {
 #ifdef Q_OS_MAC
+    kill();
+#endif
+}
+
+void GTUtilsMac::kill() {
+#ifdef Q_OS_MAC
     if (process != nullptr) {
         process->kill();
+        process->waitForFinished(8000);
         delete process;
+        process = nullptr;
     }
 #endif
 }
@@ -46,10 +54,7 @@ void GTUtilsMac::startWorkaroundForMacCGEvents(int delay, bool waitFinished) {
     QString prog = qgetenv("UGENE_GUI_TEST_MACOS_WORKAROUND_FOR_CGEVENTS");
 
     if (!prog.isNull()) {
-        if (process != nullptr) {
-            process->kill();
-            delete process;
-        }
+        kill();
         process = new QProcess();
         process->start(prog, {"-x", "1000",
                               "-y", "0",
@@ -60,10 +65,11 @@ void GTUtilsMac::startWorkaroundForMacCGEvents(int delay, bool waitFinished) {
         if (waitFinished) {
             bool finished = process->waitForFinished();
             if (!finished) {
-                process->kill();
+                kill();
+            } else {
+                delete process;
+                process = nullptr;
             }
-            delete process;
-            process = nullptr;
         }
     }
 #endif
