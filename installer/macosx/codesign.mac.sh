@@ -16,8 +16,9 @@ if [ -d "$1" ]; then
     if [ -f "$2" ]; then
 	entitlements="$2"
     else
-	entitlements="$1/Info.plist"
+        entitlements="$1/Contents/Info.plist"
     fi
+    contents_dir="$1/Contents"
 elif [ -f "$1" ]; then
     if [ ! -f "$2" ]; then
         echo "ERROR: Second arg must be entitlements file. Exit"
@@ -30,7 +31,7 @@ elif [ -f "$1" ]; then
         --sign "Developer ID Application: Alteametasoft" \
         --timestamp \
         --force \
-        --verbose=11 \
+        --verbose=4 \
         --entitlements "$entitlements" \
         "$1" \
     || exit -1
@@ -47,11 +48,11 @@ codesign \
     --force \
     --verbose=11 \
     --entitlements "$entitlements" \
-    "$1"/Frameworks/* \
+    "$1"/Contents/Frameworks/* \
 || exit -1
 
-echo "============= Sign all files in PlugIns dir ============="
-find "$1"/PlugIns -type f \
+echo "============= Sign all files in $contents_dir/PlugIns dir ============="
+find "$contents_dir"/PlugIns -type f \
 -exec codesign \
     --sign "Developer ID Application: Alteametasoft" \
     --timestamp \
@@ -61,8 +62,8 @@ find "$1"/PlugIns -type f \
     "{}" \; \
 || exit -1
 
-echo "============= Sign all files in Resources dir ============="
-find "$1"/Resources -type f \
+echo "============= Sign all files in $contents_dir/Resources dir ============="
+find "$contents_dir"/Resources -type f \
 -exec codesign \
     --sign "Developer ID Application: Alteametasoft" \
     --timestamp \
@@ -72,41 +73,8 @@ find "$1"/Resources -type f \
     "{}" \; \
 || exit -1
 
-echo "============= Sign all files in MacOS/data dir ============="
-find "$1"/MacOS/data -type f \
--exec codesign \
-    --sign "Developer ID Application: Alteametasoft" \
-    --timestamp \
-    --force \
-    --verbose=11 \
-    --entitlements "$entitlements" \
-    "{}" \; \
-|| exit -1
-
-echo "============= Sign all files in MacOS/plugins dir ============="
-find "$1"/MacOS/plugins -type f \
--exec codesign \
-    --sign "Developer ID Application: Alteametasoft" \
-    --timestamp \
-    --force \
-    --verbose=11 \
-    --entitlements "$entitlements" \
-    "{}" \; \
-|| exit -1
-
-echo "============= Sign all files in MacOS/tools dir ============="
-find "$1"/MacOS/tools -type f \
--exec codesign \
-    --sign "Developer ID Application: Alteametasoft" \
-    --timestamp \
-    --force \
-    --verbose=11 \
-    --entitlements "$entitlements" \
-    "{}" \; \
-|| exit -1
-
-echo "============= Sign all files in MacOS dir ============="
-find "$1"/MacOS -maxdepth 1 -a -type f \
+echo "============= Sign all files in $contents_dir/MacOS dir ============="
+find "$contents_dir"/MacOS -maxdepth 1 -a -type f \
 -exec codesign \
     --sign "Developer ID Application: Alteametasoft" \
     --timestamp \
