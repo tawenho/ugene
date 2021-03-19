@@ -170,6 +170,10 @@
 #include "update/UgeneUpdater.h"
 #include "welcome_page/WelcomePageMdiController.h"
 
+#ifdef Q_OS_MAC
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 using namespace U2;
 
 #ifdef Q_OS_WIN
@@ -507,14 +511,16 @@ int main(int argc, char **argv) {
     QString envTranslationFile = findKey(envList, "UGENE_TRANSLATION_FILE");
     if (!envTranslationFile.isEmpty()) {
         trOK = translator.load(envTranslationFile);
-        settings->setValue("UGENE_CURR_TRANSL", QFileInfo(envTranslationFile).fileName().right(2));
+        settings->setValue("UGENE_CURR_TRANSL",
+                           QFileInfo(envTranslationFile).fileName().right(2));
     }
 
     if (!trOK) {
         // set translations
         QString transFile[] = {
             userAppSettings->getTranslationFile(),
-            "transl_en"};
+            "transl_en"
+        };
         for (int i = transFile[0].isEmpty() ? 1 : 0; i < 3; ++i) {
             if (!translator.load(transFile[i], AppContext::getWorkingDirectoryPath())) {
                 fprintf(stderr, "Translation not found: %s\n", transFile[i].toLatin1().constData());
@@ -524,6 +530,22 @@ int main(int argc, char **argv) {
                 break;
             }
         }
+#ifdef Q_OS_MAC
+        if (!trOK) {
+            CFURLRef appUrlRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+            CFStringRef macPath = CFURLCopyFileSystemPath(appUrlRef,
+                                                          kCFURLPOSIXPathStyle);
+            const char *pathPtr = CFStringGetCStringPtr(macPath,
+                                                        CFStringGetSystemEncoding());
+            QString translationFileDir = QString(pathPtr) + "/Resources";
+            if (translator.load("transl_en", translationFileDir)) {
+                trOK = true;
+                settings->setValue("UGENE_CURR_TRANSL", "en");
+            }
+            CFRelease(appUrlRef);
+            CFRelease(macPath);
+        }
+#endif
         if (!trOK) {
             fprintf(stderr, "No translations found, exiting\n");
             return 1;
