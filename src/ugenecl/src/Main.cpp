@@ -270,6 +270,21 @@ int main(int argc, char **argv) {
             break;
         }
     }
+#ifdef Q_OS_MAC
+    if (!trOK) {
+        QString translationFileDir = QCoreApplication::applicationDirPath() +
+                "/../Resources";
+        fprintf(stderr, "translationFileDir: %s\n", translationFileDir.toLocal8Bit().constData());
+        QString transl = "transl_en";
+        if (!cmdlineTransl.isEmpty()) {
+            transl = QString("transl_") + cmdlineTransl;
+        }
+        if (translator.load(transl, translationFileDir)) {
+            trOK = true;
+            settings->setValue("UGENE_CURR_TRANSL", transl.right(2));
+        }
+    }
+#endif
     if (!trOK) {
         fprintf(stderr, "No translations found, exiting\n");
         return 1;
